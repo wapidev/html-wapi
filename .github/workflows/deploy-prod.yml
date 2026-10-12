@@ -1,0 +1,122 @@
+name: Deploy PROD (S3 + CloudFront)
+
+# ============================================================================
+# Sitio Wapi → PRODUCCIÓN: https://www.wapidesign.com (CloudFront E2ALVPX6ERQXOD).
+# Se dispara con cada push a `main` (flujo feature → develop → main).
+#
+# Qué versión sale la decide el feature flag de .env.production (VITE_SITIO_NUEVO). Este
+# workflow NO lo pisa a propósito: lanzar el sitio nuevo es un cambio de código (un PR que
+# pasa ese valor a true), no una variable escondida en GitHub.
+#
+# Bucket privado (html-wapi-prod-frontend-east): solo CloudFront lo lee, vía OAC. Auth por
+# OIDC con el rol html-wapi-frontend-github-deploy-prod: solo lo asume este repo desde
+# `main`, y solo escribe en ese bucket e invalida esa distribución.
+#
+# Variables del repo:
+#   AWS_REGION                        us-east-1
+#   AWS_ROLE_TO_ASSUME_PROD           arn:aws:iam::004878717556:role/html-wapi-frontend-github-deploy-prod
+#   S3_BUCKET_PROD                    html-wapi-prod-frontend-east
+#   CLOUDFRONT_DISTRIBUTION_ID_PROD   E2ALVPX6ERQXOD
+# ============================================================================
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+# id-token: OIDC con AWS. contents: write para crear el tag y el release del deploy.
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        # Reinstalar fresh: el lockfile generado en macOS no trae los binarios nativos
+        # opcionales (lightningcss, @tailwindcss/oxide, rolldown) para Linux.
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --no-audit --no-fund
+
+      - name: Tests
+        run: npm run test -- --run
+
+      - name: Build (flag de .env.production)
+        run: npm run build
+
+      - name: Verificar artefactos y versión
+        run: |
+          for f in index.html 404.html sitemap.xml robots.txt; do
+            test -f "dist/$f" || { echo "❌ falta dist/$f"; exit 1; }
+          done
+          if grep -q 'Diseño Web Profesional' dist/index.html; then
+            VERSION='página "en desarrollo" (VITE_SITIO_NUEVO=false)'
+          else
+            VERSION='sitio nuevo (VITE_SITIO_NUEVO=true)'
+          fi
+          echo "✅ dist/ ok ($(find dist -type f | wc -l) archivos) — se publica: $VERSION"
+          echo "### Se publica: $VERSION" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME_PROD }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # El bucket tiene un marker `.project-owner` = "html-wapi". Si no coincide, aborta:
+      # evita pisar el bucket de otro proyecto por una variable mal cargada.
+      - name: Validar ownership del bucket
+        env:
+          BUCKET: ${{ vars.S3_BUCKET_PROD }}
+        run: |
+          CURRENT=$(aws s3 cp "s3://$BUCKET/.project-owner" - 2>/dev/null || echo "")
+          if [ "$CURRENT" != "html-wapi" ]; then
+            echo "❌ El bucket $BUCKET pertenece a '${CURRENT:-(sin marker)}', no a 'html-wapi'."; exit 1; fi
+          echo "✅ Bucket validado."
+
+      - name: Sync S3 con cache control
+        env:
+          BUCKET: ${{ vars.S3_BUCKET_PROD }}
+        run: |
+          # JS y CSS de Vite llevan hash en el nombre: cache larga.
+          aws s3 sync dist/assets "s3://$BUCKET/assets" --delete \
+            --exclude "images/*" \
+            --cache-control "public, max-age=31536000, immutable"
+          # El resto (HTML de cada ruta, imágenes públicas, robots, sitemap) se revalida siempre.
+          aws s3 sync dist/ "s3://$BUCKET/" --delete \
+            --exclude "assets/*" --include "assets/images/*" \
+            --exclude ".project-owner" \
+            --cache-control "public, max-age=0, must-revalidate"
+
+      - name: Invalidar CloudFront
+        env:
+          DISTRIBUTION: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID_PROD }}
+        run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths "/*" --query Invalidation.Id --output text
+
+      # Deja una marca de que ESTE commit es el que está en producción, para poder volver
+      # atrás sin buscar el SHA a mano. Fecha + número de run: ordena solo y no se repite.
+      - name: Etiquetar la versión desplegada
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          VERSION="v$(date -u +%Y.%m.%d)-${{ github.run_number }}"
+          git tag -a "$VERSION" -m "Desplegado a produccion el $(date -u +'%F %T') UTC"
+          git push origin "$VERSION"
+          gh release create "$VERSION" --title "$VERSION" --generate-notes

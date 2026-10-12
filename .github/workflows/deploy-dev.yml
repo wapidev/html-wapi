@@ -1,0 +1,97 @@
+name: Deploy DEV (S3 + CloudFront)
+
+# ============================================================================
+# Sitio Wapi → DEV en S3 + CloudFront (mismo esquema que el DEV de WG013).
+# Se dispara con cada push a `develop`. Siempre buildea el SITIO NUEVO (flag encendido)
+# para poder revisarlo online mientras producción sigue con la página "en desarrollo".
+# DEV va con noindex y robots.txt que bloquea todo: no aparece en buscadores.
+#
+# Auth por OIDC (sin access keys): el rol html-wapi-frontend-github-deploy solo lo puede
+# asumir este repo desde la rama develop, y solo escribe en el bucket de DEV.
+#
+# Variables del repo (Settings → Secrets and variables → Actions → Variables):
+#   AWS_REGION                       us-east-1
+#   AWS_ROLE_TO_ASSUME               arn:aws:iam::004878717556:role/html-wapi-frontend-github-deploy
+#   S3_BUCKET_DEV                    html-wapi-dev-frontend-east
+#   CLOUDFRONT_DISTRIBUTION_ID_DEV   ELR7ZX18EE9BP
+#   SITE_URL_DEV                     https://d1rinjgyxivyfh.cloudfront.net
+# ============================================================================
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: true
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        # Reinstalar fresh: el lockfile generado en macOS no trae los binarios nativos
+        # opcionales (lightningcss, @tailwindcss/oxide, rolldown) para Linux.
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --no-audit --no-fund
+
+      - name: Build (sitio nuevo, noindex)
+        # Las variables del proceso pisan a .env.production.
+        env:
+          VITE_SITIO_NUEVO: 'true'
+          VITE_NOINDEX: 'true'
+          VITE_SITE_URL: ${{ vars.SITE_URL_DEV }}
+        run: npm run build
+
+      - name: Configure AWS Credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # El bucket tiene un marker `.project-owner` = "html-wapi". Si no coincide, aborta:
+      # evita pisar el bucket de otro proyecto por una variable mal cargada.
+      - name: Validar ownership del bucket
+        env:
+          BUCKET: ${{ vars.S3_BUCKET_DEV }}
+        run: |
+          CURRENT=$(aws s3 cp "s3://$BUCKET/.project-owner" - 2>/dev/null || echo "")
+          if [ "$CURRENT" != "html-wapi" ]; then
+            echo "❌ El bucket $BUCKET pertenece a '${CURRENT:-(sin marker)}', no a 'html-wapi'."; exit 1; fi
+          echo "✅ Bucket validado."
+
+      - name: Sync S3 con cache control
+        env:
+          BUCKET: ${{ vars.S3_BUCKET_DEV }}
+        run: |
+          # JS y CSS de Vite llevan hash en el nombre: cache larga.
+          aws s3 sync dist/assets "s3://$BUCKET/assets" --delete \
+            --exclude "images/*" \
+            --cache-control "public, max-age=31536000, immutable"
+          # El resto (HTML de cada ruta, imágenes públicas, robots) se revalida siempre.
+          aws s3 sync dist/ "s3://$BUCKET/" --delete \
+            --exclude "assets/*" --include "assets/images/*" \
+            --exclude ".project-owner" \
+            --cache-control "public, max-age=0, must-revalidate"
+
+      - name: Invalidar CloudFront
+        env:
+          DISTRIBUTION: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID_DEV }}
+        run: |
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths "/*" --query Invalidation.Id --output text
+          echo "### DEV: ${{ vars.SITE_URL_DEV }}" >> "$GITHUB_STEP_SUMMARY"

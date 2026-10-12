@@ -1,3 +1,16 @@
+# Dependencias y builds
+node_modules/
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Variables locales (las de cada modo sí se versionan)
+.env
+.env.*
+!.env.example
+!.env.development
+!.env.production
+
 # OS files
 .DS_Store
 Thumbs.db
@@ -10,9 +23,6 @@ Thumbs.db
 
 # Claude Code
 .claude/
-
-# Node (if added later)
-node_modules/
 
 # Logs
 *.log

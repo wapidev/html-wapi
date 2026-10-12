@@ -1,0 +1,291 @@
+@import 'tailwindcss';
+
+/* Estilos del sitio nuevo. Solo los importa SitioNuevo.tsx: con el flag apagado no se publican. */
+
+/*
+ * Tokens del sitio. Fuente: _design/tokens.css, la escala tipográfica del README del
+ * handoff y los valores inline de los prototipos (_design/reference/*.dc.html).
+ * No aproximar: si hace falta un valor que no está acá, se saca del prototipo.
+ *
+ * Se vacían la paleta y la escala de Tailwind para que solo existan los valores del diseño.
+ */
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+  --color-ink: #0A0A0A;
+  --color-paper: #FFFFFF;
+  --color-accent: #2B2BF5;
+  --color-line: #D6D6D6;
+  --color-muted: #6B6B6B;
+  --color-placeholder: #EDEDED;
+  --color-gris-logo: #B5B5B5;
+
+  /* Colores de las marcas de los clientes, usados solo en sus casos. */
+  --color-gemmia-niebla: #F2F5FA;
+  --color-gemmia-borde: #E3E8F0;
+  --color-gemmia-marino: #0A2777;
+  --color-gemmia-azul: #085CF0;
+  --color-gemmia-mockup: #E7ECF4;
+  --color-gemmia-punto: #D4DAE5;
+  --color-gemmia-url: #5B6472;
+  --color-iv-crema: #F6EFE0;
+  --color-iv-arena: #E8DCC4;
+  --color-iv-puerto: #163141;
+  --color-iv-noche: #0B1E2A;
+  --color-iv-muesca: #2E5468;
+  --color-iv-terracota: #C25A2E;
+  --color-iv-mar: #1B3E51;
+
+  --font-*: initial;
+  --font-sans: "Onest", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --text-*: initial;
+  /*
+   * H1 de la Home. El mínimo del diseño (56px) no entra a 360px: "desapercibidas" mide
+   * 6,55em y se cortaba. Por debajo de ~410px el tamaño se ajusta al ancho disponible
+   * (100vw menos los 20px de margen de cada lado). Arriba de eso, es el clamp del diseño.
+   */
+  --text-hero: min(clamp(56px, 10.5vw, 210px), calc((100vw - 40px) / 6.6));
+  --text-hero--line-height: 0.86;
+  --text-hero--letter-spacing: -0.045em;
+  --text-hero--font-weight: 600;
+  --text-titulo-trabajos: clamp(52px, 9.5vw, 190px);
+  --text-titulo-trabajos--line-height: 0.86;
+  --text-titulo-trabajos--letter-spacing: -0.045em;
+  --text-titulo-trabajos--font-weight: 600;
+  --text-titulo-caso: clamp(52px, 9vw, 180px);
+  --text-titulo-caso--line-height: 0.86;
+  --text-titulo-caso--letter-spacing: -0.045em;
+  --text-titulo-caso--font-weight: 600;
+  --text-cierre: clamp(46px, 8vw, 168px);
+  --text-cierre--line-height: 0.88;
+  --text-cierre--letter-spacing: -0.045em;
+  --text-cierre--font-weight: 600;
+  --text-manifiesto: clamp(38px, 5.6vw, 108px);
+  --text-manifiesto--line-height: 0.94;
+  --text-manifiesto--letter-spacing: -0.04em;
+  --text-manifiesto--font-weight: 600;
+  --text-seccion: clamp(38px, 5.2vw, 92px);
+  --text-seccion--line-height: 0.94;
+  --text-seccion--letter-spacing: -0.04em;
+  --text-seccion--font-weight: 600;
+  --text-servicio: clamp(38px, 5.4vw, 96px);
+  --text-servicio--line-height: 0.94;
+  --text-servicio--letter-spacing: -0.045em;
+  --text-servicio--font-weight: 600;
+  --text-clientes: clamp(34px, 4.4vw, 80px);
+  --text-clientes--line-height: 0.96;
+  --text-clientes--letter-spacing: -0.04em;
+  --text-clientes--font-weight: 600;
+  --text-tarjeta-trabajos: clamp(26px, 2.6vw, 46px);
+  --text-tarjeta-trabajos--line-height: 1.05;
+  --text-tarjeta-trabajos--letter-spacing: -0.035em;
+  --text-tarjeta-trabajos--font-weight: 600;
+  --text-tarjeta-home: clamp(22px, 2vw, 34px);
+  --text-tarjeta-home--line-height: 1.05;
+  --text-tarjeta-home--letter-spacing: -0.03em;
+  --text-tarjeta-home--font-weight: 600;
+  --text-pregunta: clamp(19px, 2.1vw, 34px);
+  --text-pregunta--line-height: 1.15;
+  --text-pregunta--letter-spacing: -0.03em;
+  --text-pregunta--font-weight: 500;
+  --text-nav: clamp(18px, 1.9vw, 30px);
+  --text-nav--line-height: normal;
+  --text-nav--letter-spacing: -0.03em;
+  --text-nav--font-weight: 500;
+  --text-lead: clamp(17px, 1.35vw, 21px);
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.01em;
+  --text-body: clamp(16px, 1.2vw, 19px);
+  --text-body--line-height: 1.5;
+  --text-tarjeta: clamp(15px, 1.1vw, 18px);
+  --text-tarjeta--line-height: 1.5;
+  --text-respuesta: clamp(16px, 1.15vw, 18px);
+  --text-respuesta--line-height: 1.6;
+  --text-logo-cliente: clamp(20px, 1.8vw, 30px);
+  --text-logo-cliente--line-height: normal;
+  --text-logo-cliente--letter-spacing: -0.03em;
+  --text-logo-cliente--font-weight: 600;
+  --text-contacto: clamp(18px, 1.6vw, 26px);
+  --text-contacto--line-height: normal;
+  --text-contacto--letter-spacing: -0.02em;
+  --text-contacto--font-weight: 500;
+  --text-redes: clamp(17px, 1.4vw, 22px);
+  --text-redes--line-height: normal;
+  --text-redes--letter-spacing: -0.02em;
+  --text-redes--font-weight: 500;
+  --text-pill: 14px;
+  --text-pill--line-height: normal;
+  --text-pill--font-weight: 500;
+  /* Mono en mayúsculas: eyebrows, etiquetas, tags. Siempre con tracking 0.12em. */
+  --text-label: 12px;
+  --text-label--line-height: normal;
+  --text-label--letter-spacing: 0.12em;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: normal;
+  --text-label-sm--letter-spacing: 0.12em;
+  --text-tag: 10px;
+  --text-tag--line-height: normal;
+  --text-tag--letter-spacing: 0.12em;
+  --text-link-mono: 13px;
+  --text-link-mono--line-height: normal;
+  --text-link-mono--letter-spacing: 0.12em;
+  --text-url-mockup: 9px;
+  --text-url-mockup--line-height: normal;
+  /* Ficha de caso */
+  --text-resumen: clamp(19px, 1.7vw, 28px);
+  --text-resumen--line-height: 1.4;
+  --text-resumen--letter-spacing: -0.015em;
+  --text-desafio: clamp(30px, 3.6vw, 64px);
+  --text-desafio--line-height: 1.02;
+  --text-desafio--letter-spacing: -0.035em;
+  --text-desafio--font-weight: 600;
+  --text-paso: clamp(26px, 2.8vw, 48px);
+  --text-paso--line-height: 1;
+  --text-paso--letter-spacing: -0.03em;
+  --text-paso--font-weight: 600;
+  --text-resultado: clamp(48px, 6vw, 110px);
+  --text-resultado--line-height: 0.95;
+  --text-resultado--letter-spacing: -0.04em;
+  --text-resultado--font-weight: 600;
+  --text-resultado-label: clamp(15px, 1.15vw, 18px);
+  --text-resultado-label--line-height: 1.5;
+  --text-cita: clamp(28px, 3.4vw, 60px);
+  --text-cita--line-height: 1.08;
+  --text-cita--letter-spacing: -0.03em;
+  --text-cita--font-weight: 600;
+  --text-siguiente: clamp(40px, 6.5vw, 130px);
+  --text-siguiente--line-height: 0.9;
+  --text-siguiente--letter-spacing: -0.045em;
+  --text-siguiente--font-weight: 600;
+  --text-flecha: clamp(28px, 3.5vw, 64px);
+  --text-flecha--line-height: normal;
+  --text-flecha--font-weight: 500;
+  --text-epigrafe: clamp(14px, 1vw, 16px);
+  --text-epigrafe--line-height: 1.5;
+  --text-dato: clamp(16px, 1.2vw, 19px);
+  --text-dato--line-height: normal;
+  --text-dato--letter-spacing: -0.01em;
+  --text-dato--font-weight: 500;
+
+  /* Espaciados que se repiten entre pantallas. Los que aparecen una sola vez quedan
+     como valor arbitrario en el componente, copiados tal cual del prototipo. */
+  --spacing-page-x: clamp(20px, 4vw, 64px);
+  --spacing-portada: clamp(140px, 17vh, 210px);
+  --spacing-titulo: clamp(24px, 4vh, 52px);
+  --spacing-seccion-inicio: clamp(48px, 8vh, 96px);
+  --spacing-seccion-fin: clamp(80px, 12vh, 160px);
+  --spacing-caso: clamp(80px, 14vh, 180px);
+  --spacing-cierre: clamp(40px, 6vh, 72px);
+  --spacing-bloque-caso: clamp(28px, 4vh, 48px);
+
+  --ease-wapi: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-loader: cubic-bezier(0.76, 0, 0.24, 1);
+  /* Las transiciones del prototipo usan `ease` de CSS, no la curva por defecto de Tailwind. */
+  --default-transition-timing-function: ease;
+}
+
+@keyframes wapi-loader {
+  0%, 52% { transform: translateY(0); }
+  100% { transform: translateY(-101%); }
+}
+@keyframes wapi-linea {
+  from { transform: translateY(112%); }
+  to { transform: translateY(0); }
+}
+@keyframes wapi-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes wapi-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@layer base {
+  /* Preflight pone line-height 1.5 en <html>; el prototipo usa el `normal` del navegador
+     en todo lo que no declara interlineado (eyebrows, nav, tags, píldoras). */
+  html { line-height: normal; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+  a:hover { color: var(--color-accent); }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  /* Desfase de la entrada del hero de la Home. Con loader, los tiempos del prototipo
+     (0.95s…1.35s) esperan a que suba la cortina; sin loader se adelantan 0.85s y quedan
+     como en Trabajos (0.1s…0.5s). */
+  :root { --intro: 0s; }
+  html.sin-loader { --intro: -0.85s; }
+
+  /* El cursor propio reemplaza al nativo en todo el sitio, también sobre links y botones. */
+  html.cursor-propio, html.cursor-propio * { cursor: none !important; }
+}
+
+@layer components {
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-paper);
+    pointer-events: none;
+    animation: wapi-loader 1.25s var(--ease-loader) forwards;
+  }
+  html.sin-loader .loader { display: none; }
+
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 150;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    pointer-events: none;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition:
+      width 0.28s var(--ease-wapi),
+      height 0.28s var(--ease-wapi),
+      font-size 0.2s linear,
+      opacity 0.2s linear;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s var(--ease-wapi);
+  }
+  [data-reveal].is-revealed { opacity: 1; transform: none; }
+
+  .marquee { animation: wapi-marquee 34s linear infinite; }
+  .marquee:hover { animation-play-state: paused; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* Un marquee infinito a 0.01ms titila: con movimiento reducido queda quieto. */
+  .marquee { animation: none !important; }
+}
