@@ -31,6 +31,28 @@ npm run preview    # sirve dist/ en http://localhost:4173
 npm run typecheck && npm run lint && npm run test -- --run
 ```
 
+## Ambientes
+
+| Ambiente | Rama | URL | Qué muestra |
+| --- | --- | --- | --- |
+| DEV | `develop` | https://d1rinjgyxivyfh.cloudfront.net | Siempre el sitio nuevo (flag encendido), con `noindex` |
+| PROD | `main` | https://wapidesign.com | Lo que diga `VITE_SITIO_NUEVO` en `.env.production` |
+
+**DEV** (`.github/workflows/deploy-dev.yml`, como el DEV de WG013): cada push a `develop` buildea
+con `VITE_SITIO_NUEVO=true` y `VITE_NOINDEX=true` (todas las páginas `noindex`, `robots.txt` con
+`Disallow: /`, sin sitemap), sincroniza S3 e invalida CloudFront. Infra en AWS (cuenta
+`004878717556`, `us-east-1`):
+
+- Bucket `html-wapi-dev-frontend-east`: hosting estático (error → `404.html`), lectura pública por
+  política, marker `.project-owner` = `html-wapi`.
+- CloudFront `ELR7ZX18EE9BP` con la función `html-wapi-barra-final` (viewer-request): redirige
+  `/trabajos` → `/trabajos/` en el mismo dominio. Sin ella, el origen S3 website redirige a su propio
+  hostname y el visitante sale de CloudFront.
+- Rol OIDC `html-wapi-frontend-github-deploy`: solo lo asume `wapidev/html-wapi` desde `develop`;
+  solo escribe en ese bucket e invalida esa distribución.
+- Variables del repo: `AWS_REGION`, `AWS_ROLE_TO_ASSUME`, `S3_BUCKET_DEV`,
+  `CLOUDFRONT_DISTRIBUTION_ID_DEV`, `SITE_URL_DEV`.
+
 ## Ramas, deploy y lanzamiento
 
 `feature/*` → `develop` → `main`. **Mergear a `main` publica** en wapidesign.com: el workflow

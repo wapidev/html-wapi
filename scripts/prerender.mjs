@@ -17,7 +17,7 @@ const DIST = 'dist'
 const SSR = 'dist-ssr'
 
 const servidor = await import(pathToFileURL(path.resolve(SSR, 'entry-server.js')).href)
-const { render, cabecera, rutasPrerender, SITIO_NUEVO, SITE_URL } = servidor
+const { render, cabecera, rutasPrerender, NOINDEX, SITIO_NUEVO, SITE_URL } = servidor
 
 const plantilla = await readFile(path.join(DIST, 'index.html'), 'utf8')
 
@@ -52,17 +52,21 @@ if (!SITIO_NUEVO) {
   }
 }
 
-// sitemap.xml + robots.txt
+// sitemap.xml + robots.txt. En DEV (VITE_NOINDEX) no hay sitemap y robots.txt bloquea todo.
 const hoy = new Date().toISOString().slice(0, 10)
 const urls = rutas
   .filter((r) => r.indexable)
   .map((r) => `  <url>\n    <loc>${SITE_URL}${r.url}</loc>\n    <lastmod>${hoy}</lastmod>\n  </url>`)
-await writeFile(
-  path.join(DIST, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`,
-  'utf8',
-)
-await writeFile(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`, 'utf8')
+if (NOINDEX) {
+  await writeFile(path.join(DIST, 'robots.txt'), 'User-agent: *\nDisallow: /\n', 'utf8')
+} else {
+  await writeFile(
+    path.join(DIST, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`,
+    'utf8',
+  )
+  await writeFile(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`, 'utf8')
+}
 
 await rm(SSR, { recursive: true, force: true })
-console.log(`[prerender] ${rutas.length} rutas · sitio ${SITIO_NUEVO ? 'NUEVO' : 'EN DESARROLLO'} · ${SITE_URL}`)
+console.log(`[prerender] ${rutas.length} rutas · sitio ${SITIO_NUEVO ? 'NUEVO' : 'EN DESARROLLO'} · ${SITE_URL}${NOINDEX ? ' · NOINDEX' : ''}`)

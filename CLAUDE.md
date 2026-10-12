@@ -47,6 +47,7 @@ npm run typecheck && npm run lint && npm run test -- --run
 
 ## Ramas y commits
 
-`feature/*` → `develop` → `main`. Push a `main` = deploy a producción por FTP
+`feature/*` → `develop` → `main`. Push a `develop` = deploy a DEV (S3 + CloudFront, siempre el sitio
+nuevo con noindex; ver README → Ambientes). Push a `main` = deploy a producción por FTP
 (`.github/workflows/deploy-prod-ftp.yml`, igual que WG013). No pushear a `main` sin que el usuario lo pida.
 Commits en español con prefijos `feat:`, `fix:`, `chore:`, `refactor:`.

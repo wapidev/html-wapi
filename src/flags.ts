@@ -6,4 +6,7 @@
  */
 export const SITIO_NUEVO: boolean = __SITIO_NUEVO__
 
+/** Ambientes que no son producción (DEV): todas las páginas noindex y robots.txt que bloquea todo. */
+export const NOINDEX = import.meta.env.VITE_NOINDEX === 'true'
+
 export const SITE_URL = (import.meta.env.VITE_SITE_URL || 'https://wapidesign.com').replace(/\/$/, '')

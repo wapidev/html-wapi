@@ -1,4 +1,4 @@
-import { SITE_URL } from '../flags'
+import { NOINDEX, SITE_URL } from '../flags'
 import { metaEnDesarrollo, rutasEnDesarrollo } from '../en-desarrollo/seo'
 import { metaSitioNuevo, rutasSitioNuevo } from '../sitio/seo'
 import type { Meta, RutaPrerender } from './tipos'
@@ -6,7 +6,8 @@ import type { Meta, RutaPrerender } from './tipos'
 export type { Meta, RutaPrerender }
 
 export function metaDeRuta(pathname: string): Meta {
-  return __SITIO_NUEVO__ ? metaSitioNuevo(pathname, SITE_URL) : metaEnDesarrollo(pathname, SITE_URL)
+  const meta = __SITIO_NUEVO__ ? metaSitioNuevo(pathname, SITE_URL) : metaEnDesarrollo(pathname, SITE_URL)
+  return NOINDEX ? { ...meta, noindex: true } : meta
 }
 
 export function rutasPrerender(): RutaPrerender[] {
