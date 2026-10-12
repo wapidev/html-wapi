@@ -36,7 +36,7 @@ npm run typecheck && npm run lint && npm run test -- --run
 | Ambiente | Rama | URL | Qué muestra |
 | --- | --- | --- | --- |
 | DEV | `develop` | https://d1rinjgyxivyfh.cloudfront.net | Siempre el sitio nuevo (flag encendido), con `noindex` |
-| PROD | `main` | https://wapidesign.com | Lo que diga `VITE_SITIO_NUEVO` en `.env.production` |
+| PROD | `main` | https://www.wapidesign.com (hoy `d3fgiyj08foi3a.cloudfront.net`, ver *Pasaje del dominio*) | Lo que diga `VITE_SITIO_NUEVO` en `.env.production` |
 
 **DEV** (`.github/workflows/deploy-dev.yml`, como el DEV de WG013): cada push a `develop` buildea
 con `VITE_SITIO_NUEVO=true` y `VITE_NOINDEX=true` (todas las páginas `noindex`, `robots.txt` con
@@ -45,55 +45,62 @@ con `VITE_SITIO_NUEVO=true` y `VITE_NOINDEX=true` (todas las páginas `noindex`,
 
 - Bucket `html-wapi-dev-frontend-east`: hosting estático (error → `404.html`), lectura pública por
   política, marker `.project-owner` = `html-wapi`.
-- CloudFront `ELR7ZX18EE9BP` con la función `html-wapi-barra-final` (viewer-request): redirige
-  `/trabajos` → `/trabajos/` en el mismo dominio. Sin ella, el origen S3 website redirige a su propio
-  hostname y el visitante sale de CloudFront.
+- CloudFront `ELR7ZX18EE9BP` (`d1rinjgyxivyfh.cloudfront.net`) con la función `html-wapi-rutas`.
+  Sin ella, ante `/trabajos` el origen S3 website redirige a su propio hostname y el visitante sale
+  de CloudFront.
 - Rol OIDC `html-wapi-frontend-github-deploy`: solo lo asume `wapidev/html-wapi` desde `develop`;
   solo escribe en ese bucket e invalida esa distribución.
 - Variables del repo: `AWS_REGION`, `AWS_ROLE_TO_ASSUME`, `S3_BUCKET_DEV`,
   `CLOUDFRONT_DISTRIBUTION_ID_DEV`, `SITE_URL_DEV`.
 
+**PROD** (`.github/workflows/deploy-prod.yml`): cada push a `main` corre los tests, buildea con el
+flag de `.env.production`, sincroniza S3, invalida CloudFront y deja un tag + release con la versión.
+
+- Bucket **privado** `html-wapi-prod-frontend-east` (bloqueo de acceso público completo): solo
+  CloudFront lo lee, vía OAC `html-wapi-prod-oac`. Marker `.project-owner` = `html-wapi`.
+- CloudFront `E2ALVPX6ERQXOD` (`d3fgiyj08foi3a.cloudfront.net`): función `html-wapi-rutas`,
+  403/404 del origen → `/404.html` con status 404, headers de seguridad administrados
+  (HSTS, nosniff, frame-options). Dominio `www.wapidesign.com` con certificado ACM en `us-east-1`.
+- Rol OIDC `html-wapi-frontend-github-deploy-prod`: solo lo asume `wapidev/html-wapi` desde `main`.
+- Variables del repo: `AWS_ROLE_TO_ASSUME_PROD`, `S3_BUCKET_PROD`, `CLOUDFRONT_DISTRIBUTION_ID_PROD`.
+
+DEV y PROD usan la misma función `html-wapi-rutas` (viewer-request): `/x/` → `/x/index.html` y
+`/x` → 301 a `/x/` en el mismo dominio, conservando los parámetros.
+
+### Pasaje del dominio (DNS en HostGator)
+
+El DNS de `wapidesign.com` sigue en HostGator (cPanel → Zone Editor). El mail (Microsoft 365) y
+`app.wapidesign.com` (ERP) no se tocan. La raíz no puede apuntar a CloudFront desde ese DNS (no
+admite CNAME/ALIAS en la raíz), así que el dominio del sitio es `www` y la raíz redirige.
+
+1. CNAME de validación del certificado ACM de `www.wapidesign.com`:
+   `_aeea7f60c9302ec3a83b05103d117c64.www.wapidesign.com.` →
+   `_460ec5b28c4a66b1a98c2a10827f7f23.wzccmgtwzk.acm-validations.aws.` (dejarlo siempre: renueva solo).
+2. Con el certificado emitido, se agrega `www.wapidesign.com` como dominio de la distribución.
+3. Primer deploy a `main` y verificar en `d3fgiyj08foi3a.cloudfront.net`.
+4. Cambiar el CNAME `www` de `wapidesign.com` a `d3fgiyj08foi3a.cloudfront.net`.
+5. En cPanel → Domains → Redirects: `wapidesign.com` → `https://www.wapidesign.com`, permanente
+   (301), con la opción **"Do not redirect www."**.
+
 ## Ramas, deploy y lanzamiento
 
-`feature/*` → `develop` → `main`. **Mergear a `main` publica** en wapidesign.com: el workflow
-`.github/workflows/deploy-prod-ftp.yml` (mismo esquema que WG013) corre los tests, buildea, sube
-`dist/` por FTP al hosting Apache (HostGator) y deja un tag + release con la versión desplegada.
-Mergear a `develop` no publica nada; la CI (`ci.yml`) corre en todos los push y PRs.
-
-Para el deploy hay que cargar en el repo (*Settings → Secrets and variables → Actions*):
-
-| Tipo | Nombre | Valor |
-| --- | --- | --- |
-| Secret | `FTP_SERVER` | Host FTP (ej. `ftp.wapidesign.com`) |
-| Secret | `FTP_USERNAME` | Usuario FTP |
-| Secret | `FTP_PASSWORD` | Contraseña FTP |
-| Variable | `FTP_REMOTE_DIR` | Raíz web del dominio (ej. `public_html/`). Obligatoria |
-| Variable | `FTP_SSL` | `true` (FTPS, default) o `false` |
-| Variable | `FTP_SSL_VERIFY` | `no` solo si el hosting usa un certificado autofirmado |
+`feature/*` → `develop` (publica DEV) → `main` (publica PROD). La CI (`ci.yml`) corre en todos
+los push y PRs y buildea las dos versiones del flag.
 
 **Lanzar el sitio nuevo** = un PR que pasa `VITE_SITIO_NUEVO` a `true` en `.env.production`, y
-mergearlo hasta `main`. El workflow no pisa el flag: lo que se publica es lo que dice el código.
-El resumen del run indica qué versión salió.
+mergearlo hasta `main`. El workflow de PROD no pisa el flag: lo que se publica es lo que dice el
+código. El resumen de cada run indica qué versión salió.
 
-**Volver atrás:** re-correr el deploy de un tag anterior (*Actions → Deploy PROD → Run workflow*
-sobre ese tag) o revertir el commit en `main`.
-
-**A mano** (sin GitHub): `npm run build` y subir **todo** `dist/`, incluido `.htaccess` (archivo
-oculto: en FileZilla, *Servidor → Forzar mostrar archivos ocultos*).
-
-Cada ruta es un `index.html` dentro de su carpeta (`trabajos/index.html`,
-`trabajos/gemmia-logistics/index.html`), así que Apache las sirve sin reescrituras. `.htaccess`
-fuerza HTTPS, manda las rutas inexistentes a `404.html` y define cache y compresión.
-
-> Antes del primer deploy: revisar si la raíz web ya tiene un `.htaccess` (cPanel a veces agrega
-> uno): el del build lo reemplaza. La subida no borra nada más (sin `--delete`).
+**Volver atrás:** `git revert` del commit en `main` y push (el deploy vuelve a correr). Cada deploy
+deja un tag `vAAAA.MM.DD-N` para ubicar qué estaba publicado. Re-correr el workflow sobre un tag no
+sirve: el rol de PROD solo acepta la rama `main`.
 
 ## Estructura
 
 ```
 _design/                Handoff de Claude Design (README, IDENTIDAD, tokens, content.json, prototipos).
                         Es la referencia: no se compila ni se publica.
-public/                 Archivos tal cual: .htaccess, favicon, manifest, imágenes de la página
+public/                 Archivos tal cual: favicon, manifest, imágenes de la página
                         "en desarrollo" (assets/images/, mismas URLs que antes).
 scripts/prerender.mjs   HTML por ruta + sitemap.xml + robots.txt.
 src/

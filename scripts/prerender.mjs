@@ -3,8 +3,8 @@
 //
 //   dist/index.html, dist/trabajos/index.html, dist/trabajos/<slug>/index.html, dist/404.html
 //
-// Cada ruta es un index.html dentro de su carpeta: cualquier hosting estático (el Apache
-// de HostGator incluido) las sirve sin reglas de reescritura.
+// Cada ruta es un index.html dentro de su carpeta. En CloudFront, la función html-wapi-rutas
+// resuelve /x/ → /x/index.html y agrega la barra final (/x → /x/).
 //
 // Con el flag apagado (página "en desarrollo") se quita el JS: la página no lo necesita,
 // y así el código y el contenido del sitio nuevo no se publican antes del lanzamiento.

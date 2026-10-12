@@ -3,10 +3,10 @@ import type { Meta, RutaPrerender } from '../seo/tipos'
 // Cabecera de la página publicada hoy (index.html anterior), sin cambios.
 const TITULO = 'Wapi Design | Diseño Web Profesional'
 const DESCRIPCION_OG = 'Nuestro nuevo sitio web está en desarrollo. Contáctanos en info@wapidesign.com.'
-const LOGO = 'https://wapidesign.com/assets/images/logo-wapi.svg'
 
 export function metaEnDesarrollo(pathname: string, siteUrl: string): Meta {
   const esInicio = pathname === '/'
+  const LOGO = `${siteUrl}/assets/images/logo-wapi.svg`
   return {
     title: TITULO,
     description: 'Wapi Design - Diseño web profesional. Nuestro nuevo sitio web está en desarrollo. Contáctanos en info@wapidesign.com.',

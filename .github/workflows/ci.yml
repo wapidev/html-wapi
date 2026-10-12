@@ -50,7 +50,7 @@ jobs:
         run: |
           if grep -rIl -i "gemmia\|desapercibidas\|Hagamos algo" dist; then
             echo "❌ dist/ trae contenido del sitio nuevo con el flag apagado"; exit 1; fi
-          test -f dist/index.html && test -f dist/404.html && test -f dist/.htaccess
+          test -f dist/index.html && test -f dist/404.html
           echo "✅ dist/ solo tiene la página en desarrollo"
 
       - name: Build con el flag encendido (sitio nuevo)
@@ -62,7 +62,7 @@ jobs:
         run: |
           for f in index.html 404.html trabajos/index.html trabajos/gemmia-logistics/index.html \
                    trabajos/gestion-de-prestamos/index.html trabajos/ida-y-vuelta-ibiza/index.html \
-                   trabajos/cliente-04/index.html sitemap.xml robots.txt .htaccess; do
+                   trabajos/cliente-04/index.html sitemap.xml robots.txt; do
             test -f "dist/$f" || { echo "❌ falta dist/$f"; exit 1; }
           done
           grep -q "Marcas" dist/index.html || { echo "❌ la Home no viene prerenderizada"; exit 1; }

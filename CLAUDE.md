@@ -1,7 +1,7 @@
 # html-wapi — sitio de Wapi (wapidesign.com)
 
 Sitio institucional de Wapi. React 19 + Vite + TypeScript + Tailwind 4 + react-router 7, con cada
-ruta prerenderizada a HTML estático. Hosting Apache (HostGator), se sube `dist/`. Ver README.md.
+ruta prerenderizada a HTML estático. Hosting: S3 + CloudFront (DEV y PROD). Ver README.md.
 
 ## Feature flag (lo más importante)
 
@@ -48,6 +48,6 @@ npm run typecheck && npm run lint && npm run test -- --run
 ## Ramas y commits
 
 `feature/*` → `develop` → `main`. Push a `develop` = deploy a DEV (S3 + CloudFront, siempre el sitio
-nuevo con noindex; ver README → Ambientes). Push a `main` = deploy a producción por FTP
-(`.github/workflows/deploy-prod-ftp.yml`, igual que WG013). No pushear a `main` sin que el usuario lo pida.
+nuevo con noindex). Push a `main` = deploy a producción (www.wapidesign.com, `deploy-prod.yml`).
+No pushear a `main` sin que el usuario lo pida. Infra y DNS: README → Ambientes.
 Commits en español con prefijos `feat:`, `fix:`, `chore:`, `refactor:`.
