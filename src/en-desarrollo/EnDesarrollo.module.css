@@ -1,29 +1,23 @@
+/*
+ * Página "en desarrollo": la que está publicada hoy en wapidesign.com, sin cambios visuales.
+ * Antes era assets/style.css. Las reglas globales (*, html, body, footer) pasaron a clases
+ * locales: el body fijo de antes es ahora el contenedor fijo a pantalla completa.
+ */
+
 /* General Reset */
-* {
+.container,
+.container * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  font-family: "Inter", sans-serif;
-  color: white;
-}
-
-body {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  height: 100dvh;
-}
-
 .container {
-  background-image: url("images/background-wapi.webp");
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-image: url("/assets/images/background-wapi.webp");
   background-size: cover;
   background-position: center;
   background-color: #0a0a0a;
@@ -33,7 +27,9 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 2rem;
-  position: relative;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  color: white;
 }
 
 /* Overlay para garantizar contraste WCAG AA */
@@ -92,13 +88,13 @@ body {
   line-height: 1.1;
 }
 
-footer {
+.footer {
   text-align: center;
   padding-left: clamp(20px, 5vw, 80px);
 }
 
 /* Focus visible para navegación por teclado */
-a:focus-visible {
+.container a:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 4px;
   border-radius: 2px;
@@ -107,7 +103,7 @@ a:focus-visible {
 /* Responsive */
 @media (max-width: 768px) {
   .container {
-    background-image: url("images/background-wapi-mobile.webp");
+    background-image: url("/assets/images/background-wapi-mobile.webp");
   }
 
   .desktop-only {
@@ -122,7 +118,7 @@ a:focus-visible {
     text-align: left;
   }
 
-  footer {
+  .footer {
     text-align: left;
   }
 }

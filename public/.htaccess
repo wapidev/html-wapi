@@ -1,0 +1,59 @@
+# ============================================================================
+# Sitio Wapi (wapidesign.com) — hosting Apache (HostGator).
+# Va dentro de dist/ y se sube junto con el resto (es un archivo oculto: en el cliente
+# FTP hay que mostrar los archivos ocultos para que no quede afuera).
+#
+# Cada ruta del sitio es un index.html prerenderizado dentro de su carpeta
+# (/trabajos/ → trabajos/index.html), así que no hace falta reescribir rutas.
+# ============================================================================
+
+# Rutas que no existen → 404.html (también prerenderizada).
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forzar HTTPS. %{HTTPS} no es fiable detrás de un proxy; por eso también se mira
+  # X-Forwarded-Proto, que es lo que setean los hostings compartidos.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# MIME types modernos (muchos hostings compartidos sirven .webp como octet-stream).
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/avif .avif
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml .svg
+</IfModule>
+
+# Compresión para texto.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Cache. JS y CSS llevan hash en el nombre (Vite): cache larga. HTML siempre fresco
+# para que un deploy se vea al instante.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # Nadie más puede embeber el sitio en un iframe.
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>

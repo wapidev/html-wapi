@@ -1,0 +1,574 @@
+{
+  "site": {
+    "name": "Wapi",
+    "tagline": "Estudio de diseño digital — Buenos Aires",
+    "email": "hola@wapi.com.ar",
+    "location": "Buenos Aires, Argentina",
+    "social": [
+      "Instagram",
+      "LinkedIn",
+      "Behance"
+    ],
+    "copyright": "© Wapi 2026",
+    "privacy": "Política de privacidad"
+  },
+  "nav": {
+    "items": [
+      [
+        "Trabajos",
+        "/trabajos"
+      ],
+      [
+        "Servicios",
+        "/#servicios"
+      ],
+      [
+        "Nosotros",
+        "/#nosotros"
+      ],
+      [
+        "Contacto",
+        "#contacto"
+      ]
+    ],
+    "cta": "Hablemos"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Estudio de diseño digital — Buenos Aires",
+      "lines": [
+        "Marcas",
+        "que no pasan",
+        "desapercibidas"
+      ],
+      "est": "Est. 2026",
+      "p1": "Somos un estudio de diseño y estrategia digital en Buenos Aires. Trabajamos con marcas que quieren dejar de parecerse a todas las demás.",
+      "p2": "Branding, diseño web, UX/UI y consultoría: todo lo necesario para que una marca se sostenga adentro y se note afuera."
+    },
+    "reel": {
+      "placeholder": "Reel del estudio",
+      "badge": "Ver el reel"
+    },
+    "manifesto": {
+      "line1": "Una marca no se ve.",
+      "line2": "Se reconoce.",
+      "body": "Lo bonito dura una semana. Lo que dura es una marca coherente: la misma idea sostenida en el logo, en el sitio, en el mail de bienvenida y en la forma de contestar un reclamo. Eso es lo que diseñamos."
+    },
+    "services": {
+      "eyebrow": "Servicios",
+      "title": "Lo que hacemos",
+      "lead": "Cinco frentes que casi siempre terminan trabajando juntos.",
+      "cta": "Ver todos los servicios →",
+      "items": [
+        {
+          "title": "Branding",
+          "desc": "Definimos el posicionamiento, ordenamos el relato y diseñamos la identidad que lo sostiene en cada punto de contacto.",
+          "plazo": "4–6 semanas"
+        },
+        {
+          "title": "Diseño web",
+          "desc": "Sitios que se recorren, no que se miran. Claros, rápidos y con la personalidad de la marca en cada scroll.",
+          "plazo": "6–8 semanas"
+        },
+        {
+          "title": "UX/UI",
+          "desc": "Productos e interfaces que se entienden solos. Menos fricción, menos soporte, más gente llegando al final.",
+          "plazo": "8–12 semanas"
+        },
+        {
+          "title": "Consultoría",
+          "desc": "Auditorías, arquitectura de marca y acompañamiento a equipos internos. Cuando el problema no se resuelve con un rediseño.",
+          "plazo": "A medida"
+        },
+        {
+          "title": "Desarrollo",
+          "desc": "Sitios y productos construidos con código limpio, veloz y sostenible en el tiempo.",
+          "plazo": "6–10 semanas"
+        }
+      ]
+    },
+    "works": {
+      "title": [
+        "Trabajos",
+        "seleccionados"
+      ],
+      "lead": "Una selección chica. La lista completa está en /trabajos.",
+      "cta": "Ver todos los trabajos →",
+      "items": [
+        {
+          "slug": "gemmia-logistics",
+          "name": "Gemmia Logistics",
+          "line": "Marca y sitio para mover cargas entre Latinoamérica y el mundo.",
+          "tags": "Branding · Diseño web · UX/UI",
+          "grow": 7,
+          "basis": 480,
+          "ratio": "16 / 9",
+          "cover": "gemmia-cover.png"
+        },
+        {
+          "slug": "gestion-de-prestamos",
+          "name": "Gestión de Préstamos",
+          "line": "La plataforma que reemplazó a la planilla de un negocio de créditos.",
+          "tags": "UX/UI · Diseño de producto · SaaS",
+          "grow": 5,
+          "basis": 340,
+          "ratio": "3 / 4",
+          "cover": null
+        },
+        {
+          "slug": "ida-y-vuelta-ibiza",
+          "name": "Ida & Vuelta Ibiza",
+          "line": "Marca y sitio para un concierge de hospedajes en Ibiza.",
+          "tags": "Branding · UX/UI · Diseño web",
+          "grow": 5,
+          "basis": 340,
+          "ratio": "16 / 9",
+          "cover": "laptop:iv-cover.png"
+        },
+        {
+          "slug": "cliente-04",
+          "name": "[Cliente 04]",
+          "line": "El e-commerce que triplicó la conversión sin cambiar el catálogo.",
+          "tags": "UX/UI · Desarrollo",
+          "grow": 7,
+          "basis": 480,
+          "ratio": "16 / 10",
+          "cover": null
+        },
+        {
+          "slug": "cliente-05",
+          "name": "[Cliente 05]",
+          "line": "Naming, identidad y sitio para un lanzamiento en seis semanas.",
+          "tags": "Branding · Diseño web",
+          "grow": 6,
+          "basis": 400,
+          "ratio": "4 / 3",
+          "cover": null
+        },
+        {
+          "slug": "cliente-06",
+          "name": "[Cliente 06]",
+          "line": "Un sistema de diseño para que el equipo interno deje de pedirnos permiso.",
+          "tags": "Consultoría · UX/UI",
+          "grow": 6,
+          "basis": 400,
+          "ratio": "4 / 3",
+          "cover": null
+        }
+      ]
+    },
+    "faq": {
+      "eyebrow": "Preguntas frecuentes",
+      "title": [
+        "Lo que suelen",
+        "preguntarnos"
+      ],
+      "lead": "Si tu duda no está acá, escribinos y te contestamos nosotros, no un bot.",
+      "items": [
+        "¿En qué consiste el branding?",
+        "¿Me pueden ayudar a desarrollar un sistema para mi negocio?",
+        "¿Cuánto costaría trabajar con ustedes?",
+        "¿Desarrollan e-commerce?",
+        "¿Tengo un sitio web pero no me gusta, podrían rediseñármelo?",
+        "¿Si ya tengo un logo, pueden diseñar mi sitio web?"
+      ],
+      "note": "Las respuestas del prototipo son lorem ipsum. Pedir textos finales al cliente."
+    },
+    "clients": {
+      "title": "Trabajamos con gente que se anima.",
+      "lead": "Desde proyectos que arrancan de cero hasta marcas con veinte años de historia. Cada uno nos obliga a no repetirnos.",
+      "logos": [
+        "Almaverde",
+        "Norte Studio",
+        "Cobalto",
+        "Fábrica Nueve",
+        "Rivera & Co",
+        "Kilómetro",
+        "Tandem",
+        "Perlita"
+      ],
+      "note": "Nombres placeholder, reemplazar por logos reales."
+    },
+    "footer": {
+      "eyebrow": "Contacto",
+      "title": [
+        "Hagamos algo",
+        "que dure."
+      ],
+      "labels": [
+        "Escribinos",
+        "Dónde estamos",
+        "Seguinos"
+      ]
+    }
+  },
+  "trabajos": {
+    "eyebrow": "Trabajos — 04 proyectos",
+    "title": [
+      "Trabajos",
+      "seleccionados"
+    ],
+    "lead": "Cuatro proyectos donde el trabajo se nota: identidad, producto y sitio sostenidos por la misma idea.",
+    "range": "2024 — 2026",
+    "items": [
+      {
+        "slug": "gemmia-logistics",
+        "year": "2025",
+        "tags": [
+          "Branding",
+          "Diseño web",
+          "UX/UI"
+        ],
+        "ratio": "16 / 9",
+        "offset": false,
+        "cover": "gemmia-cover.png"
+      },
+      {
+        "slug": "gestion-de-prestamos",
+        "year": "2026",
+        "line": "La plataforma que reemplazó a la planilla que sostenía un negocio de créditos.",
+        "tags": [
+          "UX/UI",
+          "Diseño de producto",
+          "SaaS"
+        ],
+        "ratio": "4 / 5",
+        "offset": true,
+        "cover": null
+      },
+      {
+        "slug": "ida-y-vuelta-ibiza",
+        "year": "2026",
+        "line": "Marca y sitio para un concierge de hospedajes que arrancó de cero.",
+        "tags": [
+          "Branding",
+          "UX/UI",
+          "Diseño web",
+          "Desarrollo"
+        ],
+        "ratio": "16 / 9",
+        "offset": false,
+        "cover": "laptop:iv-cover.png"
+      },
+      {
+        "slug": "cliente-04",
+        "year": "2024",
+        "tags": [
+          "UX/UI",
+          "Desarrollo"
+        ],
+        "ratio": "4 / 3",
+        "offset": true,
+        "cover": null
+      }
+    ]
+  },
+  "cases": [
+    {
+      "slug": "gemmia-logistics",
+      "index": "01",
+      "name": "Gemmia Logistics",
+      "year": "2025",
+      "tags": [
+        "Branding",
+        "Diseño web",
+        "UX/UI"
+      ],
+      "summary": "Creamos la marca y el sitio de una empresa que mueve cargas entre Latinoamérica y el mundo: una gema facetada que también es un paquete en tránsito.",
+      "facts": [
+        {
+          "label": "Cliente",
+          "value": "Gemmia Logistics"
+        },
+        {
+          "label": "Rubro",
+          "value": "Logística internacional"
+        },
+        {
+          "label": "Servicios",
+          "value": "Branding + Sitio web"
+        },
+        {
+          "label": "Oficinas",
+          "value": "Buenos Aires · Santiago · Miami"
+        }
+      ],
+      "challengeTitle": "Una empresa nueva que necesitaba verse tan confiable como su equipo.",
+      "challengeBody": "Gemmia nace con un equipo que suma más de 15 años moviendo cargas por aire, mar y tierra hacia más de 180 países. Pero competía contra gigantes globales sin marca ni sitio propios. Necesitaba una identidad que transmitiera esa experiencia desde el primer día, en dos idiomas y tres mercados.",
+      "steps": [
+        {
+          "title": "Escuchamos",
+          "line": "Entendimos el negocio antes de dibujar: qué hace un freight forwarder, qué industrias mueve y por qué su diferencial es un punto de contacto dedicado que sigue cada embarque."
+        },
+        {
+          "title": "Diseñamos",
+          "line": "Creamos la gema hexagonal facetada —valor, precisión y un paquete en tránsito—, la paleta de dos azules y la tipografía Soleil. Cada avance se decidió mirando, no leyendo informes."
+        },
+        {
+          "title": "Pusimos en marcha",
+          "line": "Publicamos el sitio bilingüe con cotizador online y entregamos el manual de marca de 22 páginas para que el equipo aplique la identidad sin depender de nadie."
+        }
+      ],
+      "caps": [
+        "El isologotipo y sus variaciones: la gema funciona a color, en negativo y como ícono.",
+        "El sitio, en inglés y español: cotizaciones respondidas en menos de 2 horas.",
+        "La papelería real: tarjetones, sobres y tarjetas personales con las facetas de la gema."
+      ],
+      "results": [
+        {
+          "value": "0 → 1",
+          "label": "una marca completa lista para operar en tres mercados a la vez."
+        },
+        {
+          "value": "2",
+          "label": "idiomas: el mismo sitio le habla a Latinoamérica y a Estados Unidos."
+        },
+        {
+          "value": "22",
+          "label": "páginas de manual para que la marca se aplique siempre igual."
+        }
+      ],
+      "quote": "La marca nos hace ver del tamaño de los jugadores con los que competimos.",
+      "quoteBy": "Ezequiel, Socio fundador — Gemmia Logistics",
+      "resultsLabel": "Qué cambió",
+      "media": {
+        "hero": "logo-on-light:GM-logo_hoizontal-color.png + watermark GM-logo_isologo-color.png",
+        "gallery": [
+          "logo-grid:4 isologos",
+          "browser-mockup:iframe https://gemmialogistics.com/",
+          "split:manual-p21-img1.png | manual-p21-img2.png"
+        ]
+      }
+    },
+    {
+      "slug": "gestion-de-prestamos",
+      "index": "02",
+      "name": "Gestión de Préstamos",
+      "year": "2026",
+      "tags": [
+        "UX/UI",
+        "Diseño de producto",
+        "SaaS"
+      ],
+      "summary": "Cuatro módulos, un sistema: la plataforma que reemplazó a la planilla que sostenía todo un negocio de créditos.",
+      "facts": [
+        {
+          "label": "Cliente",
+          "value": "Empresa de créditos"
+        },
+        {
+          "label": "Rubro",
+          "value": "Servicios financieros"
+        },
+        {
+          "label": "Servicios",
+          "value": "UX/UI + Diseño de producto"
+        },
+        {
+          "label": "Módulos",
+          "value": "Clientes · Préstamos · Cobranzas · Caja"
+        }
+      ],
+      "challengeTitle": "Todo el negocio vivía en una planilla, y ya la habían perdido una vez.",
+      "challengeBody": "Clientes, préstamos, cobranzas, pagos y caja: todo en un solo archivo, en una sola computadora. El dueño ya había sufrido una pérdida de datos y reconstruido sus registros a mano. El desafío no era digitalizar un proceso: era diseñar un producto lo suficientemente confiable como para reemplazar algo de lo que dependía todos los días.",
+      "steps": [
+        {
+          "title": "Escuchamos",
+          "line": "Antes de dibujar una pantalla, entendimos cómo operaba el negocio de verdad. La planilla fue nuestro documento de descubrimiento: mapeamos las relaciones entre clientes, préstamos, cobranzas y movimientos de caja."
+        },
+        {
+          "title": "Diseñamos",
+          "line": "Módulo por módulo, con formularios que piden lo justo: dar de alta un cliente lleva cuatro campos. Crear un préstamo, en cambio, tiene su propia pantalla: es la decisión más importante del negocio y merece atención completa."
+        },
+        {
+          "title": "Pusimos en marcha",
+          "line": "Trabajamos con un kit compartido entre diseño y desarrollo —cada componente diseñado ya existía en código con el mismo nombre— y revisamos el producto construido contra el diseño, pantalla por pantalla."
+        }
+      ],
+      "caps": [
+        "La tabla de clientes hace una sola cosa bien: encontrar a alguien y abrir su ficha.",
+        "Crear un préstamo ocupa la pantalla completa: montos, cuotas e intereses sin distracciones.",
+        "Cada acción confirma, cada error se recupera: confianza para quien ya perdió sus datos una vez."
+      ],
+      "results": [
+        {
+          "value": "4",
+          "label": "módulos diseñados, entregados y verificados contra el producto real."
+        },
+        {
+          "value": "0",
+          "label": "planillas: el negocio ya no depende de un archivo en una sola máquina."
+        },
+        {
+          "value": "4",
+          "label": "campos alcanzan para dar de alta un cliente. Lo demás, solo cuando hace falta."
+        }
+      ],
+      "quote": "Dejó de tratarlo como una herramienta y empezó a tratarlo como su producto.",
+      "quoteBy": "Lo que pasó cuando llegó el primer módulo diseñado",
+      "resultsLabel": "Qué cambió",
+      "media": {
+        "hero": "placeholder",
+        "gallery": [
+          "placeholder 4:3",
+          "placeholder 4:3",
+          "placeholder 21:9"
+        ]
+      }
+    },
+    {
+      "slug": "ida-y-vuelta-ibiza",
+      "index": "03",
+      "name": "Ida & Vuelta Ibiza",
+      "year": "2026",
+      "tags": [
+        "Branding",
+        "UX/UI",
+        "Diseño web",
+        "Desarrollo"
+      ],
+      "summary": "Una familia que hospeda en Ibiza desde hace más de diez años abrió su propio emprendimiento. Diseñamos y desarrollamos la marca y el sitio con los que salió a la isla.",
+      "facts": [
+        {
+          "label": "Cliente",
+          "value": "Ida & Vuelta Ibiza"
+        },
+        {
+          "label": "Rubro",
+          "value": "Hospedajes · Ibiza, España"
+        },
+        {
+          "label": "Servicios",
+          "value": "Branding + Sitio web + Desarrollo"
+        },
+        {
+          "label": "Alcance",
+          "value": "Marca, sitio y canal de reservas"
+        }
+      ],
+      "challengeTitle": "No había nada que rediseñar: el emprendimiento arrancaba de cero.",
+      "challengeBody": "La familia ya tenía las casas, los años en la isla y los huéspedes. Lo que no tenía era nombre propio, marca, ni un lugar donde mostrar las propiedades. Todo lo que se ve en este caso se definió desde cero, con una condición: que el sitio no reemplazara la atención personal, porque es lo único que no se puede copiar.",
+      "steps": [
+        {
+          "title": "Escuchamos",
+          "line": "Entendimos cómo atienden antes de dibujar: contestan ellos mismos, conocen cada cala y acompañan el viaje entero. Esa ida y vuelta con el huésped terminó dándole el nombre a la marca."
+        },
+        {
+          "title": "Diseñamos",
+          "line": "Una identidad de isla sin postal turística: azul de puerto, terracota y Spectral para los títulos. Y un sitio donde el buscador pide dos cosas —la zona y cuántos viajan— porque el resto se conversa después."
+        },
+        {
+          "title": "Pusimos en marcha",
+          "line": "Desarrollamos y publicamos el sitio: las casas en el mapa, cada ficha con fotos, ubicación y precio, y una reserva que termina en un chat de WhatsApp en lugar de un formulario."
+        }
+      ],
+      "caps": [
+        "La marca: el nombre cuenta cómo atienden, y el sistema visual la acompaña sin caer en la postal turística.",
+        "El buscador pide zona y cantidad de personas. Las casas aparecen en la lista y en el mapa a la vez.",
+        "La ficha de cada casa abre con la foto principal a pantalla grande; los detalles quedan en las chicas, a un clic.",
+        "Qué ofrece la casa, y una reserva que no termina en un formulario sino en una conversación por WhatsApp."
+      ],
+      "resultsLabel": "Con qué salió",
+      "results": [
+        {
+          "value": "0 → 1",
+          "label": "de una idea a una marca, un sitio y un canal de reservas propios."
+        },
+        {
+          "value": "2",
+          "label": "datos pide el buscador para empezar: la zona y cuántos viajan."
+        },
+        {
+          "value": "1",
+          "label": "lugar donde ver las casas, la ubicación y cerrar la reserva."
+        }
+      ],
+      "quote": null,
+      "quoteBy": null,
+      "media": {
+        "hero": "iv-home.png",
+        "gallery": [
+          "iv-ficha.png (full width)",
+          "brand-block:iv-logo-dark.png + 3 swatches #C25A2E #F6EFE0 #1B3E51 on #163141",
+          "iv-buscador.png",
+          "iv-reserva.png"
+        ]
+      }
+    },
+    {
+      "slug": "cliente-04",
+      "index": "04",
+      "name": "[Cliente 04]",
+      "year": "2024",
+      "tags": [
+        "UX/UI",
+        "Desarrollo"
+      ],
+      "summary": "Mismo catálogo, misma inversión en publicidad: rediseñamos la tienda y las ventas se triplicaron.",
+      "facts": [
+        {
+          "label": "Cliente",
+          "value": "[Cliente 04]"
+        },
+        {
+          "label": "Rubro",
+          "value": "E-commerce"
+        },
+        {
+          "label": "Servicios",
+          "value": "UX/UI + Desarrollo"
+        },
+        {
+          "label": "Duración",
+          "value": "3 meses"
+        }
+      ],
+      "challengeTitle": "Entraba gente a la tienda, pero casi nadie compraba.",
+      "challengeBody": "La publicidad traía visitas, pero el proceso de compra las perdía: fotos chicas, precios escondidos y un checkout de cinco pantallas. El problema no era el producto, era el camino hasta el botón de pagar.",
+      "steps": [
+        {
+          "title": "Escuchamos",
+          "line": "Analizamos dónde abandonaba la gente el carrito y qué preguntaban antes de comprar."
+        },
+        {
+          "title": "Diseñamos",
+          "line": "Rehicimos la página de producto y dejamos el checkout en una sola pantalla, sin registro obligatorio."
+        },
+        {
+          "title": "Pusimos en marcha",
+          "line": "Desarrollamos la tienda nueva y medimos cada semana para seguir ajustando después del lanzamiento."
+        }
+      ],
+      "caps": [
+        "La página de producto nueva: foto grande, precio claro.",
+        "El checkout completo en una sola pantalla.",
+        "La tienda funcionando en el celular."
+      ],
+      "results": [
+        {
+          "value": "3×",
+          "label": "más ventas con el mismo catálogo y la misma publicidad."
+        },
+        {
+          "value": "−70%",
+          "label": "menos carritos abandonados en el checkout."
+        },
+        {
+          "value": "1",
+          "label": "pantalla para pagar, antes eran cinco."
+        }
+      ],
+      "quote": "No cambiamos nada de lo que vendemos. Cambió cómo se compra.",
+      "quoteBy": "[Nombre], [Cargo] — [Cliente 04]",
+      "resultsLabel": "Qué cambió",
+      "media": {
+        "hero": "placeholder",
+        "gallery": [
+          "placeholder 4:3",
+          "placeholder 4:3",
+          "placeholder 21:9"
+        ]
+      }
+    }
+  ]
+}
