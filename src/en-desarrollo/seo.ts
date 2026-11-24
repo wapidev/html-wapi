@@ -35,6 +35,6 @@ export function metaEnDesarrollo(pathname: string, siteUrl: string): Meta {
 }
 
 export const rutasEnDesarrollo: RutaPrerender[] = [
-  { url: '/', archivo: 'index.html', indexable: true },
-  { url: '/404/', archivo: '404.html', indexable: false },
+  { url: '/', archivo: 'index.html', indexable: true, idioma: 'es' },
+  { url: '/404/', archivo: '404.html', indexable: false, idioma: 'es' },
 ]

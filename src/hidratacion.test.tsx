@@ -12,6 +12,8 @@ describe('hidratación de las rutas prerenderizadas', () => {
   for (const ruta of rutasSitioNuevo) {
     it(`${ruta.url} hidrata sin errores`, async () => {
       window.history.replaceState(null, '', ruta.url)
+      // El cliente decide entre hidratar o no con el lang del HTML (main.tsx): acá siempre coincide.
+      document.documentElement.lang = ruta.idioma
       const contenedor = document.createElement('div')
       contenedor.innerHTML = renderToString(
         <StaticRouter location={ruta.url}>

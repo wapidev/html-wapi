@@ -48,8 +48,9 @@ jobs:
 
       - name: Sin contenido del sitio nuevo publicado
         run: |
-          if grep -rIl -i "gemmia\|desapercibidas\|Hagamos algo" dist; then
+          if grep -rIl -i "gemmia\|automatización\|Hagamos algo\|Let's talk" dist; then
             echo "❌ dist/ trae contenido del sitio nuevo con el flag apagado"; exit 1; fi
+          test ! -e dist/en && test ! -e dist/mail || { echo "❌ dist/ trae rutas o imágenes del sitio nuevo"; exit 1; }
           test -f dist/index.html && test -f dist/404.html
           echo "✅ dist/ solo tiene la página en desarrollo"
 
@@ -58,12 +59,18 @@ jobs:
         env:
           VITE_SITIO_NUEVO: 'true'
 
-      - name: Rutas prerenderizadas
+      - name: Rutas prerenderizadas (castellano e inglés)
         run: |
-          for f in index.html 404.html trabajos/index.html trabajos/gemmia-logistics/index.html \
-                   trabajos/gestion-de-prestamos/index.html trabajos/ida-y-vuelta-ibiza/index.html \
-                   trabajos/cliente-04/index.html sitemap.xml robots.txt; do
+          CASOS="gemmia-logistics credigial ida-y-vuelta-ibiza zuhause gymrat"
+          RUTAS="index.html 404.html sitemap.xml robots.txt trabajos/index.html nosotros/index.html contacto/index.html
+                 en/index.html en/work/index.html en/about/index.html en/contact/index.html"
+          for c in $CASOS; do RUTAS="$RUTAS trabajos/$c/index.html en/work/$c/index.html"; done
+          for f in $RUTAS; do
             test -f "dist/$f" || { echo "❌ falta dist/$f"; exit 1; }
           done
-          grep -q "Marcas" dist/index.html || { echo "❌ la Home no viene prerenderizada"; exit 1; }
-          echo "✅ sitio nuevo completo"
+          grep -q "automatización" dist/index.html || { echo "❌ la Home no viene prerenderizada"; exit 1; }
+          grep -q '<html lang="en">' dist/en/index.html || { echo "❌ /en/ no va con lang=en"; exit 1; }
+          grep -q "automation" dist/en/index.html || { echo "❌ la Home en inglés no viene prerenderizada"; exit 1; }
+          grep -q 'hreflang="en"' dist/trabajos/gymrat/index.html || { echo "❌ faltan los hreflang"; exit 1; }
+          test "$(grep -c '<loc>' dist/sitemap.xml)" = "18" || { echo "❌ el sitemap no tiene las 18 páginas"; exit 1; }
+          echo "✅ sitio nuevo completo en los dos idiomas"

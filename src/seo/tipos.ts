@@ -13,6 +13,12 @@ export interface Meta {
   /** Tags extra solo para el HTML prerenderizado (keywords, preloads). */
   extraHtml?: string[]
   jsonLd?: object
+  /** Idioma de la página (<html lang>). Sin él, castellano. */
+  lang?: 'es' | 'en'
+  /** og:locale: es_AR / en_US. */
+  locale?: string
+  /** La misma página en cada idioma (link rel="alternate" hreflang), incluido x-default. */
+  alternates?: { hreflang: string; href: string }[]
 }
 
 export interface RutaPrerender {
@@ -22,4 +28,6 @@ export interface RutaPrerender {
   archivo: string
   /** Si va al sitemap. */
   indexable: boolean
+  /** Idioma del HTML (<html lang>). */
+  idioma: 'es' | 'en'
 }

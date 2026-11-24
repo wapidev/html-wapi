@@ -20,7 +20,7 @@ export default function HomePage() {
       <Servicios />
       <TrabajosSeleccionados />
       <Preguntas />
-      {/* Cortina: clientes queda sticky y el footer de contacto se desliza por encima. */}
+      {/* Cortina: clientes queda fijo y el footer se desliza por encima. */}
       <div className="relative">
         <Clientes />
         <Footer cortina />

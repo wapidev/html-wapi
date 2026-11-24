@@ -42,7 +42,8 @@ export function cabeceraHtml(meta: Meta): string {
     meta.image ? `<meta property="og:image" content="${escapar(meta.image)}" />` : '',
     '<meta property="og:type" content="website" />',
     og.url ? `<meta property="og:url" content="${escapar(og.url)}" />` : '',
-    '<meta property="og:locale" content="es_AR" />',
+    `<meta property="og:locale" content="${meta.locale ?? 'es_AR'}" />`,
+    ...(meta.alternates ?? []).map((a) => `<link rel="alternate" hreflang="${a.hreflang}" href="${escapar(a.href)}" />`),
     `<meta name="twitter:card" content="${meta.image ? 'summary_large_image' : 'summary'}" />`,
     `<meta name="twitter:title" content="${escapar(og.title)}" />`,
     `<meta name="twitter:description" content="${escapar(og.description)}" />`,
@@ -82,7 +83,17 @@ function meta(attr: 'name' | 'property', clave: string, valor: string | undefine
 /** Actualiza el <head> al navegar dentro del sitio (el HTML inicial ya viene del prerender). */
 export function aplicarMeta(m: Meta) {
   const og = datosOg(m)
+  document.documentElement.lang = m.lang ?? 'es'
   document.title = m.title
+  meta('property', 'og:locale', m.locale ?? 'es_AR')
+  document.head.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove())
+  for (const a of m.alternates ?? []) {
+    const el = document.createElement('link')
+    el.rel = 'alternate'
+    el.hreflang = a.hreflang
+    el.href = a.href
+    document.head.appendChild(el)
+  }
   meta('name', 'description', m.description)
   meta('name', 'robots', m.noindex ? 'noindex' : undefined)
   meta('property', 'og:title', og.title)

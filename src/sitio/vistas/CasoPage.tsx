@@ -1,132 +1,153 @@
 import { Link, useParams } from 'react-router-dom'
+import { useContenido, useRutas } from '../../i18n/useIdioma'
+import { casoPorSlug, siguienteCaso } from '../../content'
 import Footer from '../layout/Footer'
-import Eyebrow from '../ui/Eyebrow'
+import Etiqueta from '../ui/Etiqueta'
 import LineaEnmascarada from '../ui/LineaEnmascarada'
 import { fade } from '../ui/fade'
-import { Galeria, ImagenPrincipal } from '../caso/Medios'
+import { useReveal } from '../useReveal'
+import ImagenPrincipal from '../caso/ImagenPrincipal'
+import Galeria from '../caso/Galerias'
 import NotFoundPage from './NotFoundPage'
-import { sitio, casoPorSlug, siguienteCaso, rutaDeCaso, RUTAS, TOTAL_CASOS } from '../../content'
-import type { Caso } from '../../content/tipos'
 
-const SECCION = 'px-page-x pt-caso'
-const TAG = 'rounded-full border border-ink px-3.5 py-[7px] font-mono text-tag uppercase'
+/**
+ * Ficha de caso (Figma "Desktop / Caso <cliente>" y "Mobile / Caso <cliente>"). La plantilla es la
+ * misma en los cinco: portada, imagen principal, ficha, el punto de partida, qué hicimos, cómo
+ * quedó (galería propia de cada caso), resultados (con cita en Gemmia y Credigial) y el siguiente.
+ *
+ * Ritmo vertical: las secciones de texto arrancan 118.16 → 100.8 abajo de la anterior
+ * (--spacing-caso) y la etiqueta separa 33.76 → 28.8 del contenido (--spacing-caso-etiqueta).
+ */
+export default function CasoPage() {
+  const t = useContenido()
+  const r = useRutas()
+  const { slug } = useParams()
+  const caso = casoPorSlug(t, slug)
+  useReveal()
 
-function FichaDeCaso({ caso }: { caso: Caso }) {
-  const textos = sitio.caso
-  const siguiente = siguienteCaso(caso.slug)
+  if (!caso) return <NotFoundPage />
+  const siguiente = siguienteCaso(t, caso.slug)
 
   return (
     <>
-      {/* 1. Portada */}
-      <section className="px-page-x pt-portada">
-        <div className="flex flex-wrap justify-between gap-4 font-mono text-label uppercase" style={fade('0.6s', '0.1s')}>
-          <Link to={RUTAS.trabajos} data-cursor="Volver" className="border-b border-current pb-[3px]">
-            {textos.volver}
+      {/* Portada */}
+      <section className="px-page-x pt-[calc(100px+40*var(--t))]">
+        <div className="flex h-5 items-start">
+          <Link
+            to={r.trabajos}
+            data-cursor="Volver"
+            className="border-b border-current pb-1 font-mono text-label whitespace-nowrap uppercase"
+            style={fade('0.7s', '0.2s')}
+          >
+            ← {t.caso.volver}
           </Link>
-          <span>
-            {textos.proyecto} {caso.index} / {TOTAL_CASOS} — {caso.year}
+        </div>
+        {/* La caja del título mide 119 a 1440 (1.033em), aunque el texto ocupe una línea de 0.86em. */}
+        <h1 className="pt-[calc(33.76px-4.96*var(--tt))] text-titulo-caso md:whitespace-nowrap">
+          <span className="block min-h-[1.033em]">
+            <LineaEnmascarada delay="0.1s">{caso.nombre}</LineaEnmascarada>
           </span>
-        </div>
-        <h1 className="mt-titulo text-titulo-caso">
-          <LineaEnmascarada duracion="0.9s" delay="0.1s">
-            {caso.name}
-          </LineaEnmascarada>
         </h1>
-        <div className="mt-[clamp(32px,5vh,64px)] flex flex-wrap items-end justify-between gap-7" style={fade('0.7s', '0.4s')}>
-          <p className="max-w-[40ch] text-resumen">{caso.summary}</p>
-          <div className="flex flex-wrap gap-2">
+        <div
+          className="flex flex-col gap-4 pt-[calc(42.2px-6.2*var(--tt))] md:flex-row md:items-end md:justify-between md:gap-8"
+          style={fade('0.8s', '0.4s')}
+        >
+          <p className="text-resumen md:max-w-[578.549px]">{caso.bajada}</p>
+          <ul className="flex flex-wrap gap-4 md:shrink-0 md:gap-2">
             {caso.tags.map((tag) => (
-              <span key={tag} className={TAG}>
+              <li key={tag} className="rounded-full border border-ink px-3.5 py-[7px] font-mono text-tag whitespace-nowrap uppercase">
                 {tag}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* 2. Imagen principal */}
-      <section className="px-page-x pt-[clamp(36px,6vh,72px)]">
-        <ImagenPrincipal caso={caso} />
+      <section className="px-page-x pt-[calc(50.64px-7.44*var(--tt))]" style={fade('0.9s', '0.55s')}>
+        <ImagenPrincipal slug={caso.slug} />
       </section>
 
-      {/* 3. Ficha */}
-      <section className="px-page-x pt-[clamp(40px,7vh,88px)]">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] border-t border-ink">
-          {caso.facts.map((dato) => (
-            <div key={dato.label} className="border-b border-line pb-6 pr-6 pt-5">
-              <div className="font-mono text-label-sm uppercase opacity-55">{dato.label}</div>
-              <div className="mt-2.5 text-dato">{dato.value}</div>
+      {/* Ficha: cuatro datos (en fila desde md, apilados en mobile). */}
+      <section className="px-page-x pt-[calc(59.08px-8.68*var(--tt))]">
+        <dl className="flex flex-col border-t border-ink md:flex-row">
+          {caso.ficha.map((dato) => (
+            <div key={dato.label} className="h-[90px] border-b border-line pt-5 pr-6 pb-6 md:flex-1">
+              <dt className="font-mono text-label-sm uppercase opacity-55">{dato.label}</dt>
+              <dd className="pt-2.5 text-dato md:whitespace-nowrap">{dato.valor}</dd>
             </div>
           ))}
+        </dl>
+      </section>
+
+      {/* El punto de partida */}
+      <section className="flex flex-col gap-6 px-page-x pt-caso md:flex-row md:gap-16" data-reveal>
+        <Etiqueta className="md:flex-[451.203_0_0%]">{t.caso.puntoDePartida}</Etiqueta>
+        <div className="md:flex-[822.422_0_0%]">
+          <h2 className="text-desafio text-pretty md:max-w-[671.083px]">{caso.partida.titulo}</h2>
+          <p className="pt-[calc(25.32px-3.72*var(--tt))] text-lead-alto md:max-w-[600px]">{caso.partida.texto}</p>
         </div>
       </section>
 
-      {/* 4. El punto de partida */}
-      <section className={SECCION}>
-        <div className="flex flex-wrap gap-[clamp(24px,5vw,96px)]">
-          <Eyebrow className="flex-[1_1_min(100%,280px)]">{textos.puntoDePartida}</Eyebrow>
-          <div className="flex-[2_1_min(100%,480px)]">
-            <h2 className="max-w-[22ch] text-desafio text-pretty">{caso.challengeTitle}</h2>
-            <p className="mt-[clamp(20px,3vh,36px)] max-w-[54ch] text-lead leading-[1.55]">{caso.challengeBody}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Qué hicimos */}
-      <section className={SECCION}>
-        <Eyebrow>{textos.queHicimos}</Eyebrow>
-        <div className="mt-bloque-caso border-t border-ink">
-          {caso.steps.map((paso, i) => (
-            <div
-              key={paso.title}
-              className="flex flex-wrap items-start gap-[clamp(16px,4vw,72px)] border-b border-line py-[clamp(24px,4vh,48px)]"
+      {/* Qué hicimos */}
+      <section className="px-page-x pt-caso">
+        <Etiqueta>{t.caso.queHicimos}</Etiqueta>
+        <ol className="mt-caso-etiqueta border-t border-ink">
+          {caso.pasos.map((paso, i) => (
+            <li
+              key={paso.titulo}
+              className="flex min-h-[229.75px] flex-col gap-4 border-b border-line pt-[33.75px] pb-6 md:min-h-[253.75px] md:flex-row md:items-start md:gap-page-x md:py-[28.8px]"
+              data-reveal
             >
-              <span className="flex-none font-mono text-link-mono">{String(i + 1).padStart(2, '0')}</span>
-              <h3 className="flex-[1_1_min(100%,260px)] text-paso">{paso.title}</h3>
-              <p className="max-w-[46ch] flex-[1_1_min(100%,340px)] text-body">{paso.line}</p>
-            </div>
+              <p className="font-mono text-link-mono">{String(i + 1).padStart(2, '0')}</p>
+              <h3 className="text-paso whitespace-nowrap md:flex-1">{paso.titulo}</h3>
+              <p className="text-body md:w-[min(489.44px,33.989vw)] md:shrink-0">{paso.texto}</p>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
-      {/* 6. Cómo quedó */}
-      <section className={SECCION}>
-        <Eyebrow className="mb-bloque-caso">{textos.comoQuedo}</Eyebrow>
-        <div className="flex flex-wrap gap-[clamp(20px,3vw,48px)]">
+      {/* Cómo quedó */}
+      <section className="px-page-x pt-caso">
+        <Etiqueta>{t.caso.comoQuedo}</Etiqueta>
+        <div className="pt-caso-etiqueta">
           <Galeria caso={caso} />
         </div>
       </section>
 
-      {/* 7. Qué cambió / Con qué salió */}
-      <section className={SECCION}>
-        <Eyebrow>{caso.resultsLabel || textos.resultsLabelDefault}</Eyebrow>
-        <div className="mt-bloque-caso flex flex-wrap gap-[clamp(24px,4vw,64px)] border-t border-ink pt-bloque-caso">
-          {caso.results.map((r) => (
-            <div key={r.label} className="flex-[1_1_min(100%,220px)]">
-              <div className="text-resultado text-accent">{r.value}</div>
-              <p className="mt-4 max-w-[30ch] text-resultado-label">{r.label}</p>
+      {/* Resultados y cita */}
+      <section className="px-page-x pt-caso">
+        <Etiqueta>{caso.resultadosEtiqueta}</Etiqueta>
+        <div className="mt-caso-etiqueta flex flex-col gap-6 border-t border-ink md:flex-row md:gap-page-x md:pt-[28.8px]">
+          {caso.resultados.map((resultado) => (
+            <div key={resultado.cifra + resultado.texto} className="pt-8 md:flex-1 md:pt-0" data-reveal>
+              <p className="max-w-[300px] text-resultado text-accent">{resultado.cifra}</p>
+              <p className="max-w-[300px] pt-4 text-chico">{resultado.texto}</p>
             </div>
           ))}
         </div>
-        {caso.quote && (
-          <blockquote className="mt-[clamp(64px,10vh,140px)]">
-            <p className="max-w-[26ch] text-cita text-pretty">“{caso.quote}”</p>
-            <footer className="mt-[clamp(20px,3vh,32px)] font-mono text-label uppercase opacity-60">{caso.quoteBy}</footer>
+        {caso.cita && (
+          <blockquote className="pt-[calc(84.4px-12.4*var(--tt))]" data-reveal>
+            <p className="text-cita text-pretty md:max-w-[748.992px]">{caso.cita.texto}</p>
+            <footer className="pt-[calc(45.32px+4.28*var(--t))] font-mono text-label text-[#000] uppercase opacity-60">
+              {caso.cita.autor}
+            </footer>
           </blockquote>
         )}
       </section>
 
-      {/* 8. Siguiente proyecto */}
-      <section className="mt-caso border-t border-ink">
+      {/* Siguiente proyecto */}
+      <section className="pt-caso">
         <Link
-          to={rutaDeCaso(siguiente.slug)}
-          data-cursor="Ver caso"
-          className="block px-page-x py-[clamp(48px,9vh,110px)] transition-[background,color] duration-350 hover:bg-ink hover:text-paper"
+          to={r.caso(siguiente.slug)}
+          data-cursor="Siguiente"
+          className="group block border-t border-ink px-page-x py-[calc(75.96px-11.16*var(--tt))] hover:text-inherit"
         >
-          <div className="font-mono text-label uppercase opacity-60">{textos.siguiente}</div>
-          <div className="mt-[clamp(16px,3vh,32px)] flex flex-wrap items-baseline justify-between gap-4">
-            <span className="text-siguiente">{siguiente.name}</span>
-            <span className="text-flecha">→</span>
+          <p className="font-mono text-label uppercase opacity-60">{t.caso.siguiente}</p>
+          <div className="flex flex-wrap items-center justify-between gap-x-6 pt-[calc(25.32px-3.72*var(--tt))] whitespace-nowrap">
+            <span className="text-siguiente transition-colors duration-250 group-hover:text-accent">{siguiente.nombre}</span>
+            <span className="text-flecha transition-transform duration-300 group-hover:translate-x-2" aria-hidden="true">
+              →
+            </span>
           </div>
         </Link>
       </section>
@@ -134,12 +155,4 @@ function FichaDeCaso({ caso }: { caso: Caso }) {
       <Footer />
     </>
   )
-}
-
-export default function CasoPage() {
-  const { slug } = useParams()
-  const caso = casoPorSlug(slug)
-  if (!caso) return <NotFoundPage />
-  // key: al pasar al siguiente proyecto se remonta la página y las entradas vuelven a correr.
-  return <FichaDeCaso key={caso.slug} caso={caso} />
 }

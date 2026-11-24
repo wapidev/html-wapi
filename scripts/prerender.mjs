@@ -3,6 +3,9 @@
 //
 //   dist/index.html, dist/trabajos/index.html, dist/trabajos/<slug>/index.html, dist/404.html
 //
+// Las rutas en inglés van bajo /en/ (dist/en/index.html, dist/en/work/<slug>/index.html…) con su
+// <html lang="en">.
+//
 // Cada ruta es un index.html dentro de su carpeta. En CloudFront, la función html-wapi-rutas
 // resuelve /x/ → /x/index.html y agrega la barra final (/x → /x/).
 //
@@ -29,7 +32,10 @@ function sinJs(html) {
 
 const rutas = rutasPrerender()
 for (const ruta of rutas) {
-  let html = plantilla.replace('<!--head-->', cabecera(ruta.url)).replace('<!--app-->', render(ruta.url))
+  let html = plantilla
+    .replace('<html lang="es">', `<html lang="${ruta.idioma}">`)
+    .replace('<!--head-->', cabecera(ruta.url))
+    .replace('<!--app-->', render(ruta.url))
   if (!SITIO_NUEVO) html = sinJs(html)
   const destino = path.join(DIST, ruta.archivo)
   await mkdir(path.dirname(destino), { recursive: true })
@@ -38,8 +44,10 @@ for (const ruta of rutas) {
 }
 
 // Con el flag apagado, fuera de dist/assets todo lo que no use el HTML publicado
-// (el JS del sitio nuevo y cualquier asset que haya arrastrado).
+// (el JS del sitio nuevo y cualquier asset que haya arrastrado), y las imágenes del mail del
+// formulario (public/mail), que son del sitio nuevo.
 if (!SITIO_NUEVO) {
+  await rm(path.join(DIST, 'mail'), { recursive: true, force: true })
   const publicado = (
     await Promise.all(rutas.map((r) => readFile(path.join(DIST, r.archivo), 'utf8')))
   ).join('\n')

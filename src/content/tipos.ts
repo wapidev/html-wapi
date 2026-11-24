@@ -1,41 +1,19 @@
-// Forma de src/content/sitio.json. Sale del content.json del handoff (_design/content.json);
-// los cambios respecto de ese archivo están documentados en el README del repo.
+// Forma de src/content/{es,en}.json. Los textos en castellano salen del Figma "Wapi | Coming Soon",
+// página "Sitio web ✅" (extraídos en _design/figma/<pantalla>/copy.md). El inglés es traducción
+// propia, a revisar. Lo que el diseño no trae (respuestas de las preguntas 2 a 6, textos de error y
+// de validación) está marcado en el README → "Textos que no vienen del diseño".
 
-export interface Enlace {
+import type { Idioma } from '../i18n/rutas'
+
+export interface Red {
   label: string
-  /** null mientras no haya URL real (el prototipo apunta a #contacto). */
+  /** null mientras no haya URL real (Figma no trae destinos). */
   href: string | null
 }
 
-export interface Servicio {
-  title: string
-  desc: string
-  plazo: string
-}
-
-/** Portada de una tarjeta: imagen, mockup de notebook ("laptop:archivo") o ninguna. */
-export type ClavePortada = string | null
-
-export interface TrabajoHome {
-  slug: string
-  name: string
-  line: string
-  tags: string
-  grow: number
-  basis: number
-  ratio: string
-  cover: ClavePortada
-}
-
-export interface TrabajoIndice {
-  slug: string
-  year: string
-  /** Si falta, se usa la línea de la tarjeta de la Home (igual que el prototipo). */
-  line?: string
-  tags: string[]
-  ratio: string
-  offset: boolean
-  cover: ClavePortada
+export interface Dato {
+  label: string
+  valor: string
 }
 
 export interface Pregunta {
@@ -43,63 +21,145 @@ export interface Pregunta {
   a: string
 }
 
-export interface Caso {
-  slug: string
-  index: string
-  name: string
-  year: string
-  tags: string[]
-  summary: string
-  facts: { label: string; value: string }[]
-  challengeTitle: string
-  challengeBody: string
-  steps: { title: string; line: string }[]
-  caps: string[]
-  results: { value: string; label: string }[]
-  quote: string | null
-  quoteBy: string | null
-  resultsLabel: string
+export interface Paso {
+  titulo: string
+  texto: string
 }
 
-export interface Sitio {
-  site: {
-    name: string
-    tagline: string
+export interface Resultado {
+  cifra: string
+  texto: string
+}
+
+export interface Caso {
+  slug: string
+  /** Número de caso con dos dígitos ("05"). */
+  indice: string
+  nombre: string
+  anio: string
+  bajada: string
+  tags: string[]
+  /** Texto alternativo de la imagen principal (o descripción de la demo animada). */
+  imagenAlt: string
+  ficha: Dato[]
+  partida: { titulo: string; texto: string }
+  pasos: Paso[]
+  /** Pies de la galería "Cómo quedó", en orden. Cada caso tiene su propia grilla. */
+  figuras: { alt: string; pie: string }[]
+  /** Crédito de fotos (Zuhause). */
+  credito?: { texto: string; nombre: string; href: string }
+  /** Etiqueta del bloque de resultados: "Qué cambió", "Con qué salió", "Hasta dónde llegó". */
+  resultadosEtiqueta: string
+  resultados: Resultado[]
+  cita?: { texto: string; autor: string }
+}
+
+export interface TrabajoHome {
+  slug: string
+  linea: string
+  tags: string
+}
+
+export interface TrabajoListado {
+  slug: string
+  linea: string
+  tags: string[]
+}
+
+export interface CampoForm {
+  label: string
+  placeholder: string
+}
+
+export interface Contenido {
+  idioma: Idioma
+  sitio: {
+    nombre: string
+    descripcion: string
     email: string
-    location: string
-    social: Enlace[]
+    /** "Buenos Aires," / "Argentina", como en el footer. */
+    ubicacion: string[]
+    redes: Red[]
     copyright: string
-    privacy: string
-    privacyHref: string | null
+    privacidad: string
+    privacidadHref: string | null
   }
-  /** [texto, destino] */
-  nav: { items: string[][]; cta: string }
+  nav: {
+    trabajos: string
+    servicios: string
+    nosotros: string
+    contacto: string
+    cta: string
+    menu: string
+    cerrar: string
+    /** Bloque de abajo del menú mobile. */
+    escribinos: string
+    ubicacionLinea: string
+    /** aria-label del logo. */
+    inicio: string
+  }
+  idiomas: { etiqueta: string; es: string; en: string }
+  footer: {
+    eyebrow: string
+    titulo: string[]
+    escribinos: string
+    donde: string
+    seguinos: string
+  }
   home: {
-    hero: { eyebrow: string; lines: string[]; est: string; p1: string; p2: string }
-    reel: { placeholder: string; badge: string; video: string | null }
-    manifesto: { line1: string; line2: string; body: string }
-    services: { eyebrow: string; title: string; lead: string; cta: string; items: Servicio[] }
-    works: { title: string[]; lead: string; cta: string; items: TrabajoHome[] }
-    faq: { eyebrow: string; title: string[]; lead: string; items: Pregunta[] }
-    clients: { title: string; lead: string; logos: string[] }
-    footer: { eyebrow: string; title: string[]; labels: string[] }
+    meta: { titulo: string; descripcion: string }
+    hero: { eyebrow: string; titulo: string[]; est: string; texto: string }
+    reel: { descripcion: string }
+    manifiesto: { titulo: string[]; texto: string }
+    servicios: { eyebrow: string; tituloOculto: string; items: Paso[]; cta: string }
+    trabajos: { titulo: string[]; bajada: string; items: TrabajoHome[]; cta: string }
+    preguntas: { eyebrow: string; titulo: string[]; bajada: string; items: Pregunta[] }
+    clientes: { titulo: string; bajada: string; nombres: string[] }
   }
   trabajos: {
+    meta: { titulo: string; descripcion: string }
     eyebrow: string
-    title: string[]
-    lead: string
-    range: string
-    items: TrabajoIndice[]
+    titulo: string[]
+    bajada: string
+    rango: string
+    items: TrabajoListado[]
   }
-  cases: Caso[]
+  nosotros: {
+    meta: { titulo: string; descripcion: string }
+    titulo: string
+    texto: string
+    ubicacion: string
+    imagenAlt: string
+    queHacemos: { eyebrow: string; items: Paso[] }
+    comoTrabajamos: { eyebrow: string; texto: string }
+  }
+  contacto: {
+    meta: { titulo: string; descripcion: string }
+    titulo: string
+    campos: { nombre: CampoForm; email: CampoForm; empresa: CampoForm; mensaje: CampoForm }
+    enviar: string
+    enviando: string
+    errores: { requerido: string; email: string; envio: string }
+    enviado: {
+      eyebrow: string
+      /** "Gracias, {nombre}. Ya recibimos" / "tu mensaje.": en desktop corta ahí; {nombre} se reemplaza. */
+      titulo: [string, string]
+      /** Antes y después del email, que va resaltado. */
+      texto: [string, string]
+      mientras: string
+      verTrabajos: string
+      otro: string
+    }
+    toast: { titulo: string; texto: string; cerrar: string }
+  }
   caso: {
     volver: string
-    proyecto: string
     puntoDePartida: string
     queHicimos: string
     comoQuedo: string
-    resultsLabelDefault: string
     siguiente: string
+    enDesarrollo: string
   }
-  noEncontrada: { eyebrow: string; title: string[]; volver: string }
+  casos: Caso[]
+  noEncontrada: { meta: string; eyebrow: string; titulo: string[]; volver: string }
 }

@@ -1,82 +1,99 @@
 import { Link } from 'react-router-dom'
+import { useContenido, useRutas } from '../../i18n/useIdioma'
+import { casoPorSlug } from '../../content'
+import type { TrabajoListado } from '../../content/tipos'
 import Footer from '../layout/Footer'
 import LineaEnmascarada from '../ui/LineaEnmascarada'
+import PortadaTrabajo from '../ui/PortadaTrabajo'
 import { fade } from '../ui/fade'
-import Portada from '../ui/Portada'
-import TituloRoll from '../ui/TituloRoll'
-import { sitio, casoPorSlug, rutaDeCaso } from '../../content'
-import type { TrabajoIndice } from '../../content/tipos'
+import { useReveal } from '../useReveal'
 
-/** Tarjeta del índice: badge 01–04, imagen que escala a 1.04 y tags que se invierten en cascada. */
-function TarjetaTrabajo({ trabajo, numero }: { trabajo: TrabajoIndice; numero: string }) {
-  const caso = casoPorSlug(trabajo.slug)
-  const nombre = caso?.name ?? trabajo.slug
-  // Sin `line` propia, la de la Home (así lo resuelve el prototipo).
-  const linea = trabajo.line ?? sitio.home.works.items.find((w) => w.slug === trabajo.slug)?.line
+type Ancho = 'ancha' | 'angosta'
 
+// Grilla del Figma (2004:55): 764 + 40 + 534 a 1440, portadas de 430 de alto. En mobile, una
+// columna: 197 de alto las anchas y 280 las angostas.
+const FILAS: { slug: string; ancho: Ancho }[][] = [
+  [
+    { slug: 'gemmia-logistics', ancho: 'ancha' },
+    { slug: 'credigial', ancho: 'angosta' },
+  ],
+  [
+    { slug: 'ida-y-vuelta-ibiza', ancho: 'angosta' },
+    { slug: 'zuhause', ancho: 'ancha' },
+  ],
+  [{ slug: 'gymrat', ancho: 'ancha' }],
+]
+
+const COLUMNA: Record<Ancho, string> = { ancha: 'md:flex-[764_0_0%]', angosta: 'md:flex-[534_0_0%]' }
+const PORTADA: Record<Ancho, string> = {
+  ancha: 'aspect-[350/197] md:aspect-[764/430]',
+  angosta: 'aspect-[350/280] md:aspect-[534/430]',
+}
+
+function Tarjeta({ trabajo, ancho }: { trabajo: TrabajoListado; ancho: Ancho }) {
+  const t = useContenido()
+  const r = useRutas()
+  const caso = casoPorSlug(t, trabajo.slug)
   return (
-    <Link
-      to={rutaDeCaso(trabajo.slug)}
-      data-cursor="Ver caso"
-      className="group block flex-[1_1_min(100%,460px)] transition-transform duration-550 ease-wapi hover:-translate-y-2"
-      style={trabajo.offset ? { marginTop: 'clamp(0px, 9vw, 140px)' } : undefined}
-    >
-      <div className="relative w-full overflow-hidden bg-placeholder" style={{ aspectRatio: trabajo.ratio }}>
-        <div className="absolute inset-0 transition-transform duration-700 ease-wapi group-hover:scale-[1.04]">
-          <Portada clave={trabajo.cover} alt={nombre} />
-        </div>
-        <span className="pointer-events-none absolute left-4 top-4 bg-paper px-2.5 py-1.5 font-mono text-label-sm uppercase text-ink">
-          {numero}
-        </span>
+    <Link to={r.caso(trabajo.slug)} data-cursor="Ver" className={`group block hover:text-inherit ${COLUMNA[ancho]}`} data-reveal>
+      <PortadaTrabajo slug={trabajo.slug} alt="" className={PORTADA[ancho]} />
+      <div className="flex flex-wrap items-baseline justify-between gap-y-2 pt-[calc(16px+4*var(--t))] whitespace-nowrap">
+        <h2 className="text-tarjeta-trabajos transition-colors duration-250 group-hover:text-accent">{caso?.nombre}</h2>
+        <p className="font-mono text-label-sm uppercase">{caso?.anio}</p>
       </div>
-      <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-        <TituloRoll as="h2" texto={nombre} className="text-tarjeta-trabajos" />
-        <span className="font-mono text-label-sm uppercase text-ink">{trabajo.year}</span>
-      </div>
-      <p className="mt-3 max-w-[46ch] text-tarjeta">{linea}</p>
-      <div className="mt-[18px] flex flex-wrap gap-2">
-        {trabajo.tags.map((tag, i) => (
-          <span
+      <p className="max-w-[460px] pt-3 text-tarjeta">{trabajo.linea}</p>
+      <ul className="flex flex-wrap gap-2 pt-[18px]">
+        {trabajo.tags.map((tag) => (
+          <li
             key={tag}
-            className="rounded-full border border-ink px-3.5 py-[7px] font-mono text-tag uppercase text-ink transition-colors duration-350 group-hover:bg-ink group-hover:text-paper"
-            style={{ transitionDelay: `${i * 60}ms` }}
+            className="rounded-full border border-ink px-3.5 py-[7px] font-mono text-tag whitespace-nowrap uppercase transition-colors duration-250 group-hover:bg-ink group-hover:text-paper"
           >
             {tag}
-          </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </Link>
   )
 }
 
+/** Trabajos (Figma "Desktop / Trabajos" 2004:2, "Mobile / Trabajos" 2031:2). */
 export default function TrabajosPage() {
-  const { trabajos } = sitio
+  const t = useContenido()
+  const { trabajos } = t
+  const porSlug = Object.fromEntries(trabajos.items.map((item) => [item.slug, item]))
+  useReveal()
+
   return (
     <>
-      <section className="px-page-x pt-portada">
-        <div className="font-mono text-label uppercase" style={fade('0.6s', '0.1s')}>
+      <section className="px-page-x pt-[calc(100px+40*var(--t))]">
+        <p className="font-mono text-label whitespace-nowrap uppercase" style={fade('0.7s', '0.2s')}>
           {trabajos.eyebrow}
-        </div>
-        <h1 className="mt-titulo text-titulo-trabajos">
-          {trabajos.title.map((linea, i) => (
-            <LineaEnmascarada key={linea} duracion="0.9s" delay={`${(0.1 + i * 0.08).toFixed(2)}s`}>
+        </p>
+        <h1 className="pt-[calc(33.76px-4.96*var(--tt))] text-titulo-trabajos whitespace-nowrap">
+          {trabajos.titulo.map((linea, i) => (
+            <LineaEnmascarada key={linea} delay={`${(0.1 + i * 0.08).toFixed(2)}s`}>
               {linea}
             </LineaEnmascarada>
           ))}
         </h1>
         <div
-          className="mt-[clamp(36px,6vh,80px)] flex flex-wrap items-end justify-between gap-7 border-b border-ink pb-[clamp(20px,3vh,32px)]"
-          style={fade('0.7s', '0.4s')}
+          className="flex flex-col gap-[27.75px] border-b border-ink pt-[calc(50.64px-7.44*var(--tt))] md:flex-row md:items-end md:justify-between md:gap-8 md:pb-[21.6px]"
+          style={fade('0.8s', '0.4s')}
         >
-          <p className="max-w-[44ch] text-lead tracking-normal">{trabajos.lead}</p>
-          <span className="font-mono text-label uppercase">{trabajos.range}</span>
+          <p className="text-lead md:max-w-[505.19px]">{trabajos.bajada}</p>
+          <p className="font-mono text-label whitespace-nowrap uppercase">{trabajos.rango}</p>
         </div>
       </section>
 
-      <section className="px-page-x pb-seccion-fin pt-[clamp(48px,9vh,110px)]">
-        <div className="flex flex-wrap gap-x-[clamp(20px,3vw,48px)] gap-y-[clamp(32px,6vw,96px)]">
-          {trabajos.items.map((trabajo, i) => (
-            <TarjetaTrabajo key={trabajo.slug} trabajo={trabajo} numero={String(i + 1).padStart(2, '0')} />
+      <section className="px-page-x pt-[calc(75.96px-11.16*var(--tt))] pb-[calc(101.28px-14.88*var(--tt))]">
+        <div className="flex flex-col gap-[calc(56px+40*var(--t))]">
+          {FILAS.map((fila) => (
+            <div key={fila[0].slug} className="flex flex-col gap-[calc(56px+40*var(--t))] md:flex-row md:items-start md:gap-10">
+              {fila.map(({ slug, ancho }) => (
+                <Tarjeta key={slug} trabajo={porSlug[slug]} ancho={ancho} />
+              ))}
+              {fila.length === 1 && <div className="hidden md:block md:flex-[534_0_0%]" />}
+            </div>
           ))}
         </div>
       </section>

@@ -1,18 +1,21 @@
-import { sitio } from '../../content'
+import { useContenido } from '../../i18n/useIdioma'
 
-/** Manifiesto (#nosotros): título en dos líneas con la segunda sangrada; párrafo a la derecha. */
+/** "La IA no es el objetivo. Es el atajo." (2003:71 / mobile 2029:57). */
 export default function Manifiesto() {
-  const { manifesto } = sitio.home
+  const { manifiesto } = useContenido().home
+
   return (
-    <section id="nosotros" className="px-page-x pb-[clamp(80px,14vh,180px)] pt-[clamp(96px,18vh,220px)]">
-      <h2 data-reveal className="m-0 text-manifiesto">
-        <span className="block">{manifesto.line1}</span>
-        <span className="ml-[clamp(0px,18vw,340px)] block">{manifesto.line2}</span>
+    <section className="px-page-x pt-[calc(151.92px-22.32*var(--tt))] pb-[calc(118.16px-17.36*var(--tt))]">
+      <h2 className="text-manifiesto md:whitespace-nowrap" data-reveal>
+        {manifiesto.titulo.map((linea) => (
+          <span key={linea} className="block">
+            {linea}
+          </span>
+        ))}
       </h2>
-      <div className="mt-[clamp(40px,7vh,88px)] flex justify-end">
-        <p data-reveal className="m-0 max-w-[54ch] text-lead leading-[1.55]" style={{ transitionDelay: '0.1s' }}>
-          {manifesto.body}
-        </p>
+      {/* En mobile el bloque del párrafo mide 190.8 fijo (deja aire abajo, como en el frame). */}
+      <div className="flex min-h-[190.799px] justify-end pt-[calc(16px+34.4*var(--t))] md:min-h-0" data-reveal>
+        <p className="text-lead-alto md:max-w-[620.006px]">{manifiesto.texto}</p>
       </div>
     </section>
   )

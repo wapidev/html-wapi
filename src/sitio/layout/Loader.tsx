@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Wordmark from '../ui/Wordmark'
+import { LogoWapi } from '../ui/iconos'
 
 export const CLAVE_LOADER = 'wapi:loader'
 
@@ -19,7 +19,7 @@ export default function Loader() {
 
   return (
     <div className="loader" aria-hidden="true">
-      <Wordmark className="h-auto w-[128px] fill-ink" />
+      <LogoWapi className="block h-[50.43px] w-[128px] text-ink" />
     </div>
   )
 }

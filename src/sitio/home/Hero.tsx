@@ -1,33 +1,38 @@
+import { useContenido } from '../../i18n/useIdioma'
 import LineaEnmascarada from '../ui/LineaEnmascarada'
 import { fade } from '../ui/fade'
-import { sitio } from '../../content'
 
-const LEAD = 'm-0 max-w-[46ch] flex-[1_1_min(100%,340px)] text-lead'
+const conIntro = (segundos: number) => `calc(${segundos.toFixed(2)}s + var(--intro))`
 
 /**
- * Hero de la Home. Los tiempos esperan al loader (0.95s / 1.03s / 1.11s); sin loader,
- * --intro los adelanta 0.85s (ver index.css).
+ * Hero de la Home (2003:35 / mobile 2029:22). En mobile no hay etiqueta (la capa no existe en el
+ * frame). Desktop: tres columnas 377 · 417 · 417 con gap 64; la tercera va vacía (su texto está
+ * oculto en el Figma) y es la que deja el párrafo en x 492.
+ *
+ * Los tiempos de entrada esperan al loader; sin loader, --intro los adelanta 0.85s.
  */
 export default function Hero() {
-  const { hero } = sitio.home
-  const conIntro = (segundos: number) => `calc(${segundos.toFixed(2)}s + var(--intro))`
+  const { hero } = useContenido().home
 
   return (
-    <section id="top" className="px-page-x pt-portada">
-      <div className="font-mono text-label uppercase" style={fade('0.7s', conIntro(1.15))}>
+    <section id="top" className="px-page-x pt-[calc(65px+75*var(--t))]">
+      <p className="hidden font-mono text-label whitespace-nowrap uppercase md:block" style={fade('0.7s', conIntro(1.15))}>
         {hero.eyebrow}
-      </div>
-      <h1 className="mt-titulo text-hero text-balance">
-        {hero.lines.map((linea, i) => (
+      </p>
+      <h1 className="pt-[calc(33.76px-4.96*var(--tt))] text-hero text-balance whitespace-nowrap">
+        {hero.titulo.map((linea, i) => (
           <LineaEnmascarada key={linea} delay={conIntro(0.95 + i * 0.08)}>
             {linea}
           </LineaEnmascarada>
         ))}
       </h1>
-      <div className="mt-[clamp(40px,7vh,88px)] flex flex-wrap gap-[clamp(24px,5vw,96px)]" style={fade('0.8s', conIntro(1.35))}>
-        <div className="flex-[1_1_min(100%,300px)] font-mono text-label uppercase">{hero.est}</div>
-        <p className={LEAD}>{hero.p1}</p>
-        <p className={LEAD}>{hero.p2}</p>
+      <div
+        className="flex flex-col gap-[23.75px] pt-[calc(36px+14.4*var(--t))] md:flex-row md:gap-16"
+        style={fade('0.8s', conIntro(1.35))}
+      >
+        <p className="font-mono text-label uppercase md:flex-[377_1_0%]">{hero.est}</p>
+        <p className="text-lead md:max-w-[528.154px] md:flex-[417_1_0%]">{hero.texto}</p>
+        <div className="hidden lg:block lg:max-w-[528.154px] lg:flex-[417_1_0%]" />
       </div>
     </section>
   )

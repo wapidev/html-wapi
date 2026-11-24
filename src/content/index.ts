@@ -1,36 +1,28 @@
-import datos from './sitio.json'
-import type { Caso, Sitio } from './tipos'
+import es from './es.json'
+import en from './en.json'
+import type { Caso, Contenido } from './tipos'
+import type { Idioma } from '../i18n/rutas'
 
-export const sitio = datos as Sitio
-
-export function casoPorSlug(slug: string | undefined): Caso | undefined {
-  return sitio.cases.find((c) => c.slug === slug)
+const CONTENIDOS: Record<Idioma, Contenido> = {
+  es: es as Contenido,
+  en: en as Contenido,
 }
 
-/** El siguiente proyecto cicla: 01 → 02 → 03 → 04 → 01. */
-export function siguienteCaso(slug: string): Caso {
-  const i = sitio.cases.findIndex((c) => c.slug === slug)
-  return sitio.cases[(i + 1) % sitio.cases.length]
+export function contenido(idioma: Idioma): Contenido {
+  return CONTENIDOS[idioma]
 }
 
-/**
- * Destino de una tarjeta: la ficha si el caso existe; si no, el índice de trabajos.
- * (Los [Cliente 05] y [Cliente 06] de la Home no tienen ficha.)
- */
-export function rutaDeTrabajo(slug: string): string {
-  return casoPorSlug(slug) ? rutaDeCaso(slug) : RUTAS.trabajos
+/** Slugs de los casos, en el orden de las fichas (01 → 05). Son los mismos en los dos idiomas. */
+export const SLUGS_CASOS: readonly string[] = CONTENIDOS.es.casos.map((c) => c.slug)
+
+export function casoPorSlug(c: Contenido, slug: string | undefined): Caso | undefined {
+  return c.casos.find((caso) => caso.slug === slug)
 }
 
-export function rutaDeCaso(slug: string): string {
-  return `${RUTAS.trabajos}${slug}/`
+/** El siguiente proyecto cicla: 01 → 02 → … → 05 → 01. */
+export function siguienteCaso(c: Contenido, slug: string): Caso {
+  const i = c.casos.findIndex((caso) => caso.slug === slug)
+  return c.casos[(i + 1) % c.casos.length]
 }
 
-// Barra final en todas las rutas: el build genera trabajos/index.html y
-// trabajos/<slug>/index.html, que cualquier hosting estático sirve sin reglas extra.
-export const RUTAS = {
-  inicio: '/',
-  trabajos: '/trabajos/',
-} as const
-
-/** Total de casos con dos dígitos ("04"), como en "Proyecto 01 / 04". */
-export const TOTAL_CASOS = String(sitio.cases.length).padStart(2, '0')
+export type { Caso, Contenido }

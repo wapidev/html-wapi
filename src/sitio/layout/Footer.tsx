@@ -1,71 +1,98 @@
-import Wordmark from '../ui/Wordmark'
-import { sitio } from '../../content'
-
-const ETIQUETA = 'mb-[14px] font-mono text-label-sm uppercase opacity-70'
+import { useContenido } from '../../i18n/useIdioma'
+import { WordmarkFooter } from '../ui/iconos'
 
 /**
- * Footer de contacto, igual en las tres páginas. En la Home va con `cortina`: queda por
- * encima (z-index 2) de la sección de clientes, que es sticky, y la tapa al scrollear.
+ * Footer (Figma "Footer", 2038:168): fondo acento, "Hagamos algo que dure.", tres columnas, la fila
+ * legal y el wordmark gigante recortado. En Contacto va sin el título (`conTitulo={false}`).
  *
- * Los links llevan `hover:text-inherit`: el hover global es el azul de acento, que sobre
- * este fondo azul hacía desaparecer el texto (pasa igual en el prototipo).
+ * `cortina`: en la Home pasa por encima de Clientes, que queda fijo.
+ *
+ * Sin título (Contacto): padding de arriba 72 → 64, 720 de alto mínimo en desktop y ninguno en mobile.
+ *
+ * Mobile: las tres columnas se apilan en filas de 78 y 102.81 (las posiciones absolutas del frame:
+ * top 0 · 78 · 180.81).
  */
-export default function Footer({ cortina = false }: { cortina?: boolean }) {
-  const { site, home } = sitio
-  const [escribinos, dondeEstamos, seguinos] = home.footer.labels
-  // "Buenos Aires, Argentina" → "Buenos Aires," / "Argentina", como en el prototipo.
-  const [ciudad, pais] = site.location.split(', ')
+export default function Footer({ conTitulo = true, cortina = false }: { conTitulo?: boolean; cortina?: boolean }) {
+  const t = useContenido()
+  const etiqueta = 'font-mono text-label-sm uppercase opacity-70'
 
   return (
     <footer
-      id="contacto"
-      className={`flex min-h-screen flex-col justify-between overflow-hidden bg-accent px-page-x pt-[clamp(90px,15vh,180px)] text-paper ${cortina ? 'relative z-2' : ''}`}
+      id="pie"
+      className={`flex flex-col justify-between overflow-clip bg-accent ${cortina ? 'relative z-1' : ''} px-page-x text-paper ${conTitulo ? 'min-h-[773.6px] pt-[calc(126.6px-18.6*var(--tt))]' : 'pt-[calc(72px-8*var(--tt))] md:min-h-[720px]'}`}
     >
       <div>
-        <div className="font-mono text-label uppercase opacity-75">{home.footer.eyebrow}</div>
-        <h2 className="mt-[clamp(20px,3vh,40px)] text-cierre">
-          {home.footer.title[0]}
-          <br />
-          {home.footer.title[1]}
-        </h2>
-      </div>
+        {conTitulo && (
+          <>
+            <p className="font-mono text-label uppercase opacity-75">{t.footer.eyebrow}</p>
+            <h2 className="pt-[calc(25.32px-3.72*var(--tt))] text-cierre whitespace-nowrap">
+              {t.footer.titulo.map((linea) => (
+                <span key={linea} className="block">
+                  {linea}
+                </span>
+              ))}
+            </h2>
+          </>
+        )}
 
-      <div className="mt-[clamp(48px,8vh,96px)] flex flex-wrap gap-[clamp(28px,5vw,80px)]">
-        <div className="flex-[1_1_min(100%,240px)]">
-          <div className={ETIQUETA}>{escribinos}</div>
-          <a href={`mailto:${site.email}`} data-cursor="Escribir" className="border-b border-current pb-[3px] text-contacto hover:text-inherit">
-            {site.email}
-          </a>
-        </div>
-        <div className="flex-[1_1_min(100%,240px)]">
-          <div className={ETIQUETA}>{dondeEstamos}</div>
-          <p className="text-contacto leading-[1.3]">
-            {ciudad},
-            <br />
-            {pais}
-          </p>
-        </div>
-        <div className="flex-[1_1_min(100%,240px)]">
-          <div className={ETIQUETA}>{seguinos}</div>
-          <div className="flex flex-col items-start gap-2">
-            {site.social.map((red) => (
-              <a key={red.label} href={red.href ?? '#contacto'} className="text-redes hover:text-inherit hover:opacity-60">
-                {red.label}
-              </a>
-            ))}
+        <div
+          className="grid grid-rows-[78px_102.81px_auto] pt-[calc(67.52px-9.92*var(--tt))] md:flex md:gap-16"
+        >
+          <div className="md:flex-1">
+            <p className={etiqueta}>{t.footer.escribinos}</p>
+            <a
+              href={`mailto:${t.sitio.email}`}
+              className="mt-3.5 inline-block border-b border-paper text-contacto leading-normal hover:text-inherit hover:opacity-60"
+            >
+              {t.sitio.email}
+            </a>
+          </div>
+          <div className="md:flex-1">
+            <p className={etiqueta}>{t.footer.donde}</p>
+            <p className="pt-3.5 text-contacto">
+              {t.sitio.ubicacion.map((linea) => (
+                <span key={linea} className="block">
+                  {linea}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className="md:flex-1">
+            <p className={etiqueta}>{t.footer.seguinos}</p>
+            <ul className="flex flex-col items-start gap-2 pt-3.5">
+              {t.sitio.redes.map((red) => (
+                <li key={red.label} className="text-redes">
+                  {red.href ? (
+                    <a href={red.href} target="_blank" rel="noreferrer" className="hover:text-inherit hover:opacity-60">
+                      {red.label}
+                    </a>
+                  ) : (
+                    red.label
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
 
-      <div className="mt-[clamp(40px,7vh,80px)] flex flex-wrap justify-between gap-6 pb-[18px] font-mono text-label-sm uppercase opacity-75">
-        <span>{site.copyright}</span>
-        <a href={site.privacyHref ?? '#contacto'} className="hover:text-inherit">
-          {site.privacy}
-        </a>
-      </div>
-
-      <div className="relative h-[clamp(90px,15vw,260px)] overflow-hidden">
-        <Wordmark recortado className="absolute bottom-0 left-[-1%] h-auto w-[102%] fill-current opacity-92" />
+      <div>
+        <div
+          className={`flex justify-between pb-[18px] font-mono text-label-sm uppercase opacity-75 ${conTitulo ? 'pt-[calc(59.08px-8.68*var(--tt))]' : 'pt-10'}`}
+        >
+          <p>{t.sitio.copyright}</p>
+          {t.sitio.privacidadHref ? (
+            <a href={t.sitio.privacidadHref} className="hover:text-inherit hover:opacity-60">
+              {t.sitio.privacidad}
+            </a>
+          ) : (
+            <p>{t.sitio.privacidad}</p>
+          )}
+        </div>
+        {/* Caja 1337.6 × 192 con el SVG de 1364.38 × 398.344 en left −13.38, top −206.34. */}
+        <div className="relative aspect-[1337.6/192] w-full overflow-clip" aria-hidden="true">
+          <WordmarkFooter className="absolute top-[-107.469%] left-[-1.0003%] h-[207.471%] w-[102.002%]" />
+        </div>
       </div>
     </footer>
   )

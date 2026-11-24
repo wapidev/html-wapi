@@ -1,24 +1,21 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useCallback, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import Wordmark from '../ui/Wordmark'
-import { sitio, RUTAS } from '../../content'
+import { useContenido, useRutas } from '../../i18n/useIdioma'
+import { LogoWapi } from '../ui/iconos'
+import Boton from '../ui/Boton'
+import SelectorIdioma from './SelectorIdioma'
+import MenuMobile from './MenuMobile'
 
 type Estado = 'arriba' | 'scrolleado' | 'footer'
 
-// Colores por estado (prototipo: navColor / navBg / navBorder / pill*). Transición 0.4s ease.
+// Arriba el header no tiene fondo (como en el Figma). Al scrollear pasa a blanco al 92 % con
+// línea, y sobre el footer azul el texto va en blanco y el botón se invierte (comportamiento del
+// prototipo anterior, que el Figma no contradice: solo dibuja el estado de arriba).
 const HEADER: Record<Estado, string> = {
   arriba: 'border-transparent bg-transparent text-ink',
   scrolleado: 'border-ink bg-paper/92 text-ink',
   footer: 'border-transparent bg-transparent text-paper',
 }
-// Sobre el footer azul la píldora se invierte. El borde es currentColor de la propia píldora.
-const PILDORA: Record<Estado, string> = {
-  arriba: 'bg-ink text-paper hover:bg-paper hover:text-ink',
-  scrolleado: 'bg-ink text-paper hover:bg-paper hover:text-ink',
-  footer: 'bg-paper text-accent hover:bg-transparent hover:text-paper',
-}
-// En el prototipo el hover de los links es el azul también sobre el footer azul, y el
-// texto desaparece. Ahí se mantiene blanco y baja la opacidad, como los links del footer.
 const LINK: Record<Estado, string> = {
   arriba: 'hover:text-accent',
   scrolleado: 'hover:text-accent',
@@ -26,29 +23,29 @@ const LINK: Record<Estado, string> = {
 }
 
 /**
- * Header fijo. Tres estados: arriba (transparente), scrolleado (blanco 92% con línea) y
- * sobre el footer de contacto (texto blanco). En la Home pasa a "scrolleado" al 70% del
- * alto de pantalla; en el resto, al 50%.
- *
- * Mobile (< 720px): el prototipo no lo resuelve (los links se salen de pantalla). Logo y
- * "Hablemos" quedan en la primera fila y los cuatro links bajan a la segunda.
+ * Header (Figma "Header", 2038:80). Desktop (≥ 1024): logo, los cuatro links como una sola frase
+ * separada por comas, selector de idioma y "Hablemos". Mobile: logo, selector y "Menú", que abre
+ * el menú a pantalla completa (ahí va "Hablemos").
  */
 export default function Header() {
+  const t = useContenido()
+  const r = useRutas()
   const { pathname } = useLocation()
-  const enHome = pathname === RUTAS.inicio
   const [scrolleado, setScrolleado] = useState(false)
   const [sobreFooter, setSobreFooter] = useState(false)
+  const [menu, setMenu] = useState(false)
+  const cerrarMenu = useCallback(() => setMenu(false), [])
 
   useEffect(() => {
-    const umbral = enHome ? 0.7 : 0.5
+    const umbral = pathname === r.inicio ? 0.7 : 0.5
     const alScrollear = () => setScrolleado(window.scrollY > window.innerHeight * umbral)
     alScrollear()
     window.addEventListener('scroll', alScrollear, { passive: true })
     return () => window.removeEventListener('scroll', alScrollear)
-  }, [enHome])
+  }, [pathname, r.inicio])
 
   useEffect(() => {
-    const footer = document.getElementById('contacto')
+    const footer = document.getElementById('pie')
     if (!footer) return
     const io = new IntersectionObserver(([entrada]) => setSobreFooter(entrada.isIntersecting), {
       rootMargin: '-72px 0px -85% 0px',
@@ -57,48 +54,59 @@ export default function Header() {
     return () => io.disconnect()
   }, [pathname])
 
-  const estado: Estado = sobreFooter ? 'footer' : scrolleado ? 'scrolleado' : 'arriba'
-  const [trabajos, servicios, nosotros, contacto] = sitio.nav.items
+  // Con el menú abierto, el header queda sobre la capa blanca del menú.
+  const estado: Estado = menu ? 'arriba' : sobreFooter ? 'footer' : scrolleado ? 'scrolleado' : 'arriba'
+  const links = [
+    { texto: t.nav.trabajos, to: r.trabajos },
+    { texto: t.nav.servicios, to: r.servicios },
+    { texto: t.nav.nosotros, to: r.nosotros },
+    { texto: t.nav.contacto, to: r.contacto },
+  ]
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-100 flex items-center justify-between gap-8 border-b px-page-x py-[22px] transition-[background,color,border-color] duration-400 max-[719px]:flex-wrap max-[719px]:gap-y-3 ${HEADER[estado]}`}
-    >
-      {enHome ? (
-        <a href="#top" data-cursor="Inicio" className="flex items-center leading-0">
-          <Wordmark titulo="wapi" className="h-auto w-[74px] fill-current" />
-        </a>
-      ) : (
-        <Link to={RUTAS.inicio} data-cursor="Inicio" className="flex items-center leading-0">
-          <Wordmark titulo="wapi" className="h-auto w-[74px] fill-current" />
+    <>
+      <MenuMobile abierto={menu} cerrar={cerrarMenu} />
+      <header
+        className={`fixed inset-x-0 top-0 z-100 flex items-center justify-between border-b px-5 pt-6 pb-[11px] transition-[background,color,border-color] duration-400 lg:px-page-x lg:pt-[22px] lg:pb-[21px] ${HEADER[estado]} ${menu ? 'border-transparent bg-transparent' : ''}`}
+      >
+        <Link to={r.inicio} aria-label={t.nav.inicio} data-cursor="Inicio" className="flex items-center hover:text-inherit">
+          <span className="block h-[29.156px] w-[74px]">
+            <LogoWapi className="block size-full" />
+          </span>
         </Link>
-      )}
-      <nav className="ml-auto flex flex-wrap items-baseline gap-x-[clamp(20px,3vw,48px)] max-[719px]:contents">
-        <span className="flex items-baseline text-nav max-[719px]:order-last max-[719px]:basis-full">
-          <Link to={trabajos[1]} className={`transition-colors duration-200 ${LINK[estado]}`}>
-            {trabajos[0]}
-          </Link>
-          <span>,&nbsp;</span>
-          <Link to={servicios[1]} className={`transition-colors duration-200 ${LINK[estado]}`}>
-            {servicios[0]}
-          </Link>
-          <span>,&nbsp;</span>
-          <Link to={nosotros[1]} className={`transition-colors duration-200 ${LINK[estado]}`}>
-            {nosotros[0]}
-          </Link>
-          <span>,&nbsp;</span>
-          <a href={contacto[1]} className={`transition-colors duration-200 ${LINK[estado]}`}>
-            {contacto[0]}
-          </a>
-        </span>
-        <a
-          href="#contacto"
-          data-cursor="Escribir"
-          className={`rounded-full border border-current px-[22px] py-[11px] text-pill transition-[background,color] duration-250 max-[719px]:ml-auto ${PILDORA[estado]}`}
-        >
-          {sitio.nav.cta}
-        </a>
-      </nav>
-    </header>
+
+        {/* Desktop */}
+        <nav className="hidden flex-1 items-center justify-end gap-[38px] lg:flex">
+          <p className="flex items-center whitespace-nowrap">
+            {links.map((link, i) => (
+              <Fragment key={link.to}>
+                {i > 0 && <span className="text-nav-coma">,&nbsp;</span>}
+                <Link to={link.to} className={`text-nav transition-colors duration-200 ${LINK[estado]}`}>
+                  {link.texto}
+                </Link>
+              </Fragment>
+            ))}
+          </p>
+          <SelectorIdioma variante="desktop" />
+          <Boton to={r.contacto} estilo={estado === 'footer' ? 'invertido' : 'primario'} cursor="Escribir">
+            {t.nav.cta}
+          </Boton>
+        </nav>
+
+        {/* Mobile */}
+        <div className="flex items-center gap-[18px] lg:hidden">
+          <SelectorIdioma variante="mobile" claro={estado === 'footer'} />
+          <button
+            type="button"
+            className="flex size-11 min-w-11 items-center justify-end"
+            aria-expanded={menu}
+            aria-controls="menu-mobile"
+            onClick={() => setMenu((m) => !m)}
+          >
+            <span className="border-b border-current pb-1 font-mono text-label uppercase">{menu ? t.nav.cerrar : t.nav.menu}</span>
+          </button>
+        </div>
+      </header>
+    </>
   )
 }
