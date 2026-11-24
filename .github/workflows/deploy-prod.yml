@@ -89,31 +89,40 @@ jobs:
             echo "❌ El bucket $BUCKET pertenece a '${CURRENT:-(sin marker)}', no a 'html-wapi'."; exit 1; fi
           echo "✅ Bucket validado."
 
-      - name: Sync S3 con cache control
+      - name: Subir assets y HTML
         env:
           BUCKET: ${{ vars.S3_BUCKET_PROD }}
         run: |
-          # Orden: primero los assets nuevos (sin borrar los viejos), después el HTML que los usa,
-          # y recién al final se borra lo que sobra. Borrando antes, quien tenía abierta una página
-          # vieja pedía un JS que ya no existía y la navegación se rompía.
-          # JS y CSS de Vite llevan hash en el nombre: cache larga.
+          # Primero los assets nuevos (sin borrar los viejos), después el HTML que los usa. Los viejos
+          # se borran recién en el último paso, cuando ningún HTML en caché los pide.
+          # JS, CSS, fuentes y videos de Vite llevan hash en el nombre: caché de un año.
           aws s3 sync dist/assets "s3://$BUCKET/assets" \
             --exclude "images/*" \
             --cache-control "public, max-age=31536000, immutable"
-          # El resto (HTML de cada ruta, imágenes públicas, robots, sitemap) se revalida siempre.
+          # El resto (HTML de cada ruta, imágenes públicas, robots, sitemap). El navegador revalida
+          # siempre (max-age=0); CloudFront lo guarda un día (s-maxage) y cada deploy lo invalida.
           aws s3 sync dist/ "s3://$BUCKET/" --delete \
             --exclude "assets/*" --include "assets/images/*" \
             --exclude ".project-owner" \
-            --cache-control "public, max-age=0, must-revalidate"
-          # Limpieza: los assets con hash que ya no usa ningún HTML.
+            --cache-control "public, max-age=0, s-maxage=86400, must-revalidate"
+
+      - name: Invalidar CloudFront y esperar
+        env:
+          DISTRIBUTION: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID_PROD }}
+        run: |
+          ID=$(aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths "/*" --query Invalidation.Id --output text)
+          echo "Invalidación $ID"
+          # Hay que esperarla: con el HTML guardado en CloudFront, borrar los assets viejos antes de
+          # que termine dejaría páginas en caché pidiendo archivos que ya no existen.
+          aws cloudfront wait invalidation-completed --distribution-id "$DISTRIBUTION" --id "$ID"
+
+      - name: Borrar los assets viejos
+        env:
+          BUCKET: ${{ vars.S3_BUCKET_PROD }}
+        run: |
           aws s3 sync dist/assets "s3://$BUCKET/assets" --delete \
             --exclude "images/*" \
             --cache-control "public, max-age=31536000, immutable"
-
-      - name: Invalidar CloudFront
-        env:
-          DISTRIBUTION: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID_PROD }}
-        run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION" --paths "/*" --query Invalidation.Id --output text
 
       # Deja una marca de que ESTE commit es el que está en producción, para poder volver
       # atrás sin buscar el SHA a mano. Fecha + número de run: ordena solo y no se repite.
