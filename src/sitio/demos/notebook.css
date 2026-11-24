@@ -1,0 +1,26 @@
+/*
+ * Demos de Ida & Vuelta y Zuhause: notebook con el sitio bajando solo. Keyframes y reglas
+ * copiadas literal del handoff de videos (03-ida-y-vuelta/demo-ida-y-vuelta.html y
+ * 04-zuhause/demo-zuhause.html). La maqueta de la notebook está en DemoNotebook.tsx.
+ */
+@keyframes ivScroll {
+  0%, 13% { transform: translateY(0); }
+  22%, 35% { transform: translateY(-23.77%); }
+  44%, 57% { transform: translateY(-49.57%); }
+  66%, 86% { transform: translateY(-74.66%); }
+  100% { transform: translateY(0); }
+}
+@keyframes zuScroll {
+  0%, 13% { transform: translateY(0); }
+  22%, 35% { transform: translateY(-12.6%); }
+  44%, 57% { transform: translateY(-61.59%); }
+  66%, 86% { transform: translateY(-84.86%); }
+  100% { transform: translateY(0); }
+}
+.iv-demo img { animation: ivScroll 16s cubic-bezier(0.65, 0, 0.35, 1) infinite; will-change: transform; }
+.iv-demo:hover img { animation-play-state: paused; }
+.zu-demo img { animation: zuScroll 18s cubic-bezier(0.65, 0, 0.35, 1) infinite; will-change: transform; }
+.zu-demo:hover img { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .iv-demo img, .zu-demo img { animation: none !important; transform: none !important; }
+}

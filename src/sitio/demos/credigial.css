@@ -1,0 +1,70 @@
+/*
+ * Demo "Crear un préstamo" de Credigial: copia literal del handoff de videos
+ * (wapi-handoff-videos/02-credigial/demo-credigial.html), sin el reset de la página de prueba.
+ *
+ * El handoff usa prCur (cursor) y prt23…prt34 (tipeo de cada campo) pero no las define: abajo
+ * están reconstruidas desde referencia-demo-credigial.mp4. El cursor pasa por los mismos puntos
+ * y en los mismos momentos que las ondas de clic del handoff (prk42…prk49); cada campo se tipea
+ * en ~0,45 s (2,8 % del ciclo) apenas aparece.
+ *
+ * La caja violeta y la ventana (.pr-demo / .pr-win del handoff) no están acá: las medidas salen del
+ * Figma (ImagenPrincipal.tsx). .pr-demo queda como clase de la caja para pausar con hover.
+ */
+.pr-stage { position: relative; width: 100%; aspect-ratio: 1440 / 1024; container-type: inline-size; overflow: hidden; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.pr-stage .pr-o, .pr-stage .pr-scr { position: absolute; box-sizing: border-box; }
+.pr-stage .pr-scr img { width: 100%; height: 100%; display: block; }
+.pr-stage .pr-o, .pr-stage .pr-scr:not(.pr-list) { opacity: 0; }
+.pr-stage .pr-cur { opacity: 1; margin: -0.1% 0 0 -0.15%; }
+.pr-demo:hover * { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) { .pr-stage * { animation: none !important; } .pr-stage .pr-cur { display: none; } }
+@keyframes prk2{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}56.25%{opacity:1}58.125%{opacity:0}100%{opacity:0}}
+@keyframes prk3{0%{opacity:0}11.875%{opacity:0}12.188%{opacity:1}13.438%{opacity:1}13.75%{opacity:0}100%{opacity:0}}
+@keyframes prk4{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}56.25%{opacity:1}58.125%{opacity:0}100%{opacity:0}}
+@keyframes prk5{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}41.875%{opacity:1}41.938%{opacity:0}100%{opacity:0}}
+@keyframes prk6{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}42.438%{opacity:1}42.5%{opacity:0}100%{opacity:0}}
+@keyframes prk7{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}43.0%{opacity:1}43.062%{opacity:0}100%{opacity:0}}
+@keyframes prk8{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}43.562%{opacity:1}43.625%{opacity:0}100%{opacity:0}}
+@keyframes prk9{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}44.125%{opacity:1}44.188%{opacity:0}100%{opacity:0}}
+@keyframes prk10{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}44.688%{opacity:1}44.75%{opacity:0}100%{opacity:0}}
+@keyframes prk11{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}45.25%{opacity:1}45.312%{opacity:0}100%{opacity:0}}
+@keyframes prk12{0%{opacity:0}38.438%{opacity:0}40.0%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk13{0%{opacity:0}39.0%{opacity:0}40.562%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk14{0%{opacity:0}39.562%{opacity:0}41.125%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk15{0%{opacity:0}40.125%{opacity:0}41.688%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk16{0%{opacity:0}40.688%{opacity:0}42.25%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk17{0%{opacity:0}41.25%{opacity:0}42.812%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk18{0%{opacity:0}41.812%{opacity:0}43.375%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk19{0%{opacity:0}13.438%{opacity:0}15.313%{opacity:1}56.25%{opacity:1}58.125%{opacity:0}100%{opacity:0}}
+@keyframes prk20{0%{opacity:0}41.562%{opacity:0}43.125%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk21{0%{opacity:0}42.188%{opacity:0}43.75%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk22{0%{opacity:0}42.812%{opacity:0}44.375%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk24{0%{opacity:0}18.75%{opacity:0}19.062%{opacity:1}56.25%{opacity:1}56.563%{opacity:0}100%{opacity:0}}
+@keyframes prk26{0%{opacity:0}23.75%{opacity:0}24.062%{opacity:1}56.25%{opacity:1}56.563%{opacity:0}100%{opacity:0}}
+@keyframes prk28{0%{opacity:0}27.5%{opacity:0}27.812%{opacity:1}56.25%{opacity:1}56.563%{opacity:0}100%{opacity:0}}
+@keyframes prk30{0%{opacity:0}32.5%{opacity:0}32.812%{opacity:1}56.25%{opacity:1}56.563%{opacity:0}100%{opacity:0}}
+@keyframes prk32{0%{opacity:0}37.5%{opacity:0}37.812%{opacity:1}56.25%{opacity:1}56.563%{opacity:0}100%{opacity:0}}
+@keyframes prk33{0%{opacity:0}38.75%{opacity:0}40.312%{opacity:1}56.25%{opacity:1}57.812%{opacity:0}100%{opacity:0}}
+@keyframes prk35{0%{opacity:0}43.125%{opacity:0}43.438%{opacity:1}56.25%{opacity:1}56.563%{opacity:0}100%{opacity:0}}
+@keyframes prk36{0%{opacity:0}51.875%{opacity:0}52.188%{opacity:1}53.438%{opacity:1}53.75%{opacity:0}100%{opacity:0}}
+@keyframes prk37{0%{opacity:0}58.125%{opacity:0}60.0%{opacity:1}95.625%{opacity:1}97.5%{opacity:0}100%{opacity:0}}
+@keyframes prk38{0%{opacity:0}58.125%{opacity:0}60.0%{opacity:1}95.625%{opacity:1}97.5%{opacity:0}100%{opacity:0}}
+@keyframes prk39{0%{opacity:0}58.125%{opacity:0}60.0%{opacity:1}95.625%{opacity:1}97.5%{opacity:0}100%{opacity:0}}
+@keyframes prk40{0%{opacity:0}58.125%{opacity:0}60.0%{opacity:1}95.625%{opacity:1}97.5%{opacity:0}100%{opacity:0}}
+@keyframes prk41{0%,58.125%{opacity:0;transform:translateX(30%)}60.625%,92.5%{opacity:1;transform:translateX(0)}95.0%,100%{opacity:0;transform:translateX(30%)}}
+@keyframes prk42{0%,12.438%{opacity:0;transform:scale(.3)}12.625%{opacity:.55;transform:scale(.5)}15.313%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk43{0%,18.688%{opacity:0;transform:scale(.3)}18.875%{opacity:.55;transform:scale(.5)}21.562%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk44{0%,23.375%{opacity:0;transform:scale(.3)}23.562%{opacity:.55;transform:scale(.5)}26.25%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk45{0%,27.312%{opacity:0;transform:scale(.3)}27.5%{opacity:.55;transform:scale(.5)}30.188%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk46{0%,32.125%{opacity:0;transform:scale(.3)}32.312%{opacity:.55;transform:scale(.5)}35.0%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk47{0%,37.125%{opacity:0;transform:scale(.3)}37.312%{opacity:.55;transform:scale(.5)}40.0%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk48{0%,42.75%{opacity:0;transform:scale(.3)}42.937%{opacity:.55;transform:scale(.5)}45.625%,100%{opacity:0;transform:scale(1.4)}}
+@keyframes prk49{0%,52.75%{opacity:0;transform:scale(.3)}52.937%{opacity:.55;transform:scale(.5)}55.625%,100%{opacity:0;transform:scale(1.4)}}
+
+/* ---- Reconstruidas (no vienen en el handoff) ---- */
+@keyframes prCur{0%,6%{left:62%;top:58%}11.5%,13%{left:91.806%;top:14.16%}18.2%,19.5%{left:18.194%;top:35.742%}22.9%,24.2%{left:19.583%;top:43.848%}26.8%,28.2%{left:41.667%;top:43.848%}31.6%,33%{left:19.583%;top:60.352%}36.6%,38%{left:41.667%;top:60.352%}42.2%,46%{left:41.667%;top:68.652%}50.5%,56%{left:50.278%;top:90.234%}64%,100%{left:62%;top:58%}}
+@keyframes prt23{0%,19.062%{clip-path:inset(0 100% 0 0)}21.875%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes prt25{0%,24.062%{clip-path:inset(0 100% 0 0)}26.875%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes prt27{0%,27.812%{clip-path:inset(0 100% 0 0)}30.625%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes prt29{0%,32.812%{clip-path:inset(0 100% 0 0)}35.625%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes prt31{0%,37.812%{clip-path:inset(0 100% 0 0)}38.125%,100%{clip-path:inset(0 0 0 0)}}
+@keyframes prt34{0%,43.438%{clip-path:inset(0 100% 0 0)}45%,100%{clip-path:inset(0 0 0 0)}}

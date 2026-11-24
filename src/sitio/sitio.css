@@ -1,0 +1,331 @@
+@import 'tailwindcss';
+
+/* Estilos del sitio nuevo. Solo los importa SitioNuevo.tsx: con el flag apagado no se publican. */
+
+/*
+ * Tokens del sitio. Fuente: Figma "Wapi | Coming Soon", página "Sitio web ✅", extraído en
+ * _design/figma/<pantalla>/spec.md. No aproximar: si hace falta un valor que no está acá, sale de
+ * esas specs.
+ *
+ * Cada pantalla tiene un frame desktop (1440) y uno mobile (390). Las medidas que cambian entre
+ * los dos interpolan en línea recta: a 390 dan el valor mobile y a 1440 el desktop, exactos.
+ *   --t  = 0 a 390 px de ancho, 1px a 1440, y sigue creciendo arriba de 1440.
+ *   --tt = igual, pero se queda en 1px arriba de 1440 (para lo que se achica hacia desktop).
+ * Así: calc(20px + 31.2 * var(--t)) es 20 en mobile y 51.2 en 1440.
+ *
+ * Se vacían la paleta y la escala de Tailwind para que solo existan los valores del diseño.
+ */
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+  --color-ink: #0A0A0A;
+  --color-paper: #FFFFFF;
+  --color-accent: #2B2BF5;
+  --color-line: #D6D6D6;
+  --color-muted: #6B6B6B;
+  --color-placeholder: #9A9A9A;
+  --color-gris-logo: #B5B5B5;
+  --color-activo: #F2F2F2;
+
+  /* Fondos de las portadas y colores de las marcas de los clientes, solo en sus casos. */
+  --color-gymrat-fondo: #E9E6DF;
+  --color-credigial-violeta: #7E22CE;
+  --color-zuhause-fondo: #1A1A1A;
+  --color-iv-noche: #0B1E2A;
+  --color-gemmia-niebla: #F2F5FA;
+
+  --font-*: initial;
+  --font-sans: "Onest", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --text-*: initial;
+  /* H1 de la Home: 38 → 124. El interlineado y el tracking también vienen medidos del Figma. */
+  --text-hero: calc(38px + 86 * var(--t));
+  --text-hero--line-height: calc(35.217px + 80.367 * var(--t));
+  --text-hero--letter-spacing: calc(-1.8427px - 4.2053 * var(--t));
+  --text-hero--font-weight: 600;
+  /* H1 de Nosotros y Contacto ("Desktop/H1" 137, "Mobile/H1" 52). */
+  --text-h1: calc(52px + 85 * var(--t));
+  --text-h1--line-height: 0.86;
+  --text-h1--letter-spacing: -0.045em;
+  --text-h1--font-weight: 600;
+  --text-titulo-trabajos: calc(52px + 69.6 * var(--t));
+  --text-titulo-trabajos--line-height: 0.86;
+  --text-titulo-trabajos--letter-spacing: -0.045em;
+  --text-titulo-trabajos--font-weight: 600;
+  --text-titulo-caso: calc(52px + 63.2 * var(--t));
+  --text-titulo-caso--line-height: 0.86;
+  --text-titulo-caso--letter-spacing: -0.045em;
+  --text-titulo-caso--font-weight: 600;
+  --text-cierre: calc(46px + 56.4 * var(--t));
+  --text-cierre--line-height: 0.88;
+  --text-cierre--letter-spacing: -0.045em;
+  --text-cierre--font-weight: 600;
+  --text-manifiesto: calc(34px + 37.68 * var(--t));
+  --text-manifiesto--line-height: calc(35.72px + 31.659 * var(--t));
+  --text-manifiesto--letter-spacing: -0.04em;
+  --text-manifiesto--font-weight: 600;
+  --text-seccion: calc(38px + 28.56 * var(--t));
+  --text-seccion--line-height: calc(35.72px + 26.846 * var(--t));
+  --text-seccion--letter-spacing: -0.04em;
+  --text-seccion--font-weight: 600;
+  --text-clientes: calc(34px + 22.32 * var(--t));
+  --text-clientes--line-height: 0.96;
+  --text-clientes--letter-spacing: -0.04em;
+  --text-clientes--font-weight: 600;
+  --text-servicio: calc(26px + 14 * var(--t));
+  --text-servicio--line-height: 1.04;
+  --text-servicio--letter-spacing: -0.03em;
+  --text-servicio--font-weight: 600;
+  /* "Qué hacemos" de Nosotros: 26 → 32. */
+  --text-que-hacemos: calc(26px + 6 * var(--t));
+  --text-que-hacemos--line-height: 1.05;
+  --text-que-hacemos--letter-spacing: -0.035em;
+  --text-que-hacemos--font-weight: 600;
+  --text-tarjeta-home: calc(22px + 7 * var(--t));
+  --text-tarjeta-home--line-height: 1.05;
+  --text-tarjeta-home--letter-spacing: -0.03em;
+  --text-tarjeta-home--font-weight: 600;
+  --text-tarjeta-trabajos: calc(26px + 11 * var(--t));
+  --text-tarjeta-trabajos--line-height: 1.05;
+  --text-tarjeta-trabajos--letter-spacing: -0.035em;
+  --text-tarjeta-trabajos--font-weight: 600;
+  --text-pregunta: calc(19px + 7.88 * var(--t));
+  --text-pregunta--line-height: 1.15;
+  --text-pregunta--letter-spacing: -0.03em;
+  --text-pregunta--font-weight: 500;
+  /* Links del header desktop. Solo existen a partir de 1024 px: escalan con el ancho (27.4 a 1440). */
+  --text-nav: calc(27.4 * 100vw / 1440);
+  --text-nav--line-height: normal;
+  --text-nav--letter-spacing: -0.03em;
+  --text-nav--font-weight: 500;
+  --text-nav-coma: calc(24.32 * 100vw / 1440);
+  --text-nav-coma--line-height: normal;
+  --text-nav-coma--letter-spacing: -0.03em;
+  --text-nav-coma--font-weight: 500;
+  /* Menú mobile abierto. */
+  --text-menu: 40px;
+  --text-menu--line-height: 1;
+  --text-menu--letter-spacing: -0.045em;
+  --text-menu--font-weight: 600;
+  /* Bajada del hero, de Trabajos y párrafos de 17 → 17.28. */
+  --text-lead: calc(17px + 0.28 * var(--t));
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.01em;
+  --text-lead-alto: calc(17px + 0.28 * var(--t));
+  --text-lead-alto--line-height: 1.55;
+  --text-lead-alto--letter-spacing: -0.01em;
+  /* Bajada de Nosotros: 17 → 19.4. */
+  --text-intro: calc(17px + 2.4 * var(--t));
+  --text-intro--line-height: 1.5;
+  --text-intro--letter-spacing: -0.01em;
+  /* "Cómo trabajamos" de Nosotros: 24 → 30. */
+  --text-como-trabajamos: calc(24px + 6 * var(--t));
+  --text-como-trabajamos--line-height: 1.3;
+  --text-como-trabajamos--letter-spacing: -0.02em;
+  --text-body: 16px;
+  --text-body--line-height: 1.5;
+  --text-tarjeta: calc(16px + 1.3 * var(--t));
+  --text-tarjeta--line-height: 1.5;
+  --text-respuesta: 16px;
+  --text-respuesta--line-height: 1.6;
+  --text-chico: 15px;
+  --text-chico--line-height: 1.5;
+  --text-epigrafe: 14px;
+  --text-epigrafe--line-height: 1.5;
+  --text-logo-cliente: calc(20px + 3.04 * var(--t));
+  --text-logo-cliente--line-height: normal;
+  --text-logo-cliente--letter-spacing: -0.03em;
+  --text-logo-cliente--font-weight: 600;
+  --text-contacto: calc(18px + 2.48 * var(--t));
+  --text-contacto--line-height: 1.3;
+  --text-contacto--letter-spacing: -0.02em;
+  --text-contacto--font-weight: 500;
+  --text-redes: calc(17px + 0.92 * var(--t));
+  --text-redes--line-height: normal;
+  --text-redes--letter-spacing: -0.02em;
+  --text-redes--font-weight: 500;
+  /* Campos del formulario: 16 → 17. */
+  --text-campo: calc(16px + 1 * var(--t));
+  --text-campo--line-height: normal;
+  --text-pill: 14px;
+  --text-pill--line-height: normal;
+  --text-pill--font-weight: 500;
+  /* Mono en mayúsculas: eyebrows, etiquetas, tags. Siempre con tracking 0.12em. */
+  --text-label: 12px;
+  --text-label--line-height: normal;
+  --text-label--letter-spacing: 0.12em;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: normal;
+  --text-label-sm--letter-spacing: 0.12em;
+  --text-tag: 10px;
+  --text-tag--line-height: normal;
+  --text-tag--letter-spacing: 0.12em;
+  --text-link-mono: 13px;
+  --text-link-mono--line-height: normal;
+  --text-link-mono--letter-spacing: 0.12em;
+  /* Ficha de caso */
+  --text-resumen: calc(19px + 2.76 * var(--t));
+  --text-resumen--line-height: 1.4;
+  --text-resumen--letter-spacing: -0.015em;
+  --text-dato: 16px;
+  --text-dato--line-height: normal;
+  --text-dato--letter-spacing: -0.01em;
+  --text-dato--font-weight: 500;
+  --text-desafio: calc(30px + 16.08 * var(--t));
+  --text-desafio--line-height: 1.02;
+  --text-desafio--letter-spacing: -0.035em;
+  --text-desafio--font-weight: 600;
+  --text-paso: calc(26px + 9.84 * var(--t));
+  --text-paso--line-height: 1;
+  --text-paso--letter-spacing: -0.03em;
+  --text-paso--font-weight: 600;
+  --text-resultado: calc(48px + 28.8 * var(--t));
+  --text-resultado--line-height: 0.95;
+  --text-resultado--letter-spacing: -0.04em;
+  --text-resultado--font-weight: 600;
+  --text-cita: calc(28px + 15.52 * var(--t));
+  --text-cita--line-height: 1.08;
+  --text-cita--letter-spacing: -0.03em;
+  --text-cita--font-weight: 600;
+  --text-siguiente: calc(40px + 43.2 * var(--t));
+  --text-siguiente--line-height: 0.9;
+  --text-siguiente--letter-spacing: -0.045em;
+  --text-siguiente--font-weight: 600;
+  --text-flecha: calc(28px + 16.8 * var(--t));
+  --text-flecha--line-height: normal;
+  --text-flecha--font-weight: 500;
+  /* Confirmación de Contacto: 32 → 52. */
+  --text-enviado: calc(32px + 20 * var(--t));
+  --text-enviado--line-height: 1.04;
+  --text-enviado--letter-spacing: -0.035em;
+  --text-enviado--font-weight: 600;
+
+  /* Margen lateral de todas las secciones: 20 → 51.2. */
+  --spacing-page-x: calc(20px + 31.2 * var(--t));
+  /* Separación de las secciones de texto de la ficha de caso: 118.16 → 100.8. */
+  --spacing-caso: calc(118.16px - 17.36 * var(--tt));
+  /* Etiqueta → contenido en la ficha de caso: 33.76 → 28.8. */
+  --spacing-caso-etiqueta: calc(33.76px - 4.96 * var(--tt));
+
+  --ease-wapi: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-loader: cubic-bezier(0.76, 0, 0.24, 1);
+  /* Las transiciones del prototipo usan `ease` de CSS, no la curva por defecto de Tailwind. */
+  --default-transition-timing-function: ease;
+}
+
+:root {
+  --t: max(0px, calc((100vw - 390px) / 1050));
+  --tt: clamp(0px, calc((100vw - 390px) / 1050), 1px);
+}
+
+@keyframes wapi-loader {
+  0%, 52% { transform: translateY(0); }
+  100% { transform: translateY(-101%); }
+}
+@keyframes wapi-linea {
+  from { transform: translateY(112%); }
+  to { transform: translateY(0); }
+}
+@keyframes wapi-fade {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes wapi-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes wapi-toast {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  /* Preflight pone line-height 1.5 en <html>; el diseño usa `normal` en todo lo que no declara
+     interlineado (eyebrows, nav, tags, píldoras). */
+  html { line-height: normal; }
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+  /* <picture> va con display: contents (Foto.tsx): sin esto, cada <source> ocupa una celda de grilla. */
+  picture > source { display: none; }
+  a:hover { color: var(--color-accent); }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  /* Desfase de la entrada del hero de la Home. Con loader, los tiempos esperan a que suba la
+     cortina; sin loader se adelantan 0.85s y quedan como en el resto de las páginas. */
+  :root { --intro: 0s; }
+  html.sin-loader { --intro: -0.85s; }
+
+  /* El cursor propio reemplaza al nativo en todo el sitio, también sobre links y botones. */
+  html.cursor-propio, html.cursor-propio * { cursor: none !important; }
+}
+
+@layer components {
+  .loader {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-paper);
+    pointer-events: none;
+    animation: wapi-loader 1.25s var(--ease-loader) forwards;
+  }
+  html.sin-loader .loader { display: none; }
+
+  .cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 150;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    pointer-events: none;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition:
+      width 0.28s var(--ease-wapi),
+      height 0.28s var(--ease-wapi),
+      font-size 0.2s linear,
+      opacity 0.2s linear;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s var(--ease-wapi);
+  }
+  [data-reveal].is-revealed { opacity: 1; transform: none; }
+
+  .marquee { animation: wapi-marquee 34s linear infinite; }
+  .marquee:hover { animation-play-state: paused; }
+
+  .toast { animation: wapi-toast 0.35s var(--ease-wapi) both; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  /* Un marquee infinito a 0.01ms titila: con movimiento reducido queda quieto. */
+  .marquee { animation: none !important; }
+}

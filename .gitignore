@@ -1,3 +1,16 @@
+# Dependencias y builds
+node_modules/
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Variables locales (las de cada modo sí se versionan)
+.env
+.env.*
+!.env.example
+!.env.development
+!.env.production
+
 # OS files
 .DS_Store
 Thumbs.db
@@ -11,8 +24,15 @@ Thumbs.db
 # Claude Code
 .claude/
 
-# Node (if added later)
-node_modules/
-
 # Logs
 *.log
+
+# SAM (formulario de contacto)
+contacto/.aws-sam/
+samconfig.toml
+
+# Extracción del Figma: los assets crudos y las capturas se bajan de nuevo con la extracción
+# (ver _design/figma/README.md). Las imágenes optimizadas viven en src/assets/sitio.
+_design/figma/assets/
+_design/figma/**/captura.png
+_design/figma/**/nota-handoff-*.png
