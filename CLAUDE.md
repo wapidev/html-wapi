@@ -52,6 +52,10 @@ nuevo. Está en `.env.production` (prod) y `.env.development` (dev arranca en `t
 - Lo que se renderiza tiene que ser igual en servidor y cliente: nada de `window`, `localStorage`,
   `sessionStorage` ni `matchMedia` durante el render; solo en efectos. `src/hidratacion.test.tsx`
   lo cubre por ruta y por idioma.
+- Al ir de un caso al siguiente o de un idioma al otro, React reusa la misma vista (no la vuelve a
+  montar). Un efecto que busca nodos en el DOM depende de `pathname`, no corre solo al montar: si no,
+  lo nuevo queda sin tocar (pasó con `useReveal`: la galería del caso no aparecía hasta refrescar).
+  Lo cubre `src/sitio/reveal.test.tsx`.
 
 ## Formulario de contacto (`contacto/`)
 
