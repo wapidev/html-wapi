@@ -13,6 +13,12 @@ updates:
     groups:
       menores:
         update-types: [minor, patch]
+    # Los tipos de Node siguen a la versión que corre el sitio (la CI, los deploys y la Lambda del
+    # formulario usan Node 22): una mayor de @types/node deja usar APIs que ahí no existen.
+    # Se sube a mano junto con el runtime.
+    ignore:
+      - dependency-name: '@types/node'
+        update-types: [version-update:semver-major]
     commit-message:
       prefix: chore
   - package-ecosystem: github-actions
