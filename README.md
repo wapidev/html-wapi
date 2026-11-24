@@ -161,6 +161,9 @@ admite CNAME/ALIAS en la raíz), así que el dominio del sitio es `www` y la ra�
 `feature/*` → `develop` (publica DEV) → `main` (publica PROD). La CI (`ci.yml`) corre en todos
 los push y PRs y buildea las dos versiones del flag.
 
+**Dependencias:** los tres workflows instalan con `npm ci` (exactamente el lockfile). Dependabot
+abre PRs a `develop` los lunes: menores y parches de npm agrupados, y las GitHub Actions.
+
 **Lanzar el sitio nuevo** = `contacto/deploy.sh prod` (una vez) y un PR que pasa `VITE_SITIO_NUEVO`
 a `true` en `.env.production`, mergeado hasta `main`. El workflow de PROD no pisa el flag: lo que se
 publica es lo que dice el código. El resumen de cada run indica qué versión salió.

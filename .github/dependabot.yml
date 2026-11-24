@@ -1,0 +1,26 @@
+# Dependabot: PRs semanales a develop con las actualizaciones de npm y de las GitHub Actions.
+# Las menores y los parches de npm van juntos en un solo PR; las mayores, una por PR.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Argentina/Buenos_Aires
+    open-pull-requests-limit: 5
+    groups:
+      menores:
+        update-types: [minor, patch]
+    commit-message:
+      prefix: chore
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: America/Argentina/Buenos_Aires
+    commit-message:
+      prefix: chore
