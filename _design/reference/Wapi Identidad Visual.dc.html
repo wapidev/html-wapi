@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: "Onest", system-ui, sans-serif; color: #0A0A0A; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: #0A0A0A; color: #FFFFFF; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #2B2BF5; }
+</style>
+</helmet>
+
+<div style="width: 100%; background: #FFFFFF">
+
+  <header style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: clamp(24px, 4vw, 64px); padding: clamp(80px, 13vh, 150px) clamp(20px, 4vw, 64px) clamp(40px, 6vh, 72px)">
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">Identidad visual — v1.0 · Septiembre 2026</div>
+      <h1 style="margin: clamp(18px, 3vh, 34px) 0 0; font-size: clamp(40px, 6.4vw, 116px); font-weight: 600; line-height: 0.9; letter-spacing: -0.045em">Lineamientos<br>de marca Wapi</h1>
+    </div>
+    <p style="margin: 0; max-width: 36ch; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.5">Todo lo que define cómo se ve Wapi, sacado del sitio y ordenado para que cualquier pieza nueva —una propuesta, un post, una presentación, un mail— se reconozca sin explicación.</p>
+  </header>
+
+  <nav style="display: flex; flex-wrap: wrap; gap: 0 clamp(18px, 2.5vw, 40px); padding: 0 clamp(20px, 4vw, 64px) clamp(28px, 4vh, 48px); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">
+    <sc-for list="{{ toc }}" as="t" hint-placeholder-count="8">
+      <a href="{{ t.href }}" style="padding-bottom: 3px; border-bottom: 1px solid #D6D6D6; transition: color 0.2s ease, border-color 0.2s ease" style-hover="color: #0A0A0A; border-color: #0A0A0A">{{ t.label }}</a>
+    </sc-for>
+  </nav>
+
+  <section id="01" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #0A0A0A">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">01 — Principios</div>
+    <h2 style="margin: 20px 0 0; max-width: 24ch; font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Blanco, negro y una línea de 1px</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(24px, 3vw, 48px); margin-top: clamp(36px, 6vh, 72px)">
+      <sc-for list="{{ principles }}" as="p" hint-placeholder-count="4">
+        <div style="border-top: 1px solid #0A0A0A; padding-top: 18px">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">{{ p.n }}</div>
+          <h3 style="margin: 12px 0 10px; font-size: 21px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em">{{ p.title }}</h3>
+          <p style="margin: 0; font-size: 16px; line-height: 1.55">{{ p.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="02" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">02 — Logo</div>
+    <h2 style="margin: 20px 0 clamp(32px, 5vh, 56px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Dos versiones, nada más</h2>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px">
+      <figure style="margin: 0">
+        <div style="display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; padding: 12%; background: #FFFFFF; border: 1px solid #D6D6D6">
+          <svg viewBox="4 0 137 54" style="width: 100%; max-width: 220px; height: auto; fill: #0A0A0A" aria-label="wapi">
+            <path d="M30.81,38.92l-4.77-15.32-4.83,15.32c-.56,2.08-2.47,3.53-4.71,3.53s-4.15-1.46-4.77-3.53l-6.06-19.86c-.06-.28-.11-.67-.11-1.01,0-1.91,1.51-3.48,3.48-3.48,1.63,0,2.97,1.07,3.37,2.58l4.49,16.05,5.16-15.77c.51-1.68,2.13-2.86,3.98-2.86s3.42,1.18,3.93,2.86l5.16,15.77,4.49-16.05c.39-1.46,1.74-2.58,3.42-2.58,1.91,0,3.48,1.57,3.48,3.53,0,.28-.11.67-.17.95l-6.06,19.86c-.56,2.08-2.52,3.53-4.71,3.53s-4.21-1.46-4.77-3.53Z"></path>
+            <path d="M79,24.55v14.19c0,2.02-1.57,3.7-3.59,3.7-1.8,0-3.37-1.35-3.59-3.2-1.8,2.13-4.99,3.48-8.53,3.48-4.32,0-9.43-2.92-9.43-8.98s5.11-8.64,9.43-8.64c3.59,0,6.79,1.12,8.58,3.31v-3.76c0-2.75-2.36-4.54-5.95-4.54-2.13,0-4.04.56-6,1.8-.39.22-.9.39-1.4.39-1.46,0-2.69-1.23-2.69-2.75,0-1.01.56-1.91,1.29-2.36,3.09-2.02,6.56-2.92,10.04-2.92,6.17,0,11.84,2.47,11.84,10.27ZM71.88,35.55v-3.37c-1.18-1.57-3.42-2.36-5.72-2.36-2.81,0-5.11,1.46-5.11,4.1s2.3,3.98,5.11,3.98c2.3,0,4.54-.79,5.72-2.36Z"></path>
+            <path d="M118.05,28.48c0,9.03-5.05,14.25-12.01,14.25-3.2,0-6.12-1.35-8.36-4.15v10.6c0,1.96-1.63,3.59-3.53,3.59-2.02,0-3.59-1.63-3.59-3.59v-31.03c0-2.02,1.57-3.7,3.59-3.7s3.59,1.68,3.59,3.7v.17c2.13-2.64,5.05-4.04,8.3-4.04,6.96,0,12.01,5.16,12.01,14.19ZM110.64,28.48c0-4.66-2.75-7.85-6.84-7.85-2.3,0-4.94,1.35-6.12,3.09v9.59c1.18,1.68,3.81,3.09,6.12,3.09,4.1,0,6.84-3.2,6.84-7.91Z"></path>
+            <path d="M127.14,6.26c0-2.36,1.96-4.26,4.26-4.26s4.26,1.91,4.26,4.26-1.91,4.26-4.26,4.26-4.26-1.91-4.26-4.26ZM127.87,38.86v-20.7c0-1.96,1.57-3.59,3.59-3.59,1.91,0,3.53,1.63,3.53,3.59v20.7c0,1.96-1.63,3.59-3.59,3.59s-3.53-1.63-3.53-3.59Z"></path>
+          </svg>
+        </div>
+        <figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">Wordmark — uso principal</figcaption>
+      </figure>
+
+      <figure style="margin: 0">
+        <div style="display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; padding: 12%; background: #0A0A0A; border: 1px solid #0A0A0A">
+          <svg viewBox="4 0 137 54" style="width: 100%; max-width: 220px; height: auto; fill: #FFFFFF" aria-label="wapi">
+            <path d="M30.81,38.92l-4.77-15.32-4.83,15.32c-.56,2.08-2.47,3.53-4.71,3.53s-4.15-1.46-4.77-3.53l-6.06-19.86c-.06-.28-.11-.67-.11-1.01,0-1.91,1.51-3.48,3.48-3.48,1.63,0,2.97,1.07,3.37,2.58l4.49,16.05,5.16-15.77c.51-1.68,2.13-2.86,3.98-2.86s3.42,1.18,3.93,2.86l5.16,15.77,4.49-16.05c.39-1.46,1.74-2.58,3.42-2.58,1.91,0,3.48,1.57,3.48,3.53,0,.28-.11.67-.17.95l-6.06,19.86c-.56,2.08-2.52,3.53-4.71,3.53s-4.21-1.46-4.77-3.53Z"></path>
+            <path d="M79,24.55v14.19c0,2.02-1.57,3.7-3.59,3.7-1.8,0-3.37-1.35-3.59-3.2-1.8,2.13-4.99,3.48-8.53,3.48-4.32,0-9.43-2.92-9.43-8.98s5.11-8.64,9.43-8.64c3.59,0,6.79,1.12,8.58,3.31v-3.76c0-2.75-2.36-4.54-5.95-4.54-2.13,0-4.04.56-6,1.8-.39.22-.9.39-1.4.39-1.46,0-2.69-1.23-2.69-2.75,0-1.01.56-1.91,1.29-2.36,3.09-2.02,6.56-2.92,10.04-2.92,6.17,0,11.84,2.47,11.84,10.27ZM71.88,35.55v-3.37c-1.18-1.57-3.42-2.36-5.72-2.36-2.81,0-5.11,1.46-5.11,4.1s2.3,3.98,5.11,3.98c2.3,0,4.54-.79,5.72-2.36Z"></path>
+            <path d="M118.05,28.48c0,9.03-5.05,14.25-12.01,14.25-3.2,0-6.12-1.35-8.36-4.15v10.6c0,1.96-1.63,3.59-3.53,3.59-2.02,0-3.59-1.63-3.59-3.59v-31.03c0-2.02,1.57-3.7,3.59-3.7s3.59,1.68,3.59,3.7v.17c2.13-2.64,5.05-4.04,8.3-4.04,6.96,0,12.01,5.16,12.01,14.19ZM110.64,28.48c0-4.66-2.75-7.85-6.84-7.85-2.3,0-4.94,1.35-6.12,3.09v9.59c1.18,1.68,3.81,3.09,6.12,3.09,4.1,0,6.84-3.2,6.84-7.91Z"></path>
+            <path d="M127.14,6.26c0-2.36,1.96-4.26,4.26-4.26s4.26,1.91,4.26,4.26-1.91,4.26-4.26,4.26-4.26-1.91-4.26-4.26ZM127.87,38.86v-20.7c0-1.96,1.57-3.59,3.59-3.59,1.91,0,3.53,1.63,3.53,3.59v20.7c0,1.96-1.63,3.59-3.59,3.59s-3.53-1.63-3.53-3.59Z"></path>
+          </svg>
+        </div>
+        <figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">Negativo — sobre negro o foto oscura</figcaption>
+      </figure>
+
+      <figure style="margin: 0">
+        <div style="display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 10; padding: 14%; background: #FFFFFF; border: 1px solid #D6D6D6">
+          <img src="uploads/wapi-07.svg" alt="Lockup wapi asesores digitales" style="width: 100%; max-width: 190px; height: auto; display: block">
+        </div>
+        <figcaption style="margin-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">Lockup con bajada — firmas y documentos</figcaption>
+      </figure>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(24px, 3vw, 56px); margin-top: clamp(40px, 6vh, 72px)">
+      <sc-for list="{{ logoRules }}" as="r" hint-placeholder-count="4">
+        <div style="border-top: 1px solid #D6D6D6; padding-top: 16px">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">{{ r.label }}</div>
+          <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">{{ r.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top: clamp(32px, 5vh, 56px); padding: clamp(20px, 3vw, 32px); border: 1px solid #0A0A0A">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px">Nunca</div>
+      <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.7">
+        <li>Reescribir "wapi" con otra tipografía: el wordmark es un dibujo, no un texto.</li>
+        <li>Aplicarle sombra, contorno, degradado o inclinación.</li>
+        <li>Pintarlo de azul. El azul es para links y acentos, no para la marca.</li>
+        <li>Estirarlo, condensarlo o separar la bajada del wordmark.</li>
+        <li>Apoyarlo sobre una foto con detalle detrás de las letras.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="03" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">03 — Color</div>
+    <h2 style="margin: 20px 0 clamp(32px, 5vh, 56px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Acromático, con un azul que aparece poco</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2px">
+      <sc-for list="{{ swatches }}" as="s" hint-placeholder-count="6">
+        <div>
+          <div style="aspect-ratio: 4 / 5; background: {{ s.hex }}; border: 1px solid #D6D6D6"></div>
+          <div style="padding-top: 12px">
+            <div style="font-size: 16px; font-weight: 600; letter-spacing: -0.01em">{{ s.name }}</div>
+            <div style="margin-top: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: #6B6B6B">{{ s.hex }}</div>
+            <p style="margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: #6B6B6B">{{ s.use }}</p>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 3vw, 56px); margin-top: clamp(40px, 6vh, 72px)">
+      <div style="border-top: 1px solid #0A0A0A; padding-top: 16px">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">Regla del azul</div>
+        <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">El #2B2BF5 solo aparece en el hover de un link, en una barra de cierre o en un dato que necesita señalarse. Si en una pieza el azul ocupa más de una mancha, está mal usado.</p>
+      </div>
+      <div style="border-top: 1px solid #0A0A0A; padding-top: 16px">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">Inversión</div>
+        <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">El negro pleno se usa entero, no en cajas: una sección completa pasa a #0A0A0A con texto #FFFFFF. Sirve para el contacto, un cierre o una portada, nunca para una tarjeta suelta.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="04" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">04 — Tipografía</div>
+    <h2 style="margin: 20px 0 clamp(28px, 4vh, 48px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Onest para hablar, JetBrains para etiquetar</h2>
+    <p style="margin: 0 0 clamp(32px, 5vh, 56px); max-width: 64ch; font-size: 17px; line-height: 1.6">Las dos están en Google Fonts y son gratuitas. El contraste entre la geométrica redondeada y la monoespaciada en mayúsculas es la firma del sistema: si una pieza no tiene las dos, no parece Wapi.</p>
+    <div style="border-bottom: 1px solid #D6D6D6">
+      <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="6">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: clamp(16px, 3vw, 48px); padding: clamp(20px, 3vh, 34px) 0; border-top: 1px solid #D6D6D6">
+          <div style="flex: 0 0 auto; width: 52px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">{{ t.role }}</div>
+          <div style="flex: 1 1 min(100%, 320px); font-family: {{ t.family }}; font-size: {{ t.size }}; font-weight: {{ t.weight }}; line-height: {{ t.lh }}; letter-spacing: {{ t.ls }}; text-transform: {{ t.tt }}">{{ t.sample }}</div>
+          <div style="flex: 0 1 260px; font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6; letter-spacing: 0.04em; color: #6B6B6B">{{ t.spec }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="05" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">05 — Composición</div>
+    <h2 style="margin: 20px 0 clamp(28px, 4vh, 48px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Todo al ras, todo separado por una línea</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(24px, 3vw, 56px)">
+      <sc-for list="{{ layout }}" as="l" hint-placeholder-count="5">
+        <div style="border-top: 1px solid #0A0A0A; padding-top: 16px">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">{{ l.label }}</div>
+          <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">{{ l.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 2px; margin-top: clamp(36px, 6vh, 64px)">
+      <sc-for list="{{ spacing }}" as="sp" hint-placeholder-count="6">
+        <div style="flex: 1 1 90px; padding: 14px; border: 1px solid #D6D6D6">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 500">{{ sp.v }}</div>
+          <div style="margin-top: 6px; font-size: 13px; line-height: 1.4; color: #6B6B6B">{{ sp.use }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="06" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">06 — Imágenes y recursos</div>
+    <h2 style="margin: 20px 0 clamp(28px, 4vh, 48px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">La imagen entra entera, sin marco</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(24px, 3vw, 48px)">
+      <figure style="margin: 0">
+        <div style="width: 100%; aspect-ratio: 16 / 9; background: #EDEDED; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">16 : 9</div>
+        <figcaption style="margin-top: 12px; font-size: 15px; line-height: 1.55">Formato por defecto para reel, portadas y capturas de sitio. Sin borde, sin radio, sin sombra. Mientras no hay foto, el fondo es #EDEDED.</figcaption>
+      </figure>
+      <figure style="margin: 0">
+        <div style="width: 100%; aspect-ratio: 16 / 9; background: linear-gradient(165deg, #F6EFE0 0%, #E8DCC4 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5% 12%">
+          <div style="width: 100%; background: #163141; border-radius: 10px; padding: 1.6%">
+            <div style="width: 100%; aspect-ratio: 16 / 9; background: #0B1E2A; border-radius: 3px"></div>
+          </div>
+          <div style="position: relative; width: 111%; height: 3.2%; min-height: 7px; background: #163141; border-radius: 0 0 5px 5px"></div>
+        </div>
+        <figcaption style="margin-top: 12px; font-size: 15px; line-height: 1.55">Mockup de notebook para portadas de casos web: armado en HTML, no como imagen. El fondo toma un color de la marca del cliente, no de Wapi.</figcaption>
+      </figure>
+      <figure style="margin: 0">
+        <div style="width: 100%; aspect-ratio: 16 / 9; background: #FFFFFF; border: 1px solid #D6D6D6; display: flex; align-items: center; justify-content: center; gap: 18px">
+          <span style="width: 12px; height: 12px; border-radius: 50%; background: #0A0A0A"></span>
+          <span style="padding: 9px 20px; border-radius: 999px; background: #0A0A0A; color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase">Ver caso</span>
+        </div>
+        <figcaption style="margin-top: 12px; font-size: 15px; line-height: 1.55">El cursor y las píldoras: círculo negro de 12px que crece a una etiqueta con verbo en mono mayúscula. Es el recurso más reconocible del sitio.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="07" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">07 — Movimiento</div>
+    <h2 style="margin: 20px 0 clamp(28px, 4vh, 48px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Sube desde abajo y se queda quieto</h2>
+    <div style="border-bottom: 1px solid #D6D6D6">
+      <sc-for list="{{ motion }}" as="m" hint-placeholder-count="4">
+        <div style="display: flex; flex-wrap: wrap; gap: clamp(12px, 3vw, 48px); padding: clamp(18px, 2.6vh, 28px) 0; border-top: 1px solid #D6D6D6">
+          <div style="flex: 1 1 min(100%, 200px); font-size: 17px; font-weight: 500; letter-spacing: -0.01em">{{ m.name }}</div>
+          <div style="flex: 2 1 min(100%, 380px); font-size: 15px; line-height: 1.55">{{ m.body }}</div>
+          <div style="flex: 0 1 200px; font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6; color: #6B6B6B">{{ m.spec }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="08" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px); border-top: 1px solid #D6D6D6">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">08 — Voz</div>
+    <h2 style="margin: 20px 0 clamp(28px, 4vh, 48px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Se escribe como se habla acá</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px, 3vw, 56px)">
+      <sc-for list="{{ voice }}" as="v" hint-placeholder-count="4">
+        <div style="border-top: 1px solid #0A0A0A; padding-top: 16px">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B6B6B">{{ v.label }}</div>
+          <p style="margin: 10px 0 0; font-size: 16px; line-height: 1.55">{{ v.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ showPrompt }}" hint-placeholder-val="{{ true }}">
+    <section id="09" style="padding: clamp(56px, 9vh, 110px) clamp(20px, 4vw, 64px) clamp(70px, 11vh, 130px); background: #0A0A0A; color: #FFFFFF">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #B5B5B5">09 — Para pegar donde lo necesites</div>
+      <h2 style="margin: 20px 0 clamp(24px, 4vh, 40px); font-size: clamp(32px, 4.4vw, 76px); font-weight: 600; line-height: 0.96; letter-spacing: -0.04em">Resumen en una sola pieza de texto</h2>
+      <p style="margin: 0 0 clamp(24px, 4vh, 36px); max-width: 64ch; font-size: 17px; line-height: 1.6; color: #D6D6D6">Copiá el bloque y adjuntá los SVG del logo. Sirve para briefear a un proveedor, a un diseñador nuevo o a otro chat.</p>
+      <pre style="margin: 0; padding: clamp(20px, 3vw, 34px); border: 1px solid #3A3A3A; background: #141414; color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.75; white-space: pre-wrap; overflow-x: auto">{{ promptText }}</pre>
+    </section>
+  </sc-if>
+
+  <footer style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; padding: 26px clamp(20px, 4vw, 64px); background: #2B2BF5; color: #FFFFFF; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase">
+    <span>Wapi — Identidad visual v1.0</span>
+    <span>hola@wapi.com.ar</span>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2B2BF5&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2B2BF5&quot;,&quot;#0A0A0A&quot;,&quot;#F5452B&quot;,&quot;#1FBF75&quot;]},&quot;showPrompt&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Secciones&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const accent = this.props.accent || '#2B2BF5';
+    return {
+      accent,
+      showPrompt: this.props.showPrompt ?? true,
+      toc: [
+        { href: '#01', label: '01 Principios' },
+        { href: '#02', label: '02 Logo' },
+        { href: '#03', label: '03 Color' },
+        { href: '#04', label: '04 Tipografía' },
+        { href: '#05', label: '05 Composición' },
+        { href: '#06', label: '06 Imágenes' },
+        { href: '#07', label: '07 Movimiento' },
+        { href: '#08', label: '08 Voz' }
+      ],
+      principles: [
+        { n: '01', title: 'El blanco manda', body: 'Cada pieza arranca en blanco y se le saca todo lo que no hace falta. El vacío no es espacio sobrante: es parte de la composición.' },
+        { n: '02', title: 'La línea antes que la caja', body: 'Para separar contenido se usa una línea de 1px, no una tarjeta con fondo ni un contenedor con sombra. Casi no hay cajas en el sistema.' },
+        { n: '03', title: 'Tipografía grande, sin miedo', body: 'Los títulos van al tamaño máximo que permita el ancho, con interlínea corta y letras juntas. La escala es la jerarquía.' },
+        { n: '04', title: 'El color es un evento', body: 'Negro, blanco y grises hacen el noventa por ciento del trabajo. El azul aparece para señalar algo, y se va.' }
+      ],
+      logoRules: [
+        { label: 'Área de resguardo', body: 'Alrededor del wordmark queda libre, como mínimo, el alto de la letra "a". Nada entra en ese margen: ni texto, ni borde, ni foto.' },
+        { label: 'Tamaño mínimo', body: '60px de ancho en pantalla, 18mm en impresión. Por debajo de eso la "i" y el punto se empastan.' },
+        { label: 'Cuándo usar el lockup', body: 'Cuando la pieza necesita explicar qué es Wapi: firma de mail, contratos, propuestas, papelería. En pantalla y redes va el wordmark solo.' },
+        { label: 'Color del logo', body: 'Negro #0A0A0A sobre claro, blanco #FFFFFF sobre oscuro. No tiene versión en color ni sobre fondo azul.' }
+      ],
+      swatches: [
+        { name: 'Negro Wapi', hex: '#0A0A0A', use: 'Texto, logo, secciones invertidas, píldoras y cursor.' },
+        { name: 'Blanco', hex: '#FFFFFF', use: 'Fondo por defecto de todo. También el texto sobre negro.' },
+        { name: 'Azul Wapi', hex: '#2B2BF5', use: 'Acento único: hover de links y barra de cierre.' },
+        { name: 'Línea', hex: '#D6D6D6', use: 'Todas las divisiones de 1px entre bloques y filas.' },
+        { name: 'Gris dato', hex: '#6B6B6B', use: 'Etiquetas en mono, metadatos y texto secundario.' },
+        { name: 'Placeholder', hex: '#EDEDED', use: 'Fondo de una imagen que todavía no está cargada.' }
+      ],
+      typeScale: [
+        { role: 'H1', family: 'Onest, sans-serif', size: 'clamp(40px, 6vw, 96px)', weight: 600, lh: '0.88', ls: '-0.045em', tt: 'none', sample: 'Títulos de portada', spec: 'Onest 600 · 0.88 · -0.045em' },
+        { role: 'H2', family: 'Onest, sans-serif', size: 'clamp(30px, 3.6vw, 60px)', weight: 600, lh: '0.94', ls: '-0.04em', tt: 'none', sample: 'Encabezado de sección', spec: 'Onest 600 · 0.94 · -0.04em' },
+        { role: 'H3', family: 'Onest, sans-serif', size: '21px', weight: 600, lh: '1.15', ls: '-0.02em', tt: 'none', sample: 'Título de bloque', spec: 'Onest 600 · 21px · 1.15' },
+        { role: 'Body', family: 'Onest, sans-serif', size: '17px', weight: 400, lh: '1.55', ls: '-0.01em', tt: 'none', sample: 'Párrafos y descripciones, con una medida máxima de 64 caracteres por línea.', spec: 'Onest 400 · 17px · 1.55 · máx 64ch' },
+        { role: 'Lead', family: 'Onest, sans-serif', size: '19px', weight: 500, lh: '1.5', ls: '-0.02em', tt: 'none', sample: 'Bajada o dato destacado', spec: 'Onest 500 · 19px · 1.5' },
+        { role: 'Label', family: "'JetBrains Mono', monospace", size: '12px', weight: 400, lh: '1.4', ls: '0.12em', tt: 'uppercase', sample: 'Etiquetas, fechas y numeración', spec: 'JetBrains Mono 400 · 11-12px · 0.12em · mayúsculas · #6B6B6B' }
+      ],
+      layout: [
+        { label: 'Márgenes', body: 'clamp(20px, 4vw, 64px) a los lados en cualquier pieza de pantalla. El contenido llega al borde del margen y no se centra en una columna angosta.' },
+        { label: 'Alineación', body: 'Todo al ras izquierdo. El aire queda a la derecha. Para crear tensión, un bloque suelto se manda a la derecha o se sangra hacia adentro.' },
+        { label: 'Bordes y radios', body: 'Radio 0 en casi todo: imágenes, secciones, bloques. La excepción es la píldora, que va a 999px. No hay radios intermedios.' },
+        { label: 'Sombras', body: 'No hay. La profundidad se logra con la línea y el contraste de fondo.' },
+        { label: 'Grilla', body: 'Flex y grid con gap, columnas que se apilan solas. Nada de anchos fijos: toda pieza de pantalla tiene que sobrevivir a 360px de ancho.' }
+      ],
+      spacing: [
+        { v: '4 / 8', use: 'Dentro de una etiqueta o botón' },
+        { v: '12 / 18', use: 'Entre título y párrafo' },
+        { v: '24 / 32', use: 'Entre bloques hermanos' },
+        { v: '56 / 72', use: 'Dentro de una sección' },
+        { v: '110+', use: 'Entre secciones' }
+      ],
+      motion: [
+        { name: 'Entrada de título', body: 'El texto sube desde abajo detrás de una máscara, línea por línea, con 80ms de diferencia entre renglones.', spec: '1s · cubic-bezier(0.22, 1, 0.36, 1)' },
+        { name: 'Reveal al scrollear', body: 'El bloque aparece subiendo 24px. Se ejecuta una sola vez: no vuelve a animarse al pasar de nuevo.', spec: '0.8s ease · translateY(24px)' },
+        { name: 'Hover', body: 'Cambia el color al azul o baja la opacidad. Nunca escala ni rebota.', spec: '0.2s ease' },
+        { name: 'Cursor', body: 'El círculo crece a etiqueta cuando entra en algo clickeable, con el verbo de la acción adentro.', spec: '0.28s cubic-bezier(0.22, 1, 0.36, 1)' }
+      ],
+      voice: [
+        { label: 'Español rioplatense', body: 'Voseo siempre: escribinos, contanos, fijate. Nunca "contáctenos" ni "haz clic".' },
+        { label: 'Frases cortas y afirmativas', body: '"Marcas que no pasan desapercibidas." "Una marca no se ve. Se reconoce." Se afirma algo y se corta.' },
+        { label: 'Sin jerga de agencia', body: 'Nada de sinergia, disrupción, soluciones integrales ni journey. Si una palabra no se dice en una reunión, no va escrita.' },
+        { label: 'El precio y el plazo se dicen', body: 'Cuando hay un número, va. La transparencia es parte del tono: "te contestamos nosotros, no un bot".' }
+      ],
+      promptText: [
+        'IDENTIDAD VISUAL WAPI — estudio de diseño digital, Buenos Aires.',
+        '',
+        'PRINCIPIO: acromático por defecto, el color es un evento. Blanco de fondo, negro de tinta, una línea de 1px como único separador. Sin tarjetas, sin sombras, sin degradados, sin radios intermedios.',
+        '',
+        'COLOR',
+        'Negro #0A0A0A — texto, logo, secciones invertidas, píldoras.',
+        'Blanco #FFFFFF — fondo de todo.',
+        'Azul #2B2BF5 — acento único: hover de links y barra de cierre. Una sola mancha por pieza.',
+        'Línea #D6D6D6 · Gris dato #6B6B6B · Placeholder de imagen #EDEDED.',
+        '',
+        'TIPOGRAFÍA (Google Fonts)',
+        'Onest para todo el lenguaje: H1 peso 600 con line-height 0.88 y letter-spacing -0.045em; H2 peso 600 / 0.94 / -0.04em; H3 21px peso 600; body 17px / 1.55 con medida máxima de 64 caracteres.',
+        'JetBrains Mono para todo lo que sea dato: etiquetas, eyebrows, fechas, numeración de secciones. 11-12px, mayúsculas, letter-spacing 0.12em, color #6B6B6B.',
+        'El contraste entre la geométrica redondeada y la monoespaciada técnica es la firma del sistema.',
+        '',
+        'COMPOSICIÓN',
+        'Márgenes clamp(20px, 4vw, 64px). Todo al ras izquierdo, el aire a la derecha. Radio 0 en imágenes y bloques; las píldoras a 999px. Imágenes en 16:9 sin marco. Escala de espaciado: 4/8 interno, 12/18 título a párrafo, 24/32 entre bloques, 56/72 dentro de sección, 110+ entre secciones.',
+        '',
+        'MOVIMIENTO',
+        'Los títulos suben desde abajo detrás de una máscara, 1s con cubic-bezier(0.22, 1, 0.36, 1) y 80ms de diferencia por renglón. Reveals de 0.8s con translateY(24px), una sola vez. Hovers de 0.2s: color u opacidad, nunca escala.',
+        '',
+        'VOZ',
+        'Español rioplatense con voseo. Frases cortas y afirmativas. Sin jerga de agencia. Los números y los plazos se dicen.',
+        '',
+        'LOGO: wordmark "wapi" en negro sobre claro o blanco sobre oscuro, nunca en azul ni con efectos. Resguardo mínimo igual al alto de la "a". Mínimo 60px de ancho en pantalla. El lockup con bajada solo en papelería y firmas. (Adjuntar los SVG.)'
+      ].join('\n')
+    };
+  }
+}
+</script>
+</body>
+</html>

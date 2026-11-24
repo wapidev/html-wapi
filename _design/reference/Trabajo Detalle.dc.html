@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: "Onest", system-ui, sans-serif; color: #0A0A0A; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: #0A0A0A; color: #FFFFFF; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #2B2BF5; }
+  @keyframes wapiLine { from { transform: translateY(112%); } to { transform: translateY(0); } }
+  @keyframes wapiFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</helmet>
+
+<div style="position: relative; width: 100%; background: #FFFFFF; overflow-x: clip">
+
+  <div ref="{{ cursorRef }}" style="position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: #0A0A0A; color: #FFFFFF; z-index: 150; pointer-events: none; opacity: 0; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0px; letter-spacing: 0.12em; text-transform: uppercase; transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1), height 0.28s cubic-bezier(0.22, 1, 0.36, 1), font-size 0.2s linear, opacity 0.2s linear"></div>
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 22px clamp(20px, 4vw, 64px); color: {{ navColor }}; background: {{ navBg }}; border-bottom: 1px solid {{ navBorder }}; transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease">
+    <a href="Wapi Home.dc.html" data-cursor="Inicio" style="display: flex; align-items: center; line-height: 0">
+      <svg viewBox="4 0 137 54" style="width: 74px; height: auto; fill: currentColor" aria-label="wapi">
+        <path d="M30.81,38.92l-4.77-15.32-4.83,15.32c-.56,2.08-2.47,3.53-4.71,3.53s-4.15-1.46-4.77-3.53l-6.06-19.86c-.06-.28-.11-.67-.11-1.01,0-1.91,1.51-3.48,3.48-3.48,1.63,0,2.97,1.07,3.37,2.58l4.49,16.05,5.16-15.77c.51-1.68,2.13-2.86,3.98-2.86s3.42,1.18,3.93,2.86l5.16,15.77,4.49-16.05c.39-1.46,1.74-2.58,3.42-2.58,1.91,0,3.48,1.57,3.48,3.53,0,.28-.11.67-.17.95l-6.06,19.86c-.56,2.08-2.52,3.53-4.71,3.53s-4.21-1.46-4.77-3.53Z"></path>
+        <path d="M79,24.55v14.19c0,2.02-1.57,3.7-3.59,3.7-1.8,0-3.37-1.35-3.59-3.2-1.8,2.13-4.99,3.48-8.53,3.48-4.32,0-9.43-2.92-9.43-8.98s5.11-8.64,9.43-8.64c3.59,0,6.79,1.12,8.58,3.31v-3.76c0-2.75-2.36-4.54-5.95-4.54-2.13,0-4.04.56-6,1.8-.39.22-.9.39-1.4.39-1.46,0-2.69-1.23-2.69-2.75,0-1.01.56-1.91,1.29-2.36,3.09-2.02,6.56-2.92,10.04-2.92,6.17,0,11.84,2.47,11.84,10.27ZM71.88,35.55v-3.37c-1.18-1.57-3.42-2.36-5.72-2.36-2.81,0-5.11,1.46-5.11,4.1s2.3,3.98,5.11,3.98c2.3,0,4.54-.79,5.72-2.36Z"></path>
+        <path d="M118.05,28.48c0,9.03-5.05,14.25-12.01,14.25-3.2,0-6.12-1.35-8.36-4.15v10.6c0,1.96-1.63,3.59-3.53,3.59-2.02,0-3.59-1.63-3.59-3.59v-31.03c0-2.02,1.57-3.7,3.59-3.7s3.59,1.68,3.59,3.7v.17c2.13-2.64,5.05-4.04,8.3-4.04,6.96,0,12.01,5.16,12.01,14.19ZM110.64,28.48c0-4.66-2.75-7.85-6.84-7.85-2.3,0-4.94,1.35-6.12,3.09v9.59c1.18,1.68,3.81,3.09,6.12,3.09,4.1,0,6.84-3.2,6.84-7.91Z"></path>
+        <path d="M127.14,6.26c0-2.36,1.96-4.26,4.26-4.26s4.26,1.91,4.26,4.26-1.91,4.26-4.26,4.26-4.26-1.91-4.26-4.26ZM127.87,38.86v-20.7c0-1.96,1.57-3.59,3.59-3.59,1.91,0,3.53,1.63,3.53,3.59v20.7c0,1.96-1.63,3.59-3.59,3.59s-3.53-1.63-3.53-3.59Z"></path>
+      </svg>
+    </a>
+    <nav style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 clamp(20px, 3vw, 48px); margin-left: auto">
+      <span style="display: flex; align-items: baseline; font-size: clamp(18px, 1.9vw, 30px); font-weight: 500; letter-spacing: -0.03em">
+        <a href="Trabajos.dc.html" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Trabajos</a><span>,&nbsp;</span><a href="Wapi Home.dc.html#servicios" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Servicios</a><span>,&nbsp;</span><a href="Wapi Home.dc.html#nosotros" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Nosotros</a><span>,&nbsp;</span><a href="#contacto" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Contacto</a>
+      </span>
+      <a href="#contacto" data-cursor="Escribir" style="padding: 11px 22px; border-radius: 999px; border: 1px solid currentColor; background: {{ pillBg }}; color: {{ pillColor }}; font-size: 14px; font-weight: 500; transition: background 0.25s ease, color 0.25s ease" style-hover="background: {{ pillHoverBg }}; color: {{ pillHoverColor }}">Hablemos</a>
+    </nav>
+  </header>
+
+  <!-- 1. Portada: quién es y qué hicimos, en una línea -->
+  <section style="padding: clamp(140px, 17vh, 210px) clamp(20px, 4vw, 64px) 0">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; animation: wapiFade 0.6s ease 0.1s forwards">
+      <a href="Trabajos.dc.html" data-cursor="Volver" style="border-bottom: 1px solid currentColor; padding-bottom: 3px">← Trabajos</a>
+      <span>Proyecto {{ index }} / 04 — {{ year }}</span>
+    </div>
+    <h1 style="margin: clamp(24px, 4vh, 52px) 0 0; font-size: clamp(52px, 9vw, 180px); font-weight: 600; line-height: 0.86; letter-spacing: -0.045em">
+      <span style="display: block; overflow: hidden; padding-bottom: 0.02em"><span style="display: block; transform: translateY(112%); animation: wapiLine 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards">{{ name }}</span></span>
+    </h1>
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px; margin-top: clamp(32px, 5vh, 64px); opacity: 0; animation: wapiFade 0.7s ease 0.4s forwards">
+      <p style="margin: 0; max-width: 40ch; font-size: clamp(19px, 1.7vw, 28px); line-height: 1.4; letter-spacing: -0.015em">{{ summary }}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{ tags }}" as="t" hint-placeholder-count="3">
+          <span style="padding: 7px 14px; border: 1px solid #0A0A0A; border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase">{{ t }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Imagen principal -->
+  <section style="padding: clamp(36px, 6vh, 72px) clamp(20px, 4vw, 64px) 0">
+    <sc-if value="{{ isGemmia }}" hint-placeholder-val="{{ false }}">
+      <div style="position: relative; width: 100%; aspect-ratio: 16 / 9; background: #F2F5FA; overflow: hidden; display: flex; align-items: center; justify-content: center">
+        <img src="uploads/GM-logo_isologo-color.png" alt="" style="position: absolute; right: -6%; bottom: -32%; width: 46%; opacity: 0.06; pointer-events: none">
+        <img src="uploads/GM-logo_hoizontal-color.png" alt="Gemmia Logistics" style="width: min(52%, 640px)">
+      </div>
+    </sc-if>
+    <sc-if value="{{ isIbiza }}" hint-placeholder-val="{{ false }}">
+      <div style="width: 100%; aspect-ratio: 16 / 9; background: #0B1E2A; overflow: hidden">
+        <img src="uploads/iv-home.png" alt="Home de Ida &amp; Vuelta Ibiza" style="width: 100%; height: 100%; object-fit: cover; display: block">
+      </div>
+    </sc-if>
+    <sc-if value="{{ plainHero }}" hint-placeholder-val="{{ true }}">
+      <div style="width: 100%; aspect-ratio: 16 / 9; background: #EDEDED; overflow: hidden">
+        <image-slot id="{{ slotHero }}" shape="rect" fit="cover" placeholder="Imagen principal — {{ name }}"></image-slot>
+      </div>
+    </sc-if>
+  </section>
+
+  <!-- 3. Ficha: datos rápidos -->
+  <section style="padding: clamp(40px, 7vh, 88px) clamp(20px, 4vw, 64px) 0">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; border-top: 1px solid #0A0A0A">
+      <sc-for list="{{ facts }}" as="f" hint-placeholder-count="4">
+        <div style="padding: 20px 24px 24px 0; border-bottom: 1px solid #D6D6D6">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.55">{{ f.label }}</div>
+          <div style="margin-top: 10px; font-size: clamp(16px, 1.2vw, 19px); font-weight: 500; letter-spacing: -0.01em">{{ f.value }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 4. El punto de partida -->
+  <section style="padding: clamp(80px, 14vh, 180px) clamp(20px, 4vw, 64px) 0">
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(24px, 5vw, 96px)">
+      <div style="flex: 1 1 min(100%, 280px); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">El punto de partida</div>
+      <div style="flex: 2 1 min(100%, 480px)">
+        <h2 style="margin: 0; max-width: 22ch; font-size: clamp(30px, 3.6vw, 64px); font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; text-wrap: pretty">{{ challengeTitle }}</h2>
+        <p style="margin: clamp(20px, 3vh, 36px) 0 0; max-width: 54ch; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.55; letter-spacing: -0.01em">{{ challengeBody }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Qué hicimos: 3 pasos en criollo -->
+  <section style="padding: clamp(80px, 14vh, 180px) clamp(20px, 4vw, 64px) 0">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">Qué hicimos</div>
+    <div style="margin-top: clamp(28px, 4vh, 48px); border-top: 1px solid #0A0A0A">
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: clamp(16px, 4vw, 72px); padding: clamp(24px, 4vh, 48px) 0; border-bottom: 1px solid #D6D6D6">
+          <span style="flex: 0 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em">{{ s.num }}</span>
+          <h3 style="flex: 1 1 min(100%, 260px); margin: 0; font-size: clamp(26px, 2.8vw, 48px); font-weight: 600; line-height: 1; letter-spacing: -0.03em">{{ s.title }}</h3>
+          <p style="flex: 1 1 min(100%, 340px); margin: 0; max-width: 46ch; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.5">{{ s.line }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 6. Cómo quedó: galería con epígrafes en lenguaje simple -->
+  <section style="padding: clamp(80px, 14vh, 180px) clamp(20px, 4vw, 64px) 0">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: clamp(28px, 4vh, 48px)">Cómo quedó</div>
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 48px)">
+      <sc-if value="{{ isGemmia }}" hint-placeholder-val="{{ false }}">
+        <figure style="flex: 1 1 min(100%, 420px); margin: 0">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; width: 100%; aspect-ratio: 4 / 3; background: #FFFFFF">
+            <div style="background: #FFFFFF; border: 1px solid #E3E8F0; display: flex; align-items: center; justify-content: center"><img src="uploads/GM-logo_isologo-color.png" alt="Isotipo a color" style="width: 62%"></div>
+            <div style="background: #0A2777; display: flex; align-items: center; justify-content: center"><img src="uploads/GM-logo_isologo-azul-blanco-negativo.png" alt="Isotipo en negativo" style="width: 62%"></div>
+            <div style="background: #085CF0; display: flex; align-items: center; justify-content: center"><img src="uploads/GM-logo_isologo-azul-blanco-negativo.png" alt="Isotipo sobre azul" style="width: 62%"></div>
+            <div style="background: #F2F5FA; display: flex; align-items: center; justify-content: center"><img src="uploads/GM-logo_vertical-color.png" alt="Logo vertical" style="width: 68%"></div>
+          </div>
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap1 }}</figcaption>
+        </figure>
+        <figure style="flex: 1 1 min(100%, 420px); margin: 0">
+          <div style="width: 100%; aspect-ratio: 4 / 3; background: #E7ECF4; display: flex; align-items: center; justify-content: center; overflow: hidden">
+            <div style="width: 86%; background: #FFFFFF; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 60px rgba(10, 39, 119, 0.25)">
+              <div style="display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: #F2F5FA; border-bottom: 1px solid #E3E8F0">
+                <span style="display: flex; gap: 5px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #D4DAE5"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #D4DAE5"></span><span style="width: 8px; height: 8px; border-radius: 50%; background: #D4DAE5"></span></span>
+                <span style="flex: 1; background: #FFFFFF; border-radius: 999px; padding: 4px 12px; font-family: 'JetBrains Mono', monospace; font-size: 9px; color: #5B6472">gemmialogistics.com</span>
+              </div>
+              <div ref="{{ siteRef }}" style="position: relative; width: 100%; aspect-ratio: 16 / 10; background: #0A2777; overflow: hidden">
+                <iframe src="https://gemmialogistics.com/" title="gemmialogistics.com" scrolling="no" style="position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: 0; transform: scale({{ siteScale }}); transform-origin: top left; pointer-events: none"></iframe>
+              </div>
+            </div>
+          </div>
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap2 }}</figcaption>
+        </figure>
+        <figure style="flex: 1 1 100%; margin: 0">
+          <div style="display: grid; grid-template-columns: 1fr 1.32fr; gap: 4px; width: 100%; aspect-ratio: 21 / 9; overflow: hidden">
+            <img src="uploads/manual-p21-img1.png" alt="Tarjetones y sobres de Gemmia" style="width: 100%; height: 100%; object-fit: cover">
+            <img src="uploads/manual-p21-img2.png" alt="Tarjetas personales de Gemmia" style="width: 100%; height: 100%; object-fit: cover">
+          </div>
+
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap3 }}</figcaption>
+        </figure>
+      </sc-if>
+      <sc-if value="{{ isIbiza }}" hint-placeholder-val="{{ false }}">
+        <figure style="flex: 1 1 100%; margin: 0">
+          <img src="uploads/iv-ficha.png" alt="Ficha de una casa" style="width: 100%; height: auto; display: block; background: #F6EFE0">
+          <figcaption style="margin-top: 14px; max-width: 60ch; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap3 }}</figcaption>
+        </figure>
+        <div style="flex: 1 1 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(20px, 3vw, 48px)">
+        <figure style="margin: 0">
+          <div style="width: 100%; aspect-ratio: 16 / 10; background: #163141; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(14px, 2.4vw, 28px); overflow: hidden">
+            <img src="uploads/iv-logo-dark.png" alt="Logo de Ida &amp; Vuelta Ibiza" style="width: min(52%, 260px)">
+            <div style="display: flex; align-items: center; gap: 14px">
+              <span style="width: 26px; height: 26px; border-radius: 50%; background: #C25A2E"></span>
+              <span style="width: 26px; height: 26px; border-radius: 50%; background: #F6EFE0"></span>
+              <span style="width: 26px; height: 26px; border-radius: 50%; background: #1B3E51; border: 1px solid rgba(246, 239, 224, 0.4)"></span>
+            </div>
+          </div>
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap1 }}</figcaption>
+        </figure>
+        <figure style="margin: 0">
+          <img src="uploads/iv-buscador.png" alt="Buscador con mapa" style="width: 100%; height: auto; display: block; background: #F6EFE0">
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap2 }}</figcaption>
+        </figure>
+        <figure style="margin: 0">
+          <img src="uploads/iv-reserva.png" alt="Qué ofrece y reserva por WhatsApp" style="width: 100%; height: auto; display: block; background: #F6EFE0">
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap4 }}</figcaption>
+        </figure>
+        </div>
+      </sc-if>
+      <sc-if value="{{ plainGallery }}" hint-placeholder-val="{{ true }}">
+        <figure style="flex: 1 1 min(100%, 420px); margin: 0">
+          <div style="width: 100%; aspect-ratio: 4 / 3; background: #EDEDED; overflow: hidden">
+            <image-slot id="{{ slotG1 }}" shape="rect" fit="cover" placeholder="{{ cap1 }}"></image-slot>
+          </div>
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap1 }}</figcaption>
+        </figure>
+        <figure style="flex: 1 1 min(100%, 420px); margin: 0">
+          <div style="width: 100%; aspect-ratio: 4 / 3; background: #EDEDED; overflow: hidden">
+            <image-slot id="{{ slotG2 }}" shape="rect" fit="cover" placeholder="{{ cap2 }}"></image-slot>
+          </div>
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap2 }}</figcaption>
+        </figure>
+        <figure style="flex: 1 1 100%; margin: 0">
+          <div style="width: 100%; aspect-ratio: 21 / 9; background: #EDEDED; overflow: hidden">
+            <image-slot id="{{ slotG3 }}" shape="rect" fit="cover" placeholder="{{ cap3 }}"></image-slot>
+          </div>
+          <figcaption style="margin-top: 14px; font-size: clamp(14px, 1vw, 16px); line-height: 1.5; opacity: 0.7">{{ cap3 }}</figcaption>
+        </figure>
+      </sc-if>
+    </div>
+  </section>
+
+  <!-- 7. Qué cambió: resultados en números simples -->
+  <section style="padding: clamp(80px, 14vh, 180px) clamp(20px, 4vw, 64px) 0">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">{{ resultsLabel }}</div>
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(24px, 4vw, 64px); margin-top: clamp(28px, 4vh, 48px); border-top: 1px solid #0A0A0A; padding-top: clamp(28px, 4vh, 48px)">
+      <sc-for list="{{ results }}" as="r" hint-placeholder-count="3">
+        <div style="flex: 1 1 min(100%, 220px)">
+          <div style="font-size: clamp(48px, 6vw, 110px); font-weight: 600; line-height: 0.95; letter-spacing: -0.04em; color: {{ accent }}">{{ r.value }}</div>
+          <p style="margin: 16px 0 0; max-width: 30ch; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.5">{{ r.label }}</p>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasQuote }}" hint-placeholder-val="{{ true }}">
+      <blockquote style="margin: clamp(64px, 10vh, 140px) 0 0; padding: 0">
+        <p style="margin: 0; max-width: 26ch; font-size: clamp(28px, 3.4vw, 60px); font-weight: 600; line-height: 1.08; letter-spacing: -0.03em; text-wrap: pretty">“{{ quote }}”</p>
+        <footer style="margin-top: clamp(20px, 3vh, 32px); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6">{{ quoteBy }}</footer>
+      </blockquote>
+    </sc-if>
+  </section>
+
+  <!-- 8. Siguiente proyecto -->
+  <section style="margin-top: clamp(80px, 14vh, 180px); border-top: 1px solid #0A0A0A">
+    <a href="{{ nextHref }}" data-cursor="Ver caso" style="display: block; padding: clamp(48px, 9vh, 110px) clamp(20px, 4vw, 64px); transition: background 0.35s ease, color 0.35s ease" style-hover="background: #0A0A0A; color: #FFFFFF">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6">Siguiente proyecto</div>
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: clamp(16px, 3vh, 32px)">
+        <span style="font-size: clamp(40px, 6.5vw, 130px); font-weight: 600; line-height: 0.9; letter-spacing: -0.045em">{{ nextName }}</span>
+        <span style="font-size: clamp(28px, 3.5vw, 64px); font-weight: 500">→</span>
+      </div>
+    </a>
+  </section>
+
+  <footer id="contacto" ref="{{ footerRef }}" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; padding: clamp(90px, 15vh, 180px) clamp(20px, 4vw, 64px) 0; background: {{ accent }}; color: {{ onAccent }}; overflow: hidden">
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75">Contacto</div>
+      <h2 style="margin: clamp(20px, 3vh, 40px) 0 0; font-size: clamp(46px, 8vw, 168px); font-weight: 600; line-height: 0.88; letter-spacing: -0.045em">Hagamos algo<br>que dure.</h2>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 80px); margin-top: clamp(48px, 8vh, 96px)">
+      <div style="flex: 1 1 min(100%, 240px)">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 14px">Escribinos</div>
+        <a href="mailto:hola@wapi.com.ar" data-cursor="Escribir" style="font-size: clamp(18px, 1.6vw, 26px); font-weight: 500; letter-spacing: -0.02em; border-bottom: 1px solid currentColor; padding-bottom: 3px">hola@wapi.com.ar</a>
+      </div>
+      <div style="flex: 1 1 min(100%, 240px)">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 14px">Dónde estamos</div>
+        <p style="margin: 0; font-size: clamp(18px, 1.6vw, 26px); font-weight: 500; line-height: 1.3; letter-spacing: -0.02em">Buenos Aires,<br>Argentina</p>
+      </div>
+      <div style="flex: 1 1 min(100%, 240px)">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 14px">Seguinos</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px">
+          <a href="#contacto" style="font-size: clamp(17px, 1.4vw, 22px); font-weight: 500; letter-spacing: -0.02em" style-hover="opacity: 0.6">Instagram</a>
+          <a href="#contacto" style="font-size: clamp(17px, 1.4vw, 22px); font-weight: 500; letter-spacing: -0.02em" style-hover="opacity: 0.6">LinkedIn</a>
+          <a href="#contacto" style="font-size: clamp(17px, 1.4vw, 22px); font-weight: 500; letter-spacing: -0.02em" style-hover="opacity: 0.6">Behance</a>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; margin-top: clamp(40px, 7vh, 80px); padding-bottom: 18px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75">
+      <span>© Wapi 2026</span>
+      <a href="#contacto">Política de privacidad</a>
+    </div>
+    <div style="position: relative; height: clamp(90px, 15vw, 260px); overflow: hidden">
+      <svg viewBox="4 0 137 40" preserveAspectRatio="xMidYMin slice" style="position: absolute; left: -1%; bottom: 0; width: 102%; height: auto; fill: currentColor; opacity: 0.92" aria-hidden="true">
+        <path d="M30.81,38.92l-4.77-15.32-4.83,15.32c-.56,2.08-2.47,3.53-4.71,3.53s-4.15-1.46-4.77-3.53l-6.06-19.86c-.06-.28-.11-.67-.11-1.01,0-1.91,1.51-3.48,3.48-3.48,1.63,0,2.97,1.07,3.37,2.58l4.49,16.05,5.16-15.77c.51-1.68,2.13-2.86,3.98-2.86s3.42,1.18,3.93,2.86l5.16,15.77,4.49-16.05c.39-1.46,1.74-2.58,3.42-2.58,1.91,0,3.48,1.57,3.48,3.53,0,.28-.11.67-.17.95l-6.06,19.86c-.56,2.08-2.52,3.53-4.71,3.53s-4.21-1.46-4.77-3.53Z"></path>
+        <path d="M79,24.55v14.19c0,2.02-1.57,3.7-3.59,3.7-1.8,0-3.37-1.35-3.59-3.2-1.8,2.13-4.99,3.48-8.53,3.48-4.32,0-9.43-2.92-9.43-8.98s5.11-8.64,9.43-8.64c3.59,0,6.79,1.12,8.58,3.31v-3.76c0-2.75-2.36-4.54-5.95-4.54-2.13,0-4.04.56-6,1.8-.39.22-.9.39-1.4.39-1.46,0-2.69-1.23-2.69-2.75,0-1.01.56-1.91,1.29-2.36,3.09-2.02,6.56-2.92,10.04-2.92,6.17,0,11.84,2.47,11.84,10.27ZM71.88,35.55v-3.37c-1.18-1.57-3.42-2.36-5.72-2.36-2.81,0-5.11,1.46-5.11,4.1s2.3,3.98,5.11,3.98c2.3,0,4.54-.79,5.72-2.36Z"></path>
+        <path d="M118.05,28.48c0,9.03-5.05,14.25-12.01,14.25-3.2,0-6.12-1.35-8.36-4.15v10.6c0,1.96-1.63,3.59-3.53,3.59-2.02,0-3.59-1.63-3.59-3.59v-31.03c0-2.02,1.57-3.7,3.59-3.7s3.59,1.68,3.59,3.7v.17c2.13-2.64,5.05-4.04,8.3-4.04,6.96,0,12.01,5.16,12.01,14.19ZM110.64,28.48c0-4.66-2.75-7.85-6.84-7.85-2.3,0-4.94,1.35-6.12,3.09v9.59c1.18,1.68,3.81,3.09,6.12,3.09,4.1,0,6.84-3.2,6.84-7.91Z"></path>
+        <path d="M127.14,6.26c0-2.36,1.96-4.26,4.26-4.26s4.26,1.91,4.26,4.26-1.91,4.26-4.26,4.26-4.26-1.91-4.26-4.26ZM127.87,38.86v-20.7c0-1.96,1.57-3.59,3.59-3.59,1.91,0,3.53,1.63,3.53,3.59v20.7c0,1.96-1.63,3.59-3.59,3.59s-3.53-1.63-3.53-3.59Z"></path>
+      </svg>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2B2BF5&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2B2BF5&quot;,&quot;#DDF247&quot;,&quot;#0A0A0A&quot;],&quot;section&quot;:&quot;Identidad&quot;}}">
+class Component extends DCLogic {
+  state = { footerIn: false, scrolled: false, siteScale: 0.5 };
+  cursorRef = React.createRef();
+  footerRef = React.createRef();
+  siteRef = React.createRef();
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const s = window.scrollY > window.innerHeight * 0.5;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      this.move = (e) => this.moveCursor(e);
+      window.addEventListener('mousemove', this.move, { passive: true });
+    }
+    this.measureSite = () => {
+      const el = this.siteRef.current;
+      if (!el) return;
+      const sc = el.clientWidth / 1440;
+      if (sc > 0 && Math.abs(sc - this.state.siteScale) > 0.001) this.setState({ siteScale: sc });
+    };
+    window.addEventListener('resize', this.measureSite);
+    this.siv = setInterval(() => { if (this.siteRef.current) { this.measureSite(); clearInterval(this.siv); } }, 300);
+    this.fiv = setInterval(() => {
+      const f = this.footerRef.current;
+      if (f && !this.fio) {
+        this.fio = new IntersectionObserver((en) => {
+          const on = en[0].isIntersecting;
+          if (on !== this.state.footerIn) this.setState({ footerIn: on });
+        }, { rootMargin: '-72px 0px -85% 0px' });
+        this.fio.observe(f);
+        clearInterval(this.fiv);
+      }
+    }, 300);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fiv);
+    clearInterval(this.siv);
+    window.removeEventListener('scroll', this.onScroll);
+    if (this.measureSite) window.removeEventListener('resize', this.measureSite);
+    if (this.move) window.removeEventListener('mousemove', this.move);
+    document.documentElement.style.cursor = '';
+  }
+
+  moveCursor(e) {
+    const c = this.cursorRef.current;
+    if (!c) return;
+    if (!this.cursorOn) {
+      this.cursorOn = true;
+      document.documentElement.style.cursor = 'none';
+      c.style.opacity = '1';
+    }
+    c.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px) translate(-50%, -50%)';
+    const t = e.target && e.target.closest ? e.target.closest('[data-cursor]') : null;
+    const label = t ? t.getAttribute('data-cursor') : '';
+    if (label === this.label) return;
+    this.label = label;
+    c.textContent = label;
+    const big = !!label;
+    c.style.width = big ? '92px' : '12px';
+    c.style.height = big ? '92px' : '12px';
+    c.style.fontSize = big ? '10px' : '0px';
+  }
+
+  renderVals() {
+    const accent = this.props.accent || '#2B2BF5';
+    const h = accent.replace('#', '');
+    const n = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+    const lum = (0.2126 * parseInt(n.slice(0, 2), 16) + 0.7152 * parseInt(n.slice(2, 4), 16) + 0.0722 * parseInt(n.slice(4, 6), 16)) / 255;
+    const onAccent = lum > 0.55 ? '#0A0A0A' : '#FFFFFF';
+
+    const data = [
+      {
+        name: 'Gemmia Logistics', year: '2025', tags: ['Branding', 'Diseño web', 'UX/UI'],
+        summary: 'Creamos la marca y el sitio de una empresa que mueve cargas entre Latinoamérica y el mundo: una gema facetada que también es un paquete en tránsito.',
+        facts: [
+          { label: 'Cliente', value: 'Gemmia Logistics' },
+          { label: 'Rubro', value: 'Logística internacional' },
+          { label: 'Servicios', value: 'Branding + Sitio web' },
+          { label: 'Oficinas', value: 'Buenos Aires · Santiago · Miami' }
+        ],
+        challengeTitle: 'Una empresa nueva que necesitaba verse tan confiable como su equipo.',
+        challengeBody: 'Gemmia nace con un equipo que suma más de 15 años moviendo cargas por aire, mar y tierra hacia más de 180 países. Pero competía contra gigantes globales sin marca ni sitio propios. Necesitaba una identidad que transmitiera esa experiencia desde el primer día, en dos idiomas y tres mercados.',
+        steps: [
+          { title: 'Escuchamos', line: 'Entendimos el negocio antes de dibujar: qué hace un freight forwarder, qué industrias mueve y por qué su diferencial es un punto de contacto dedicado que sigue cada embarque.' },
+          { title: 'Diseñamos', line: 'Creamos la gema hexagonal facetada —valor, precisión y un paquete en tránsito—, la paleta de dos azules y la tipografía Soleil. Cada avance se decidió mirando, no leyendo informes.' },
+          { title: 'Pusimos en marcha', line: 'Publicamos el sitio bilingüe con cotizador online y entregamos el manual de marca de 22 páginas para que el equipo aplique la identidad sin depender de nadie.' }
+        ],
+        caps: ['El isologotipo y sus variaciones: la gema funciona a color, en negativo y como ícono.', 'El sitio, en inglés y español: cotizaciones respondidas en menos de 2 horas.', 'La papelería real: tarjetones, sobres y tarjetas personales con las facetas de la gema.'],
+        results: [
+          { value: '0 → 1', label: 'una marca completa lista para operar en tres mercados a la vez.' },
+          { value: '2', label: 'idiomas: el mismo sitio le habla a Latinoamérica y a Estados Unidos.' },
+          { value: '22', label: 'páginas de manual para que la marca se aplique siempre igual.' }
+        ],
+        quote: 'La marca nos hace ver del tamaño de los jugadores con los que competimos.',
+        quoteBy: 'Ezequiel, Socio fundador — Gemmia Logistics'
+      },
+      {
+        name: 'Gestión de Préstamos', year: '2026', tags: ['UX/UI', 'Diseño de producto', 'SaaS'],
+        summary: 'Cuatro módulos, un sistema: la plataforma que reemplazó a la planilla que sostenía todo un negocio de créditos.',
+        facts: [
+          { label: 'Cliente', value: 'Empresa de créditos' },
+          { label: 'Rubro', value: 'Servicios financieros' },
+          { label: 'Servicios', value: 'UX/UI + Diseño de producto' },
+          { label: 'Módulos', value: 'Clientes · Préstamos · Cobranzas · Caja' }
+        ],
+        challengeTitle: 'Todo el negocio vivía en una planilla, y ya la habían perdido una vez.',
+        challengeBody: 'Clientes, préstamos, cobranzas, pagos y caja: todo en un solo archivo, en una sola computadora. El dueño ya había sufrido una pérdida de datos y reconstruido sus registros a mano. El desafío no era digitalizar un proceso: era diseñar un producto lo suficientemente confiable como para reemplazar algo de lo que dependía todos los días.',
+        steps: [
+          { title: 'Escuchamos', line: 'Antes de dibujar una pantalla, entendimos cómo operaba el negocio de verdad. La planilla fue nuestro documento de descubrimiento: mapeamos las relaciones entre clientes, préstamos, cobranzas y movimientos de caja.' },
+          { title: 'Diseñamos', line: 'Módulo por módulo, con formularios que piden lo justo: dar de alta un cliente lleva cuatro campos. Crear un préstamo, en cambio, tiene su propia pantalla: es la decisión más importante del negocio y merece atención completa.' },
+          { title: 'Pusimos en marcha', line: 'Trabajamos con un kit compartido entre diseño y desarrollo —cada componente diseñado ya existía en código con el mismo nombre— y revisamos el producto construido contra el diseño, pantalla por pantalla.' }
+        ],
+        caps: ['La tabla de clientes hace una sola cosa bien: encontrar a alguien y abrir su ficha.', 'Crear un préstamo ocupa la pantalla completa: montos, cuotas e intereses sin distracciones.', 'Cada acción confirma, cada error se recupera: confianza para quien ya perdió sus datos una vez.'],
+        results: [
+          { value: '4', label: 'módulos diseñados, entregados y verificados contra el producto real.' },
+          { value: '0', label: 'planillas: el negocio ya no depende de un archivo en una sola máquina.' },
+          { value: '4', label: 'campos alcanzan para dar de alta un cliente. Lo demás, solo cuando hace falta.' }
+        ],
+        quote: 'Dejó de tratarlo como una herramienta y empezó a tratarlo como su producto.',
+        quoteBy: 'Lo que pasó cuando llegó el primer módulo diseñado'
+      },
+      {
+        name: 'Ida & Vuelta Ibiza', year: '2026', tags: ['Branding', 'UX/UI', 'Diseño web', 'Desarrollo'],
+        summary: 'Una familia que hospeda en Ibiza desde hace más de diez años abrió su propio emprendimiento. Diseñamos y desarrollamos la marca y el sitio con los que salió a la isla.',
+        facts: [
+          { label: 'Cliente', value: 'Ida & Vuelta Ibiza' },
+          { label: 'Rubro', value: 'Hospedajes · Ibiza, España' },
+          { label: 'Servicios', value: 'Branding + Sitio web + Desarrollo' },
+          { label: 'Alcance', value: 'Marca, sitio y canal de reservas' }
+        ],
+        challengeTitle: 'No había nada que rediseñar: el emprendimiento arrancaba de cero.',
+        challengeBody: 'La familia ya tenía las casas, los años en la isla y los huéspedes. Lo que no tenía era nombre propio, marca, ni un lugar donde mostrar las propiedades. Todo lo que se ve en este caso se definió desde cero, con una condición: que el sitio no reemplazara la atención personal, porque es lo único que no se puede copiar.',
+        steps: [
+          { title: 'Escuchamos', line: 'Entendimos cómo atienden antes de dibujar: contestan ellos mismos, conocen cada cala y acompañan el viaje entero. Esa ida y vuelta con el huésped terminó dándole el nombre a la marca.' },
+          { title: 'Diseñamos', line: 'Una identidad de isla sin postal turística: azul de puerto, terracota y Spectral para los títulos. Y un sitio donde el buscador pide dos cosas —la zona y cuántos viajan— porque el resto se conversa después.' },
+          { title: 'Pusimos en marcha', line: 'Desarrollamos y publicamos el sitio: las casas en el mapa, cada ficha con fotos, ubicación y precio, y una reserva que termina en un chat de WhatsApp en lugar de un formulario.' }
+        ],
+        caps: [
+          'La marca: el nombre cuenta cómo atienden, y el sistema visual la acompaña sin caer en la postal turística.',
+          'El buscador pide zona y cantidad de personas. Las casas aparecen en la lista y en el mapa a la vez.',
+          'La ficha de cada casa abre con la foto principal a pantalla grande; los detalles quedan en las chicas, a un clic.',
+          'Qué ofrece la casa, y una reserva que no termina en un formulario sino en una conversación por WhatsApp.'
+        ],
+        resultsLabel: 'Con qué salió',
+        results: [
+          { value: '0 → 1', label: 'de una idea a una marca, un sitio y un canal de reservas propios.' },
+          { value: '2', label: 'datos pide el buscador para empezar: la zona y cuántos viajan.' },
+          { value: '1', label: 'lugar donde ver las casas, la ubicación y cerrar la reserva.' }
+        ],
+        quote: '',
+        quoteBy: ''
+      },
+      {
+        name: '[Cliente 04]', year: '2024', tags: ['UX/UI', 'Desarrollo'],
+        summary: 'Mismo catálogo, misma inversión en publicidad: rediseñamos la tienda y las ventas se triplicaron.',
+        facts: [
+          { label: 'Cliente', value: '[Cliente 04]' },
+          { label: 'Rubro', value: 'E-commerce' },
+          { label: 'Servicios', value: 'UX/UI + Desarrollo' },
+          { label: 'Duración', value: '3 meses' }
+        ],
+        challengeTitle: 'Entraba gente a la tienda, pero casi nadie compraba.',
+        challengeBody: 'La publicidad traía visitas, pero el proceso de compra las perdía: fotos chicas, precios escondidos y un checkout de cinco pantallas. El problema no era el producto, era el camino hasta el botón de pagar.',
+        steps: [
+          { title: 'Escuchamos', line: 'Analizamos dónde abandonaba la gente el carrito y qué preguntaban antes de comprar.' },
+          { title: 'Diseñamos', line: 'Rehicimos la página de producto y dejamos el checkout en una sola pantalla, sin registro obligatorio.' },
+          { title: 'Pusimos en marcha', line: 'Desarrollamos la tienda nueva y medimos cada semana para seguir ajustando después del lanzamiento.' }
+        ],
+        caps: ['La página de producto nueva: foto grande, precio claro.', 'El checkout completo en una sola pantalla.', 'La tienda funcionando en el celular.'],
+        results: [
+          { value: '3×', label: 'más ventas con el mismo catálogo y la misma publicidad.' },
+          { value: '−70%', label: 'menos carritos abandonados en el checkout.' },
+          { value: '1', label: 'pantalla para pagar, antes eran cinco.' }
+        ],
+        quote: 'No cambiamos nada de lo que vendemos. Cambió cómo se compra.',
+        quoteBy: '[Nombre], [Cargo] — [Cliente 04]'
+      }
+    ];
+
+    let p = 1;
+    try { p = parseInt(new URLSearchParams(window.location.search).get('p'), 10) || 1; } catch (e) {}
+    const i = Math.min(Math.max(p, 1), 4) - 1;
+    const w = data[i];
+    const ni = (i + 1) % 4;
+
+    const fi = this.state.footerIn;
+    return {
+      cursorRef: this.cursorRef,
+      footerRef: this.footerRef,
+      accent, onAccent,
+      index: '0' + (i + 1),
+      isGemmia: i === 0,
+      notGemmia: i !== 0,
+      isIbiza: i === 2,
+      plainHero: i !== 0 && i !== 2,
+      plainGallery: i !== 0 && i !== 2,
+      cap4: w.caps[3] || '',
+      resultsLabel: w.resultsLabel || 'Qué cambió',
+      hasQuote: !!w.quote,
+      siteRef: this.siteRef,
+      siteScale: this.state.siteScale,
+      name: w.name, year: w.year, tags: w.tags, summary: w.summary,
+      facts: w.facts,
+      challengeTitle: w.challengeTitle, challengeBody: w.challengeBody,
+      steps: w.steps.map((s, si) => ({ num: '0' + (si + 1), title: s.title, line: s.line })),
+      cap1: w.caps[0], cap2: w.caps[1], cap3: w.caps[2],
+      slotHero: 'caso-' + (i + 1) + '-hero',
+      slotG1: 'caso-' + (i + 1) + '-g1',
+      slotG2: 'caso-' + (i + 1) + '-g2',
+      slotG3: 'caso-' + (i + 1) + '-g3',
+      results: w.results,
+      quote: w.quote, quoteBy: w.quoteBy,
+      nextName: data[ni].name,
+      nextHref: 'Trabajo Detalle.dc.html?p=' + (ni + 1),
+      navColor: fi ? onAccent : '#0A0A0A',
+      navBg: fi ? 'transparent' : (this.state.scrolled ? 'rgba(255,255,255,0.92)' : 'transparent'),
+      navBorder: fi ? 'transparent' : (this.state.scrolled ? '#0A0A0A' : 'transparent'),
+      pillBg: fi ? onAccent : '#0A0A0A',
+      pillColor: fi ? accent : '#FFFFFF',
+      pillHoverBg: fi ? 'transparent' : '#FFFFFF',
+      pillHoverColor: fi ? onAccent : '#0A0A0A'
+    };
+  }
+}
+</script>
+</body>
+</html>

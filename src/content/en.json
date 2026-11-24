@@ -1,0 +1,572 @@
+{
+  "idioma": "en",
+  "sitio": {
+    "nombre": "Wapi",
+    "descripcion": "Design and technology studio in Buenos Aires.",
+    "email": "info@wapidesign.com",
+    "ubicacion": ["Buenos Aires,", "Argentina"],
+    "redes": [
+      { "label": "Instagram", "href": null },
+      { "label": "LinkedIn", "href": null },
+      { "label": "Behance", "href": null }
+    ],
+    "copyright": "© Wapi 2026",
+    "privacidad": "Privacy policy",
+    "privacidadHref": null
+  },
+  "nav": {
+    "trabajos": "Work",
+    "servicios": "Services",
+    "nosotros": "About",
+    "contacto": "Contact",
+    "cta": "Let's talk",
+    "menu": "Menu",
+    "cerrar": "Close",
+    "escribinos": "Write to us",
+    "ubicacionLinea": "Buenos Aires, Argentina",
+    "inicio": "Wapi, home"
+  },
+  "idiomas": { "etiqueta": "Language", "es": "Español", "en": "English" },
+  "footer": {
+    "eyebrow": "Contact",
+    "titulo": ["Let's make", "something last."],
+    "escribinos": "Write to us",
+    "donde": "Where we are",
+    "seguinos": "Follow us"
+  },
+  "home": {
+    "meta": {
+      "titulo": "Wapi — Design and technology studio in Buenos Aires",
+      "descripcion": "We're a design and technology studio in Buenos Aires. We help growing businesses automate processes, add AI agents and get systems and websites that are easy to use."
+    },
+    "hero": {
+      "eyebrow": "Design and technology studio · Buenos Aires",
+      "titulo": ["Design and", "automation"],
+      "est": "Est. 2017",
+      "texto": "We're a design and technology studio in Buenos Aires. We help growing businesses automate processes, add AI agents and get systems and websites that are easy to use."
+    },
+    "reel": {
+      "descripcion": "Wapi project reel"
+    },
+    "manifiesto": {
+      "titulo": ["AI isn't the goal.", "It's the shortcut."],
+      "texto": "It's not about adding a chatbot. It's about finding where time gets lost, automating it well and making sure the people who use it barely notice. That's what we design."
+    },
+    "servicios": {
+      "eyebrow": "Services",
+      "tituloOculto": "What we do",
+      "items": [
+        {
+          "titulo": "Process automation",
+          "texto": "We find the tasks your team repeats every day and make them run on their own: data entry, notifications, reports, follow-ups. We connect the tools you already use so nobody copies data by hand."
+        },
+        {
+          "titulo": "AI agents",
+          "texto": "Agents that answer questions, sort orders and reply over WhatsApp or email, and only hand a person what really needs one. They work with your business's own information, not generic answers."
+        },
+        {
+          "titulo": "Custom systems",
+          "texto": "Dashboards, internal platforms and management tools built around how your team works, not the other way around."
+        },
+        {
+          "titulo": "Websites and digital products",
+          "texto": "Websites and apps designed and built end to end, easy to understand and connected to the rest of your operation."
+        },
+        {
+          "titulo": "Brand",
+          "texto": "When it's needed, we also design the identity: name, logo and visual system."
+        }
+      ],
+      "cta": "See all services →"
+    },
+    "trabajos": {
+      "titulo": ["Selected", "work"],
+      "bajada": "A short selection. The full list is at /work.",
+      "items": [
+        {
+          "slug": "gymrat",
+          "linea": "WhatsApp payment reminders that go out on their own, and a dashboard to run them.",
+          "tags": "Automation · UX/UI · WhatsApp"
+        },
+        {
+          "slug": "credigial",
+          "linea": "The platform that brought order to a lender's day-to-day operation.",
+          "tags": "UX/UI · Product design · SaaS"
+        },
+        {
+          "slug": "ida-y-vuelta-ibiza",
+          "linea": "Brand and website for a holiday rental concierge in Ibiza.",
+          "tags": "Branding · UX/UI · Web design"
+        },
+        {
+          "slug": "zuhause",
+          "linea": "It started as the brand of a gym in Lanús and now it dresses its community too.",
+          "tags": "Branding · Web design · UX/UI"
+        },
+        {
+          "slug": "gemmia-logistics",
+          "linea": "Brand and website to move cargo between Latin America and the world.",
+          "tags": "Branding · Web design · UX/UI"
+        }
+      ],
+      "cta": "See all work →"
+    },
+    "preguntas": {
+      "eyebrow": "FAQ",
+      "titulo": ["What people", "usually ask us"],
+      "bajada": "If your question isn't here, write to us and you'll get an answer from us, not a bot.",
+      "items": [
+        {
+          "q": "Which processes in my business can be automated?",
+          "a": "Almost anything that's done by hand and repeated today: moving data from one system to another, sending reminders and notifications, putting reports together, following up on clients or orders. We start by looking at how your team works and tell you where you'll save the most time."
+        },
+        {
+          "q": "What is an AI agent and what can it do for me?",
+          "a": "It's a program that understands what people write to it and works with your business's information: it answers questions, takes orders, books appointments or looks up data in your system. We build it for a specific task and, when something falls outside what's expected, it hands it to someone on your team."
+        },
+        {
+          "q": "Do I have to change the tools I already use?",
+          "a": "No. We usually connect what you already have (spreadsheets, your management system, WhatsApp, email) so data moves from one place to the other on its own. If a tool is holding you back, we'll tell you and decide together whether it's worth changing."
+        },
+        {
+          "q": "Can you help me build a system for my business?",
+          "a": "Yes. We design and build custom dashboards and platforms: first we understand how your team works and then we build the system around it, in stages, so you can start using it as soon as possible."
+        },
+        {
+          "q": "How much does it cost to work with you?",
+          "a": "It depends on the scope. After a first conversation we send you a fixed quote, with what each stage includes and how long it takes. No surprises halfway through."
+        },
+        {
+          "q": "I have a website but I don't like it. Could you redesign it?",
+          "a": "Yes. We look at what works and what doesn't, and redesign it so it's easy to understand, loads fast and connects to the rest of your operation: forms, WhatsApp or your system."
+        }
+      ]
+    },
+    "clientes": {
+      "titulo": "We work with people who dare.",
+      "bajada": "From projects starting from scratch to brands with twenty years of history. Each one pushes us not to repeat ourselves.",
+      "nombres": ["Almaverde", "Norte Studio", "Cobalto", "Fábrica Nueve", "Rivera & Co", "Kilómetro", "Tandem", "Perlita"]
+    }
+  },
+  "trabajos": {
+    "meta": {
+      "titulo": "Work — Wapi",
+      "descripcion": "Five projects where the work shows: identity, product and website held together by the same idea."
+    },
+    "eyebrow": "Work · 05 projects",
+    "titulo": ["Selected", "work"],
+    "bajada": "Five projects where the work shows: identity, product and website held together by the same idea.",
+    "rango": "2024-2026",
+    "items": [
+      {
+        "slug": "gemmia-logistics",
+        "linea": "Brand and website to move cargo between Latin America and the world.",
+        "tags": ["Branding", "Web design", "UX/UI"]
+      },
+      {
+        "slug": "credigial",
+        "linea": "The platform that brought order to a lender's day-to-day operation.",
+        "tags": ["UX/UI", "Product design", "SaaS"]
+      },
+      {
+        "slug": "ida-y-vuelta-ibiza",
+        "linea": "Brand and website for a holiday rental concierge that started from scratch.",
+        "tags": ["Branding", "UX/UI", "Web design", "Development"]
+      },
+      {
+        "slug": "zuhause",
+        "linea": "It started as the brand of a gym in Lanús and now it dresses its community too.",
+        "tags": ["Branding", "Web design", "UX/UI"]
+      },
+      {
+        "slug": "gymrat",
+        "linea": "WhatsApp payment reminders that go out on their own, and a dashboard to run them.",
+        "tags": ["UX/UI", "Product design", "WhatsApp"]
+      }
+    ]
+  },
+  "nosotros": {
+    "meta": {
+      "titulo": "About — Wapi",
+      "descripcion": "A design and technology studio. Since 2017 we've worked with entrepreneurs, small businesses and large companies on their brands and digital products."
+    },
+    "titulo": "We're Wapi.",
+    "texto": "A design and technology studio. Since 2017 we've worked with entrepreneurs, small businesses and large companies on their brands and digital products.",
+    "ubicacion": "BUENOS AIRES",
+    "imagenAlt": "The studio: desks, plants and light from large windows.",
+    "queHacemos": {
+      "eyebrow": "WHAT WE DO",
+      "items": [
+        {
+          "titulo": "Brands",
+          "texto": "Complete identities: name, logo, visual system and usage guide, built to work on a screen, on a storefront or on a T-shirt."
+        },
+        {
+          "titulo": "Websites and digital products",
+          "texto": "Websites, platforms and apps designed and built end to end, focused on people using them without having to think."
+        },
+        {
+          "titulo": "Automation and AI",
+          "texto": "We automate processes, connect the tools you already use and build artificial intelligence agents that take care of repetitive work."
+        }
+      ]
+    },
+    "comoTrabajamos": {
+      "eyebrow": "HOW WE WORK",
+      "texto": "We listen before we design, show progress often and hand everything over in order."
+    }
+  },
+  "contacto": {
+    "meta": {
+      "titulo": "Contact — Wapi",
+      "descripcion": "Tell us what you want to do, when you need it and anything that helps us understand the project. You'll hear back from us."
+    },
+    "titulo": "Let's talk.",
+    "campos": {
+      "nombre": { "label": "Name", "placeholder": "Your name" },
+      "email": { "label": "Email", "placeholder": "you@company.com" },
+      "empresa": { "label": "Company (optional)", "placeholder": "Company name" },
+      "mensaje": {
+        "label": "Message",
+        "placeholder": "What you want to do, when you need it and anything that helps us understand the project."
+      }
+    },
+    "enviar": "Send message",
+    "enviando": "Sending…",
+    "errores": {
+      "requerido": "Please fill in this field.",
+      "email": "Check the email: something seems to be missing.",
+      "envio": "We couldn't send your message. Try again or write to us at info@wapidesign.com"
+    },
+    "enviado": {
+      "eyebrow": "Message sent",
+      "titulo": ["Thanks, {nombre}. We got", "your message."],
+      "texto": [
+        "We sent a confirmation to ",
+        " with a copy of what you wrote. Check your inbox, and if you can't find it, look in your spam folder."
+      ],
+      "mientras": "In the meantime, take a look at some of the projects we've worked on.",
+      "verTrabajos": "See work",
+      "otro": "Send another message"
+    },
+    "toast": {
+      "titulo": "Message sent",
+      "texto": "Check your inbox: we sent you a confirmation.",
+      "cerrar": "Close notification"
+    }
+  },
+  "caso": {
+    "volver": "Work",
+    "puntoDePartida": "The starting point",
+    "queHicimos": "What we did",
+    "comoQuedo": "How it turned out",
+    "siguiente": "Next project",
+    "enDesarrollo": "In progress"
+  },
+  "casos": [
+    {
+      "slug": "gemmia-logistics",
+      "indice": "01",
+      "nombre": "Gemmia Logistics",
+      "anio": "2025",
+      "bajada": "We created the brand and website for a company that moves cargo between Latin America and the world: a faceted gem that is also a package in transit.",
+      "tags": ["Branding", "Web design", "UX/UI"],
+      "imagenAlt": "Gemmia Logistics logo: the faceted hexagonal gem next to the name.",
+      "ficha": [
+        { "label": "Client", "valor": "Gemmia Logistics" },
+        { "label": "Industry", "valor": "International logistics" },
+        { "label": "Services", "valor": "Branding + Website" },
+        { "label": "Offices", "valor": "Buenos Aires · Santiago · Miami" }
+      ],
+      "partida": {
+        "titulo": "A new company that needed to look as reliable as its team.",
+        "texto": "Gemmia was born with a team that has more than 15 years of experience moving cargo by air, sea and land to more than 180 countries. But it was competing against global giants without a brand or a website of its own. It needed an identity that showed that experience from day one, in two languages and three markets."
+      },
+      "pasos": [
+        {
+          "titulo": "We listened",
+          "texto": "We understood the business before drawing anything: what a freight forwarder does, which industries it serves and why its edge is a dedicated point of contact who follows every shipment."
+        },
+        {
+          "titulo": "We designed",
+          "texto": "We created the faceted hexagonal gem (value, precision and a package in transit), the two-blue palette and the Soleil typeface. Every step was decided by looking, not by reading reports."
+        },
+        {
+          "titulo": "We launched",
+          "texto": "We published the bilingual website with an online quote tool and delivered a 22-page brand guide so the team can apply the identity without depending on anyone."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Four versions of the Gemmia logo: full color, negative, vertical and as an icon.",
+          "pie": "The logo and its variations: the gem works in color, in negative and as an icon."
+        },
+        {
+          "alt": "The gemmialogistics.com home page in a browser window.",
+          "pie": "The website, in English and Spanish: quotes answered in under 2 hours."
+        },
+        {
+          "alt": "Gemmia letterhead, envelopes and business cards with the facets of the gem.",
+          "pie": "The real stationery: letterhead, envelopes and business cards with the facets of the gem."
+        }
+      ],
+      "resultadosEtiqueta": "What changed",
+      "resultados": [
+        { "cifra": "0 → 1", "texto": "a complete brand ready to operate in three markets at once." },
+        { "cifra": "2", "texto": "languages: the same website speaks to Latin America and the United States." },
+        { "cifra": "22", "texto": "pages of brand guide so the brand is always applied the same way." }
+      ],
+      "cita": {
+        "texto": "“The brand makes us look as big as the players we compete with.”",
+        "autor": "Ezequiel, founding partner at Gemmia Logistics"
+      }
+    },
+    {
+      "slug": "credigial",
+      "indice": "02",
+      "nombre": "Credigial",
+      "anio": "2026",
+      "bajada": "Four modules, one system: the platform a lender used to leave spreadsheets behind and bring order to clients, loans, collections and cash.",
+      "tags": ["UX/UI", "Product design", "SaaS"],
+      "imagenAlt": "Demo of the flow: creating a loan from the list, filling in the form and returning with the success message",
+      "ficha": [
+        { "label": "Client", "valor": "Credigial" },
+        { "label": "Industry", "valor": "Financial services" },
+        { "label": "Services", "valor": "UX/UI + Product design" },
+        { "label": "Modules", "valor": "Clients · Loans · Collections · Cash" }
+      ],
+      "partida": {
+        "titulo": "The whole operation lived in spreadsheets, and they had already lost data once.",
+        "texto": "Clients, loans, collections and cash were tracked in separate files, on a single computer. The company had already suffered a data loss and had to rebuild its records by hand. The challenge wasn't digitizing a process: it was designing a product reliable enough to carry the day-to-day operation."
+      },
+      "pasos": [
+        {
+          "titulo": "We listened",
+          "texto": "Before drawing a single screen, we understood how the operation worked. The spreadsheets were our discovery document: we mapped how clients, loans, collections and cash related to each other."
+        },
+        {
+          "titulo": "We designed",
+          "texto": "Module by module, with forms that ask for just enough: adding a client takes four fields. Granting a loan, on the other hand, has its own screen, because it's the most important decision in the operation."
+        },
+        {
+          "titulo": "We launched",
+          "texto": "We worked with a kit shared between design and development (every designed component already existed in code under the same name) and reviewed the built product against the design, screen by screen."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Credigial clients screen: the table with the search bar.",
+          "pie": "The clients table does one thing well: find someone and open their record."
+        },
+        {
+          "alt": "Credigial new loan screen, with the financial summary on the side.",
+          "pie": "Creating a loan takes the full screen: amounts, installments and interest without distractions."
+        },
+        {
+          "alt": "Confirmation to cancel a loan in Credigial.",
+          "pie": "Every action asks for confirmation, every mistake can be undone: confidence for someone who already lost their data once."
+        }
+      ],
+      "resultadosEtiqueta": "What changed",
+      "resultados": [
+        { "cifra": "4", "texto": "modules designed, delivered and checked against the real product." },
+        { "cifra": "0", "texto": "spreadsheets: the operation no longer depends on a file on a single machine." },
+        { "cifra": "4", "texto": "fields are enough to add a client. Everything else, only when needed." }
+      ],
+      "cita": {
+        "texto": "“The team stopped seeing it as a tool and started treating it as their product.”",
+        "autor": "What happened when the first designed module arrived"
+      }
+    },
+    {
+      "slug": "ida-y-vuelta-ibiza",
+      "indice": "03",
+      "nombre": "Ida & Vuelta Ibiza",
+      "anio": "2026",
+      "bajada": "A family that has hosted guests in Ibiza for more than ten years started its own business. We designed and built the brand and website it launched on the island with.",
+      "tags": ["Branding", "UX/UI", "Web design", "Development"],
+      "imagenAlt": "A tour of the Ida & Vuelta Ibiza website: home, about us, how to book and a house page",
+      "ficha": [
+        { "label": "Client", "valor": "Ida & Vuelta Ibiza" },
+        { "label": "Industry", "valor": "Holiday rentals · Ibiza, Spain" },
+        { "label": "Services", "valor": "Branding + Website + Development" },
+        { "label": "Scope", "valor": "Brand, website and booking channel" }
+      ],
+      "partida": {
+        "titulo": "There was nothing to redesign: the business was starting from scratch.",
+        "texto": "The family already had the houses, the years on the island and the guests. What it didn't have was a name of its own, a brand, or a place to show the properties. Everything in this case was defined from scratch, with one condition: the website couldn't replace the personal attention, because that's the one thing nobody can copy."
+      },
+      "pasos": [
+        {
+          "titulo": "We listened",
+          "texto": "We understood how they take care of guests before drawing anything: they answer themselves, know every cove and stay with guests through the whole trip. That back-and-forth with each guest ended up giving the brand its name."
+        },
+        {
+          "titulo": "We designed",
+          "texto": "An island identity without the tourist postcard: harbor blue, terracotta and Spectral for the headings. And a website where the search asks for two things, the area and how many people are traveling, because the rest gets talked through later."
+        },
+        {
+          "titulo": "We launched",
+          "texto": "We built and published the website: the houses on the map, each page with photos, location and price, and a booking that ends in a WhatsApp chat instead of a form."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Ida & Vuelta Ibiza logo.",
+          "pie": "The brand: the name tells how they take care of guests, and the visual system goes along without falling into the tourist postcard."
+        },
+        {
+          "alt": "About us section of the Ida & Vuelta Ibiza website.",
+          "pie": "About us: a family with more than ten years on the island, told in its own voice."
+        },
+        {
+          "alt": "How it works section of the website, with the three booking steps.",
+          "pie": "How to book, in three steps. The last one isn't a form: it's a WhatsApp conversation."
+        },
+        {
+          "alt": "A house page with the button to book over WhatsApp.",
+          "pie": "Each house's page: what it offers, the price per night and a button that opens the chat."
+        }
+      ],
+      "resultadosEtiqueta": "What it launched with",
+      "resultados": [
+        { "cifra": "0 → 1", "texto": "from an idea to its own brand, website and booking channel." },
+        { "cifra": "2", "texto": "pieces of information the search asks for to get started: the area and how many are traveling." },
+        { "cifra": "1", "texto": "place to see the houses and their location, and close the booking." }
+      ]
+    },
+    {
+      "slug": "zuhause",
+      "indice": "04",
+      "nombre": "Zuhause",
+      "anio": "2020",
+      "bajada": "It started as the brand of a gym in Lanús and now it also signs the clothes, objects and videos of its community.",
+      "tags": ["Branding", "Web design", "UX/UI"],
+      "imagenAlt": "The Zuhause storefront in Lanús, with the logo and the symbol.",
+      "ficha": [
+        { "label": "Client", "valor": "Zuhause" },
+        { "label": "Industry", "valor": "Gym · Lanús, Buenos Aires" },
+        { "label": "Services", "valor": "Branding + Website + Management system" },
+        { "label": "Scope", "valor": "Gym, apparel, objects and video" }
+      ],
+      "partida": {
+        "titulo": "A serious gym that wanted to feel like being at home.",
+        "texto": "Zuhause means «at home» in German, and that was the brief: a serious training space, with top-level machines and coaches, but where people stay to chat after their workout. The brand had to work on a storefront, on a T-shirt and on a neon sign, and be ready for whatever the community asked of it next."
+      },
+      "pasos": [
+        {
+          "titulo": "We listened",
+          "texto": "We understood what makes the place different: coaches who know every member, a team that shows up in every photo and a community that feels part of it."
+        },
+        {
+          "titulo": "We designed",
+          "texto": "A lowercase wordmark and a three-stroke symbol in motion, made to read on the storefront as well as printed on a T-shirt. Black, violet and a yellow that only shows up when needed."
+        },
+        {
+          "titulo": "We launched",
+          "texto": "We took the brand where it lives: the storefront, the training room wall, the apparel and the website. Today we're designing the system the gym will use to manage members, cash and sales."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "The Zuhause brand: wordmark and symbol in violet, yellow, white and black.",
+          "pie": "The brand: a lowercase wordmark and a three-stroke symbol. It works in violet and yellow, and in black and white."
+        },
+        {
+          "alt": "The steel symbol on the wall, the entrance awning and T-shirts hanging among the machines.",
+          "pie": "The brand on site: the steel symbol on the wall, the entrance awning and the apparel among the machines."
+        },
+        {
+          "alt": "The back of a Zuhause T-shirt and a member wearing one.",
+          "pie": "The community wears it, inside and outside the gym."
+        },
+        {
+          "alt": "The Zuhause storefront at night, with the symbol and the logo in neon.",
+          "pie": "The storefront in Lanús, with the symbol and the logo in neon."
+        },
+        {
+          "alt": "A tour of the Zuhause website: home, the Zuhause family, coaches and plans",
+          "pie": "The website: the community, the coaches and the plans, in a tour from top to bottom."
+        },
+        {
+          "alt": "One screen of the Zuhause management system.",
+          "pie": "The management system we're designing for members, cash and sales. It hasn't launched yet, so we're only showing one screen."
+        }
+      ],
+      "credito": {
+        "texto": "Photos: ",
+        "nombre": "Nico Ieraci (@nicoieraci)",
+        "href": "https://www.instagram.com/nicoieraci/"
+      },
+      "resultadosEtiqueta": "How far it went",
+      "resultados": [
+        { "cifra": "2020", "texto": "the year the brand was born. It's still the same." },
+        { "cifra": "4", "texto": "lines of business with the same signature: gym, apparel, objects and video." },
+        { "cifra": "1", "texto": "symbol that works on a T-shirt, in neon and in steel on the wall." }
+      ]
+    },
+    {
+      "slug": "gymrat",
+      "indice": "05",
+      "nombre": "Gymrat",
+      "anio": "2026",
+      "bajada": "A dashboard, on the computer and on the phone, so a gym can collect membership fees without chasing anyone: WhatsApp reminders go out on their own from the 1st to the 10th of every month.",
+      "tags": ["UX/UI", "Product design", "WhatsApp"],
+      "imagenAlt": "The Gymrat dashboard on the computer and on the phone, with what was collected and what's still due.",
+      "ficha": [
+        { "label": "Client", "valor": "Gymrat" },
+        { "label": "Industry", "valor": "Gym" },
+        { "label": "Services", "valor": "UX/UI + WhatsApp setup" },
+        { "label": "Platform", "valor": "Desktop and mobile" }
+      ],
+      "partida": {
+        "titulo": "Collecting fees meant messaging every member, one by one.",
+        "texto": "Every month, from the 1st to the 10th, the owner sent each member a message reminding them to pay. He wanted those reminders to go out on their own over WhatsApp, without losing control: being able to change the text, add new members and stop messaging people who no longer needed it."
+      },
+      "pasos": [
+        {
+          "titulo": "We listened",
+          "texto": "We understood how he collected: what he said in each message, who he wrote to and what happened when someone had already paid or had left the gym."
+        },
+        {
+          "titulo": "We designed",
+          "texto": "A dashboard with four sections: Home, Fees, Members and Settings, that works the same on the computer and on the phone. The message is edited with a preview of how it reaches the member."
+        },
+        {
+          "titulo": "We launched",
+          "texto": "We set up the WhatsApp account so reminders go out automatically and handed the full design over to development, flow by flow and in both versions."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Gymrat Settings screen: the WhatsApp message and its preview.",
+          "pie": "The message is edited in the dashboard, with a preview of how it reaches the member right next to it. Changes go out with the next reminder."
+        },
+        {
+          "alt": "Gymrat Members screen, with the list and the button to add a new one.",
+          "pie": "Members: adding someone new or deactivating them takes a couple of taps. The crossed-out bell marks who doesn't get reminders."
+        },
+        {
+          "alt": "Gymrat sent reminders screen, with the status of each one.",
+          "pie": "Every reminder is logged: whether it arrived, whether it was cancelled or whether the number had no WhatsApp."
+        },
+        {
+          "alt": "Three screens of the Gymrat dashboard on the phone.",
+          "pie": "The same dashboard on the phone, to collect and check from the front desk."
+        }
+      ],
+      "resultadosEtiqueta": "What changed",
+      "resultados": [
+        { "cifra": "1 → 10", "texto": "the days of each month when reminders go out on their own, with no typing by hand." },
+        { "cifra": "0", "texto": "one-by-one messages: the text is changed in the dashboard and goes out with the next reminder." },
+        { "cifra": "2", "texto": "versions of the same dashboard, computer and phone, handed over to development." }
+      ]
+    }
+  ],
+  "noEncontrada": {
+    "meta": "Page not found — Wapi",
+    "eyebrow": "Error 404",
+    "titulo": ["This page", "doesn't exist."],
+    "volver": "← Back to home"
+  }
+}

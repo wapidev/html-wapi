@@ -1,0 +1,81 @@
+name: CI
+
+# Gate de calidad del sitio. Corre en PRs hacia develop/main y en cualquier push.
+# Buildea las dos versiones del feature flag:
+#   - apagado (lo que se publica hoy): verifica que dist/ no traiga nada del sitio nuevo;
+#   - encendido (el sitio nuevo): verifica que estén todas las rutas prerenderizadas.
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  calidad:
+    name: Tipos, lint, tests y build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Mismo workaround que el front de WG013: el lockfile se genera en macOS y no trae los
+      # binarios nativos opcionales (lightningcss, @tailwindcss/oxide, rolldown) para Linux.
+      - name: Instalar dependencias
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --no-audit --no-fund
+
+      - name: Tipos
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm run test -- --run
+
+      # El flag apagado se fuerza acá: desde el lanzamiento .env.production lo trae en true, y
+      # este build sigue cuidando que volver a false (la vuelta atrás) publique solo la página
+      # "en desarrollo".
+      - name: Build con el flag apagado (página "en desarrollo")
+        run: npm run build
+        env:
+          VITE_SITIO_NUEVO: 'false'
+
+      - name: Sin contenido del sitio nuevo publicado
+        run: |
+          if grep -rIl -i "gemmia\|automatización\|Hagamos algo\|Let's talk" dist; then
+            echo "❌ dist/ trae contenido del sitio nuevo con el flag apagado"; exit 1; fi
+          test ! -e dist/en && test ! -e dist/mail || { echo "❌ dist/ trae rutas o imágenes del sitio nuevo"; exit 1; }
+          test -f dist/index.html && test -f dist/404.html
+          echo "✅ dist/ solo tiene la página en desarrollo"
+
+      - name: Build con el flag encendido (sitio nuevo)
+        run: npm run build
+        env:
+          VITE_SITIO_NUEVO: 'true'
+
+      - name: Rutas prerenderizadas (castellano e inglés)
+        run: |
+          CASOS="gemmia-logistics credigial ida-y-vuelta-ibiza zuhause gymrat"
+          RUTAS="index.html 404.html sitemap.xml robots.txt trabajos/index.html nosotros/index.html contacto/index.html
+                 en/index.html en/work/index.html en/about/index.html en/contact/index.html"
+          for c in $CASOS; do RUTAS="$RUTAS trabajos/$c/index.html en/work/$c/index.html"; done
+          for f in $RUTAS; do
+            test -f "dist/$f" || { echo "❌ falta dist/$f"; exit 1; }
+          done
+          grep -q "automatización" dist/index.html || { echo "❌ la Home no viene prerenderizada"; exit 1; }
+          grep -q '<html lang="en">' dist/en/index.html || { echo "❌ /en/ no va con lang=en"; exit 1; }
+          grep -q "automation" dist/en/index.html || { echo "❌ la Home en inglés no viene prerenderizada"; exit 1; }
+          grep -q 'hreflang="en"' dist/trabajos/gymrat/index.html || { echo "❌ faltan los hreflang"; exit 1; }
+          test "$(grep -c '<loc>' dist/sitemap.xml)" = "18" || { echo "❌ el sitemap no tiene las 18 páginas"; exit 1; }
+          echo "✅ sitio nuevo completo en los dos idiomas"

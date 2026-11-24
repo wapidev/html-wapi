@@ -1,0 +1,572 @@
+{
+  "idioma": "es",
+  "sitio": {
+    "nombre": "Wapi",
+    "descripcion": "Estudio de diseño y tecnología en Buenos Aires.",
+    "email": "info@wapidesign.com",
+    "ubicacion": ["Buenos Aires,", "Argentina"],
+    "redes": [
+      { "label": "Instagram", "href": null },
+      { "label": "LinkedIn", "href": null },
+      { "label": "Behance", "href": null }
+    ],
+    "copyright": "© Wapi 2026",
+    "privacidad": "Política de privacidad",
+    "privacidadHref": null
+  },
+  "nav": {
+    "trabajos": "Trabajos",
+    "servicios": "Servicios",
+    "nosotros": "Nosotros",
+    "contacto": "Contacto",
+    "cta": "Hablemos",
+    "menu": "Menú",
+    "cerrar": "Cerrar",
+    "escribinos": "Escribinos",
+    "ubicacionLinea": "Buenos Aires, Argentina",
+    "inicio": "Wapi, inicio"
+  },
+  "idiomas": { "etiqueta": "Idioma", "es": "Español", "en": "English" },
+  "footer": {
+    "eyebrow": "Contacto",
+    "titulo": ["Hagamos algo", "que dure."],
+    "escribinos": "Escribinos",
+    "donde": "Dónde estamos",
+    "seguinos": "Seguinos"
+  },
+  "home": {
+    "meta": {
+      "titulo": "Wapi — Estudio de diseño y tecnología en Buenos Aires",
+      "descripcion": "Somos un estudio de diseño y tecnología en Buenos Aires. Ayudamos a negocios que quieren crecer a automatizar procesos, sumar agentes de IA y tener sistemas y sitios fáciles de usar."
+    },
+    "hero": {
+      "eyebrow": "Estudio de diseño y tecnología · Buenos Aires",
+      "titulo": ["Diseño y", "automatización"],
+      "est": "Est. 2017",
+      "texto": "Somos un estudio de diseño y tecnología en Buenos Aires. Ayudamos a negocios que quieren crecer a automatizar procesos, sumar agentes de IA y tener sistemas y sitios fáciles de usar."
+    },
+    "reel": {
+      "descripcion": "Reel de proyectos de Wapi"
+    },
+    "manifiesto": {
+      "titulo": ["La IA no es el objetivo.", "Es el atajo."],
+      "texto": "No se trata de sumar un chatbot. Se trata de encontrar dónde se pierde tiempo, automatizarlo bien y que la gente que lo usa ni lo note. Eso es lo que diseñamos."
+    },
+    "servicios": {
+      "eyebrow": "Servicios",
+      "tituloOculto": "Lo que hacemos",
+      "items": [
+        {
+          "titulo": "Automatización de procesos",
+          "texto": "Encontramos las tareas que tu equipo repite todos los días y hacemos que se resuelvan solas: cargas, avisos, reportes, seguimientos. Conectamos las herramientas que ya usás para que nadie copie datos a mano."
+        },
+        {
+          "titulo": "Agentes de IA",
+          "texto": "Agentes que responden consultas, ordenan pedidos y contestan por WhatsApp o mail, y le pasan a una persona solo lo que hace falta. Trabajan con la información de tu negocio, no con respuestas genéricas."
+        },
+        {
+          "titulo": "Sistemas a medida",
+          "texto": "Paneles, plataformas internas y herramientas de gestión pensadas para cómo trabaja tu equipo, y no al revés."
+        },
+        {
+          "titulo": "Sitios y productos digitales",
+          "texto": "Sitios y aplicaciones diseñados y desarrollados de punta a punta, que se entienden solos y se conectan con el resto de la operación."
+        },
+        {
+          "titulo": "Marca",
+          "texto": "Cuando hace falta, también diseñamos la identidad: nombre, logo y sistema visual."
+        }
+      ],
+      "cta": "Ver todos los servicios →"
+    },
+    "trabajos": {
+      "titulo": ["Trabajos", "seleccionados"],
+      "bajada": "Una selección chica. La lista completa está en /trabajos.",
+      "items": [
+        {
+          "slug": "gymrat",
+          "linea": "Recordatorios de cuota por WhatsApp que salen solos, y un panel para manejarlos.",
+          "tags": "Automatización · UX/UI · WhatsApp"
+        },
+        {
+          "slug": "credigial",
+          "linea": "La plataforma que ordenó la operación diaria de una financiera.",
+          "tags": "UX/UI · Diseño de producto · SaaS"
+        },
+        {
+          "slug": "ida-y-vuelta-ibiza",
+          "linea": "Marca y sitio para un concierge de hospedajes en Ibiza.",
+          "tags": "Branding · UX/UI · Diseño web"
+        },
+        {
+          "slug": "zuhause",
+          "linea": "Nació como la marca de un gimnasio en Lanús y hoy también viste a su comunidad.",
+          "tags": "Branding · Diseño web · UX/UI"
+        },
+        {
+          "slug": "gemmia-logistics",
+          "linea": "Marca y sitio para mover cargas entre Latinoamérica y el mundo.",
+          "tags": "Branding · Diseño web · UX/UI"
+        }
+      ],
+      "cta": "Ver todos los trabajos →"
+    },
+    "preguntas": {
+      "eyebrow": "Preguntas frecuentes",
+      "titulo": ["Lo que suelen", "preguntarnos"],
+      "bajada": "Si tu duda no está acá, escribinos y te contestamos nosotros, no un bot.",
+      "items": [
+        {
+          "q": "¿Qué procesos de mi negocio se pueden automatizar?",
+          "a": "Casi todo lo que hoy se hace a mano y se repite: pasar datos de un sistema a otro, mandar recordatorios y avisos, armar reportes, hacer el seguimiento de clientes o pedidos. Empezamos mirando cómo trabaja tu equipo y te decimos dónde se gana más tiempo."
+        },
+        {
+          "q": "¿Qué es un agente de IA y qué puede hacer por mí?",
+          "a": "Es un programa que entiende lo que le escriben y trabaja con la información de tu negocio: responde consultas, toma pedidos, agenda turnos o busca un dato en tu sistema. Lo armamos para una tarea concreta y, cuando algo se sale de lo previsto, se lo pasa a una persona de tu equipo."
+        },
+        {
+          "q": "¿Tengo que cambiar las herramientas que ya uso?",
+          "a": "No. Casi siempre conectamos lo que ya tenés (planillas, tu sistema de gestión, WhatsApp, el mail) para que los datos pasen solos de un lado al otro. Si alguna herramienta te está frenando, te lo decimos y vemos juntos si conviene cambiarla."
+        },
+        {
+          "q": "¿Me pueden ayudar a desarrollar un sistema para mi negocio?",
+          "a": "Sí. Diseñamos y desarrollamos paneles y plataformas a medida: primero entendemos cómo trabaja tu equipo y después armamos el sistema alrededor de eso, por etapas, para que lo empiecen a usar cuanto antes."
+        },
+        {
+          "q": "¿Cuánto cuesta trabajar con ustedes?",
+          "a": "Depende del alcance. Después de una primera charla te mandamos un presupuesto cerrado, con lo que incluye cada etapa y cuánto tarda. Sin sorpresas a mitad de camino."
+        },
+        {
+          "q": "¿Tengo un sitio web pero no me gusta, podrían rediseñármelo?",
+          "a": "Sí. Revisamos qué funciona y qué no, y lo rediseñamos para que se entienda solo, cargue rápido y se conecte con el resto de tu operación: formularios, WhatsApp o tu sistema."
+        }
+      ]
+    },
+    "clientes": {
+      "titulo": "Trabajamos con gente que se anima.",
+      "bajada": "Desde proyectos que arrancan de cero hasta marcas con veinte años de historia. Cada uno nos obliga a no repetirnos.",
+      "nombres": ["Almaverde", "Norte Studio", "Cobalto", "Fábrica Nueve", "Rivera & Co", "Kilómetro", "Tandem", "Perlita"]
+    }
+  },
+  "trabajos": {
+    "meta": {
+      "titulo": "Trabajos — Wapi",
+      "descripcion": "Cinco proyectos donde el trabajo se nota: identidad, producto y sitio sostenidos por la misma idea."
+    },
+    "eyebrow": "Trabajos · 05 proyectos",
+    "titulo": ["Trabajos", "seleccionados"],
+    "bajada": "Cinco proyectos donde el trabajo se nota: identidad, producto y sitio sostenidos por la misma idea.",
+    "rango": "2024-2026",
+    "items": [
+      {
+        "slug": "gemmia-logistics",
+        "linea": "Marca y sitio para mover cargas entre Latinoamérica y el mundo.",
+        "tags": ["Branding", "Diseño web", "UX/UI"]
+      },
+      {
+        "slug": "credigial",
+        "linea": "La plataforma que ordenó la operación diaria de una financiera.",
+        "tags": ["UX/UI", "Diseño de producto", "SaaS"]
+      },
+      {
+        "slug": "ida-y-vuelta-ibiza",
+        "linea": "Marca y sitio para un concierge de hospedajes que arrancó de cero.",
+        "tags": ["Branding", "UX/UI", "Diseño web", "Desarrollo"]
+      },
+      {
+        "slug": "zuhause",
+        "linea": "Nació como la marca de un gimnasio en Lanús y hoy también viste a su comunidad.",
+        "tags": ["Branding", "Diseño web", "UX/UI"]
+      },
+      {
+        "slug": "gymrat",
+        "linea": "Recordatorios de cuota por WhatsApp que salen solos, y un panel para manejarlos.",
+        "tags": ["UX/UI", "Diseño de producto", "WhatsApp"]
+      }
+    ]
+  },
+  "nosotros": {
+    "meta": {
+      "titulo": "Nosotros — Wapi",
+      "descripcion": "Un estudio de diseño y tecnología. Desde 2017 acompañamos a emprendedores, pymes y grandes empresas con sus marcas y sus productos digitales."
+    },
+    "titulo": "Somos Wapi.",
+    "texto": "Un estudio de diseño y tecnología. Desde 2017 acompañamos a emprendedores, pymes y grandes empresas con sus marcas y sus productos digitales.",
+    "ubicacion": "BUENOS AIRES",
+    "imagenAlt": "El estudio: escritorios, plantas y luz de ventanales.",
+    "queHacemos": {
+      "eyebrow": "QUÉ HACEMOS",
+      "items": [
+        {
+          "titulo": "Marcas",
+          "texto": "Identidades completas: nombre, logo, sistema visual y manual de uso, pensadas para funcionar en una pantalla, en un local o en una remera."
+        },
+        {
+          "titulo": "Sitios y productos digitales",
+          "texto": "Sitios, plataformas y aplicaciones diseñados y desarrollados de punta a punta, con foco en que la gente los use sin tener que pensar."
+        },
+        {
+          "titulo": "Automatización e IA",
+          "texto": "Automatizamos procesos, conectamos las herramientas que ya usás y armamos agentes de inteligencia artificial que resuelven el trabajo repetitivo."
+        }
+      ]
+    },
+    "comoTrabajamos": {
+      "eyebrow": "CÓMO TRABAJAMOS",
+      "texto": "Escuchamos antes de diseñar, mostramos avances seguido y entregamos todo ordenado."
+    }
+  },
+  "contacto": {
+    "meta": {
+      "titulo": "Contacto — Wapi",
+      "descripcion": "Contanos qué querés hacer, para cuándo y cualquier cosa que nos ayude a entender el proyecto. Te respondemos nosotros."
+    },
+    "titulo": "Hablemos.",
+    "campos": {
+      "nombre": { "label": "Nombre", "placeholder": "Tu nombre" },
+      "email": { "label": "Email", "placeholder": "tu@empresa.com" },
+      "empresa": { "label": "Empresa (opcional)", "placeholder": "Nombre de la empresa" },
+      "mensaje": {
+        "label": "Mensaje",
+        "placeholder": "Qué querés hacer, para cuándo y cualquier cosa que nos ayude a entender el proyecto."
+      }
+    },
+    "enviar": "Enviar mensaje",
+    "enviando": "Enviando…",
+    "errores": {
+      "requerido": "Completá este campo.",
+      "email": "Revisá el email: parece que le falta algo.",
+      "envio": "No pudimos enviar tu mensaje. Probá de nuevo o escribinos a info@wapidesign.com"
+    },
+    "enviado": {
+      "eyebrow": "Mensaje enviado",
+      "titulo": ["Gracias, {nombre}. Ya recibimos", "tu mensaje."],
+      "texto": [
+        "Te mandamos una confirmación a ",
+        " con una copia de lo que nos escribiste. Revisá tu correo, y si no lo ves, fijate en la carpeta de spam."
+      ],
+      "mientras": "Mientras tanto, podés ver algunos de los proyectos en los que trabajamos.",
+      "verTrabajos": "Ver trabajos",
+      "otro": "Enviar otro mensaje"
+    },
+    "toast": {
+      "titulo": "Mensaje enviado",
+      "texto": "Revisá tu correo: te mandamos una confirmación.",
+      "cerrar": "Cerrar aviso"
+    }
+  },
+  "caso": {
+    "volver": "Trabajos",
+    "puntoDePartida": "El punto de partida",
+    "queHicimos": "Qué hicimos",
+    "comoQuedo": "Cómo quedó",
+    "siguiente": "Siguiente proyecto",
+    "enDesarrollo": "En desarrollo"
+  },
+  "casos": [
+    {
+      "slug": "gemmia-logistics",
+      "indice": "01",
+      "nombre": "Gemmia Logistics",
+      "anio": "2025",
+      "bajada": "Creamos la marca y el sitio de una empresa que mueve cargas entre Latinoamérica y el mundo: una gema facetada que también es un paquete en tránsito.",
+      "tags": ["Branding", "Diseño web", "UX/UI"],
+      "imagenAlt": "Logo de Gemmia Logistics: la gema hexagonal facetada junto al nombre.",
+      "ficha": [
+        { "label": "Cliente", "valor": "Gemmia Logistics" },
+        { "label": "Rubro", "valor": "Logística internacional" },
+        { "label": "Servicios", "valor": "Branding + Sitio web" },
+        { "label": "Oficinas", "valor": "Buenos Aires · Santiago · Miami" }
+      ],
+      "partida": {
+        "titulo": "Una empresa nueva que necesitaba verse tan confiable como su equipo.",
+        "texto": "Gemmia nace con un equipo que suma más de 15 años moviendo cargas por aire, mar y tierra hacia más de 180 países. Pero competía contra gigantes globales sin marca ni sitio propios. Necesitaba una identidad que transmitiera esa experiencia desde el primer día, en dos idiomas y tres mercados."
+      },
+      "pasos": [
+        {
+          "titulo": "Escuchamos",
+          "texto": "Entendimos el negocio antes de dibujar: qué hace un freight forwarder, qué industrias mueve y por qué su diferencial es un punto de contacto dedicado que sigue cada embarque."
+        },
+        {
+          "titulo": "Diseñamos",
+          "texto": "Creamos la gema hexagonal facetada (valor, precisión y un paquete en tránsito), la paleta de dos azules y la tipografía Soleil. Cada avance se decidió mirando, no leyendo informes."
+        },
+        {
+          "titulo": "Pusimos en marcha",
+          "texto": "Publicamos el sitio bilingüe con cotizador online y entregamos el manual de marca de 22 páginas para que el equipo aplique la identidad sin depender de nadie."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Cuatro versiones del isologotipo de Gemmia: a color, en negativo, vertical y como ícono.",
+          "pie": "El isologotipo y sus variaciones: la gema funciona a color, en negativo y como ícono."
+        },
+        {
+          "alt": "La home de gemmialogistics.com en una ventana del navegador.",
+          "pie": "El sitio, en inglés y español: cotizaciones respondidas en menos de 2 horas."
+        },
+        {
+          "alt": "Tarjetones, sobres y tarjetas personales de Gemmia con las facetas de la gema.",
+          "pie": "La papelería real: tarjetones, sobres y tarjetas personales con las facetas de la gema."
+        }
+      ],
+      "resultadosEtiqueta": "Qué cambió",
+      "resultados": [
+        { "cifra": "0 → 1", "texto": "una marca completa lista para operar en tres mercados a la vez." },
+        { "cifra": "2", "texto": "idiomas: el mismo sitio le habla a Latinoamérica y a Estados Unidos." },
+        { "cifra": "22", "texto": "páginas de manual para que la marca se aplique siempre igual." }
+      ],
+      "cita": {
+        "texto": "“La marca nos hace ver del tamaño de los jugadores con los que competimos.”",
+        "autor": "Ezequiel, socio fundador de Gemmia Logistics"
+      }
+    },
+    {
+      "slug": "credigial",
+      "indice": "02",
+      "nombre": "Credigial",
+      "anio": "2026",
+      "bajada": "Cuatro módulos, un sistema: la plataforma con la que una financiera dejó atrás las planillas y ordenó clientes, créditos, cobranzas y caja.",
+      "tags": ["UX/UI", "Diseño de producto", "SaaS"],
+      "imagenAlt": "Demo del flujo: crear un préstamo desde el listado, completar el formulario y volver con el aviso de éxito",
+      "ficha": [
+        { "label": "Cliente", "valor": "Credigial" },
+        { "label": "Rubro", "valor": "Servicios financieros" },
+        { "label": "Servicios", "valor": "UX/UI + Diseño de producto" },
+        { "label": "Módulos", "valor": "Clientes · Préstamos · Cobranzas · Caja" }
+      ],
+      "partida": {
+        "titulo": "Toda la operación vivía en planillas, y ya habían perdido datos una vez.",
+        "texto": "Clientes, créditos, cobranzas y caja se registraban en archivos sueltos, en una sola computadora. La empresa ya había sufrido una pérdida de datos y tuvo que reconstruir sus registros a mano. El desafío no era digitalizar un proceso: era diseñar un producto lo bastante confiable como para sostener la operación de todos los días."
+      },
+      "pasos": [
+        {
+          "titulo": "Escuchamos",
+          "texto": "Antes de dibujar una pantalla, entendimos cómo funcionaba la operación. Las planillas fueron nuestro documento de descubrimiento: mapeamos cómo se relacionaban clientes, créditos, cobranzas y caja."
+        },
+        {
+          "titulo": "Diseñamos",
+          "texto": "Módulo por módulo, con formularios que piden lo justo: dar de alta un cliente lleva cuatro campos. Otorgar un crédito, en cambio, tiene su propia pantalla, porque es la decisión más importante de la operación."
+        },
+        {
+          "titulo": "Pusimos en marcha",
+          "texto": "Trabajamos con un kit compartido entre diseño y desarrollo (cada componente diseñado ya existía en código con el mismo nombre) y revisamos el producto construido contra el diseño, pantalla por pantalla."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Pantalla de clientes de Credigial: la tabla con el buscador.",
+          "pie": "La tabla de clientes hace una sola cosa bien: encontrar a alguien y abrir su ficha."
+        },
+        {
+          "alt": "Pantalla de nuevo préstamo de Credigial, con el resumen financiero al costado.",
+          "pie": "Crear un préstamo ocupa la pantalla completa: montos, cuotas e intereses sin distracciones."
+        },
+        {
+          "alt": "Confirmación para cancelar un préstamo en Credigial.",
+          "pie": "Cada acción confirma, cada error se recupera: confianza para quien ya perdió sus datos una vez."
+        }
+      ],
+      "resultadosEtiqueta": "Qué cambió",
+      "resultados": [
+        { "cifra": "4", "texto": "módulos diseñados, entregados y verificados contra el producto real." },
+        { "cifra": "0", "texto": "planillas: la operación ya no depende de un archivo en una sola máquina." },
+        { "cifra": "4", "texto": "campos alcanzan para dar de alta un cliente. Lo demás, solo cuando hace falta." }
+      ],
+      "cita": {
+        "texto": "“El equipo dejó de verlo como una herramienta y empezó a tratarlo como su producto.”",
+        "autor": "Lo que pasó cuando llegó el primer módulo diseñado"
+      }
+    },
+    {
+      "slug": "ida-y-vuelta-ibiza",
+      "indice": "03",
+      "nombre": "Ida & Vuelta Ibiza",
+      "anio": "2026",
+      "bajada": "Una familia que hospeda en Ibiza desde hace más de diez años abrió su propio emprendimiento. Diseñamos y desarrollamos la marca y el sitio con los que salió a la isla.",
+      "tags": ["Branding", "UX/UI", "Diseño web", "Desarrollo"],
+      "imagenAlt": "Recorrido por el sitio de Ida & Vuelta Ibiza: home, quiénes somos, cómo se reserva y ficha de una casa",
+      "ficha": [
+        { "label": "Cliente", "valor": "Ida & Vuelta Ibiza" },
+        { "label": "Rubro", "valor": "Hospedajes · Ibiza, España" },
+        { "label": "Servicios", "valor": "Branding + Sitio web + Desarrollo" },
+        { "label": "Alcance", "valor": "Marca, sitio y canal de reservas" }
+      ],
+      "partida": {
+        "titulo": "No había nada que rediseñar: el emprendimiento arrancaba de cero.",
+        "texto": "La familia ya tenía las casas, los años en la isla y los huéspedes. Lo que no tenía era nombre propio, marca, ni un lugar donde mostrar las propiedades. Todo lo que se ve en este caso se definió desde cero, con una condición: que el sitio no reemplazara la atención personal, porque es lo único que no se puede copiar."
+      },
+      "pasos": [
+        {
+          "titulo": "Escuchamos",
+          "texto": "Entendimos cómo atienden antes de dibujar: contestan ellos mismos, conocen cada cala y acompañan el viaje entero. Esa ida y vuelta con el huésped terminó dándole el nombre a la marca."
+        },
+        {
+          "titulo": "Diseñamos",
+          "texto": "Una identidad de isla sin postal turística: azul de puerto, terracota y Spectral para los títulos. Y un sitio donde el buscador pide dos cosas, la zona y cuántos viajan, porque el resto se conversa después."
+        },
+        {
+          "titulo": "Pusimos en marcha",
+          "texto": "Desarrollamos y publicamos el sitio: las casas en el mapa, cada ficha con fotos, ubicación y precio, y una reserva que termina en un chat de WhatsApp en lugar de un formulario."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Logo de Ida & Vuelta Ibiza.",
+          "pie": "La marca: el nombre cuenta cómo atienden, y el sistema visual la acompaña sin caer en la postal turística."
+        },
+        {
+          "alt": "Sección Quiénes somos del sitio de Ida & Vuelta Ibiza.",
+          "pie": "Quiénes somos: una familia con más de diez años en la isla, contada con su propia voz."
+        },
+        {
+          "alt": "Sección Cómo funciona del sitio, con los tres pasos de la reserva.",
+          "pie": "Cómo se reserva, en tres pasos. El último no es un formulario: es una conversación por WhatsApp."
+        },
+        {
+          "alt": "Ficha de una casa con el botón para reservar por WhatsApp.",
+          "pie": "La ficha de cada casa: qué ofrece, el precio por noche y un botón que abre el chat."
+        }
+      ],
+      "resultadosEtiqueta": "Con qué salió",
+      "resultados": [
+        { "cifra": "0 → 1", "texto": "de una idea a una marca, un sitio y un canal de reservas propios." },
+        { "cifra": "2", "texto": "datos pide el buscador para empezar: la zona y cuántos viajan." },
+        { "cifra": "1", "texto": "lugar donde ver las casas, la ubicación y cerrar la reserva." }
+      ]
+    },
+    {
+      "slug": "zuhause",
+      "indice": "04",
+      "nombre": "Zuhause",
+      "anio": "2020",
+      "bajada": "Nació como la marca de un gimnasio en Lanús y hoy también firma la ropa, los objetos y los videos de su comunidad.",
+      "tags": ["Branding", "Diseño web", "UX/UI"],
+      "imagenAlt": "La fachada de Zuhause en Lanús, con el logo y el isotipo.",
+      "ficha": [
+        { "label": "Cliente", "valor": "Zuhause" },
+        { "label": "Rubro", "valor": "Gimnasio · Lanús, Buenos Aires" },
+        { "label": "Servicios", "valor": "Branding + Sitio web + Sistema de gestión" },
+        { "label": "Alcance", "valor": "Gimnasio, indumentaria, objetos y video" }
+      ],
+      "partida": {
+        "titulo": "Un gimnasio pro que quería sentirse como estar en casa.",
+        "texto": "Zuhause quiere decir «en casa» en alemán, y ese era el pedido: un lugar de entrenamiento serio, con máquinas y entrenadores de primer nivel, pero donde la gente se queda a charlar después de la rutina. La marca tenía que funcionar en una fachada, en una remera y en un cartel de neón, y estar lista para todo lo que la comunidad le fuera pidiendo."
+      },
+      "pasos": [
+        {
+          "titulo": "Escuchamos",
+          "texto": "Entendimos qué hace distinto al lugar: entrenadores que conocen a cada socio, un equipo que aparece en todas las fotos y una comunidad que se siente parte."
+        },
+        {
+          "titulo": "Diseñamos",
+          "texto": "Un logotipo en minúsculas y un isotipo de tres trazos en movimiento, pensado para leerse tanto en la fachada como estampado en una remera. Negro, violeta y un amarillo que aparece solo cuando hace falta."
+        },
+        {
+          "titulo": "Pusimos en marcha",
+          "texto": "Llevamos la marca a donde se vive: la fachada, la pared de la sala, la indumentaria y el sitio web. Hoy estamos diseñando el sistema con el que el gimnasio va a gestionar socios, caja y ventas."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "La marca de Zuhause: logotipo e isotipo en violeta, amarillo, blanco y negro.",
+          "pie": "La marca: un logotipo en minúsculas y un isotipo de tres trazos. Funciona en violeta y amarillo, y en blanco y negro."
+        },
+        {
+          "alt": "El isotipo en acero sobre la pared, el toldo de la entrada y remeras colgadas entre las máquinas.",
+          "pie": "La marca en el lugar: el isotipo en acero sobre la pared, el toldo de la entrada y la indumentaria entre las máquinas."
+        },
+        {
+          "alt": "La espalda de una remera de Zuhause y un socio con la remera puesta.",
+          "pie": "La comunidad la lleva puesta, adentro y afuera del gimnasio."
+        },
+        {
+          "alt": "La fachada de Zuhause de noche, con el isotipo y el logo en neón.",
+          "pie": "La fachada en Lanús, con el isotipo y el logo en neón."
+        },
+        {
+          "alt": "Recorrido por el sitio de Zuhause: inicio, Familia Zuhause, entrenadores y planes",
+          "pie": "El sitio: la comunidad, los entrenadores y los planes, en un recorrido de punta a punta."
+        },
+        {
+          "alt": "Una pantalla del sistema de gestión de Zuhause.",
+          "pie": "El sistema de gestión que estamos diseñando para socios, caja y ventas. Todavía no salió, así que mostramos solo una pantalla."
+        }
+      ],
+      "credito": {
+        "texto": "Fotos: ",
+        "nombre": "Nico Ieraci (@nicoieraci)",
+        "href": "https://www.instagram.com/nicoieraci/"
+      },
+      "resultadosEtiqueta": "Hasta dónde llegó",
+      "resultados": [
+        { "cifra": "2020", "texto": "el año en que nació la marca. Sigue siendo la misma." },
+        { "cifra": "4", "texto": "rubros con la misma firma: gimnasio, indumentaria, objetos y video." },
+        { "cifra": "1", "texto": "isotipo que funciona en una remera, en neón y en acero sobre la pared." }
+      ]
+    },
+    {
+      "slug": "gymrat",
+      "indice": "05",
+      "nombre": "Gymrat",
+      "anio": "2026",
+      "bajada": "Un panel, en la compu y en el celular, para que un gimnasio cobre las cuotas sin perseguir a nadie: los recordatorios por WhatsApp salen solos del 1 al 10 de cada mes.",
+      "tags": ["UX/UI", "Diseño de producto", "WhatsApp"],
+      "imagenAlt": "El panel de Gymrat en la compu y en el celular, con lo cobrado y lo que falta cobrar.",
+      "ficha": [
+        { "label": "Cliente", "valor": "Gymrat" },
+        { "label": "Rubro", "valor": "Gimnasio" },
+        { "label": "Servicios", "valor": "UX/UI + Configuración de WhatsApp" },
+        { "label": "Plataforma", "valor": "Desktop y mobile" }
+      ],
+      "partida": {
+        "titulo": "Cobrar la cuota era escribirle a cada socio, uno por uno.",
+        "texto": "Todos los meses, del 1 al 10, el dueño le mandaba un mensaje a cada socio para recordarle que pagara. Quería que esos avisos salieran solos por WhatsApp, pero sin perder el control: poder cambiar el texto, sumar socios nuevos y dejar de avisarle a quien ya no correspondía."
+      },
+      "pasos": [
+        {
+          "titulo": "Escuchamos",
+          "texto": "Entendimos cómo cobraba: qué decía en cada mensaje, a quién le escribía y qué pasaba cuando alguien ya había pagado o se había ido del gimnasio."
+        },
+        {
+          "titulo": "Diseñamos",
+          "texto": "Un panel con cuatro secciones: Inicio, Cuotas, Socios y Ajustes, que funciona igual en la compu y en el celular. El mensaje se edita con una vista previa de cómo le llega al socio."
+        },
+        {
+          "titulo": "Pusimos en marcha",
+          "texto": "Configuramos la cuenta de WhatsApp para que los avisos salgan automáticos y entregamos el diseño completo a desarrollo, flujo por flujo y en sus dos versiones."
+        }
+      ],
+      "figuras": [
+        {
+          "alt": "Pantalla de Ajustes de Gymrat: el mensaje de WhatsApp y su vista previa.",
+          "pie": "El mensaje se edita en el panel y al lado se ve cómo le llega al socio. Lo que cambia sale en el próximo aviso."
+        },
+        {
+          "alt": "Pantalla de Socios de Gymrat, con el listado y el botón para sumar uno nuevo.",
+          "pie": "Socios: sumar a alguien nuevo o desactivarlo lleva un par de toques. La campana tachada marca a quién no se le envían avisos."
+        },
+        {
+          "alt": "Pantalla de avisos enviados de Gymrat, con el estado de cada uno.",
+          "pie": "Cada aviso queda registrado: si llegó, si se canceló o si el número no tenía WhatsApp."
+        },
+        {
+          "alt": "Tres pantallas del panel de Gymrat en el celular.",
+          "pie": "El mismo panel en el celular, para cobrar y revisar desde el mostrador."
+        }
+      ],
+      "resultadosEtiqueta": "Qué cambió",
+      "resultados": [
+        { "cifra": "1 → 10", "texto": "los días de cada mes en que los avisos salen solos, sin escribir a mano." },
+        { "cifra": "0", "texto": "mensajes uno por uno: el texto se cambia en el panel y sale en el próximo aviso." },
+        { "cifra": "2", "texto": "versiones del mismo panel, compu y celular, entregadas a desarrollo." }
+      ]
+    }
+  ],
+  "noEncontrada": {
+    "meta": "Página no encontrada — Wapi",
+    "eyebrow": "Error 404",
+    "titulo": ["Esta página", "no existe."],
+    "volver": "← Volver al inicio"
+  }
+}

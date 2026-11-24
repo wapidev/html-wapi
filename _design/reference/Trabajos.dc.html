@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: "Onest", system-ui, sans-serif; color: #0A0A0A; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  ::selection { background: #0A0A0A; color: #FFFFFF; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #2B2BF5; }
+  @keyframes wapiLine { from { transform: translateY(112%); } to { transform: translateY(0); } }
+  @keyframes wapiFade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="position: relative; width: 100%; background: #FFFFFF; overflow-x: clip">
+
+  <div ref="{{ cursorRef }}" style="position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: #0A0A0A; color: #FFFFFF; z-index: 150; pointer-events: none; opacity: 0; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0px; letter-spacing: 0.12em; text-transform: uppercase; transition: width 0.28s cubic-bezier(0.22, 1, 0.36, 1), height 0.28s cubic-bezier(0.22, 1, 0.36, 1), font-size 0.2s linear, opacity 0.2s linear"></div>
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 22px clamp(20px, 4vw, 64px); color: {{ navColor }}; background: {{ navBg }}; border-bottom: 1px solid {{ navBorder }}; transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease">
+    <a href="Wapi Home.dc.html" data-cursor="Inicio" style="display: flex; align-items: center; line-height: 0">
+      <svg viewBox="4 0 137 54" style="width: 74px; height: auto; fill: currentColor" aria-label="wapi">
+        <path d="M30.81,38.92l-4.77-15.32-4.83,15.32c-.56,2.08-2.47,3.53-4.71,3.53s-4.15-1.46-4.77-3.53l-6.06-19.86c-.06-.28-.11-.67-.11-1.01,0-1.91,1.51-3.48,3.48-3.48,1.63,0,2.97,1.07,3.37,2.58l4.49,16.05,5.16-15.77c.51-1.68,2.13-2.86,3.98-2.86s3.42,1.18,3.93,2.86l5.16,15.77,4.49-16.05c.39-1.46,1.74-2.58,3.42-2.58,1.91,0,3.48,1.57,3.48,3.53,0,.28-.11.67-.17.95l-6.06,19.86c-.56,2.08-2.52,3.53-4.71,3.53s-4.21-1.46-4.77-3.53Z"></path>
+        <path d="M79,24.55v14.19c0,2.02-1.57,3.7-3.59,3.7-1.8,0-3.37-1.35-3.59-3.2-1.8,2.13-4.99,3.48-8.53,3.48-4.32,0-9.43-2.92-9.43-8.98s5.11-8.64,9.43-8.64c3.59,0,6.79,1.12,8.58,3.31v-3.76c0-2.75-2.36-4.54-5.95-4.54-2.13,0-4.04.56-6,1.8-.39.22-.9.39-1.4.39-1.46,0-2.69-1.23-2.69-2.75,0-1.01.56-1.91,1.29-2.36,3.09-2.02,6.56-2.92,10.04-2.92,6.17,0,11.84,2.47,11.84,10.27ZM71.88,35.55v-3.37c-1.18-1.57-3.42-2.36-5.72-2.36-2.81,0-5.11,1.46-5.11,4.1s2.3,3.98,5.11,3.98c2.3,0,4.54-.79,5.72-2.36Z"></path>
+        <path d="M118.05,28.48c0,9.03-5.05,14.25-12.01,14.25-3.2,0-6.12-1.35-8.36-4.15v10.6c0,1.96-1.63,3.59-3.53,3.59-2.02,0-3.59-1.63-3.59-3.59v-31.03c0-2.02,1.57-3.7,3.59-3.7s3.59,1.68,3.59,3.7v.17c2.13-2.64,5.05-4.04,8.3-4.04,6.96,0,12.01,5.16,12.01,14.19ZM110.64,28.48c0-4.66-2.75-7.85-6.84-7.85-2.3,0-4.94,1.35-6.12,3.09v9.59c1.18,1.68,3.81,3.09,6.12,3.09,4.1,0,6.84-3.2,6.84-7.91Z"></path>
+        <path d="M127.14,6.26c0-2.36,1.96-4.26,4.26-4.26s4.26,1.91,4.26,4.26-1.91,4.26-4.26,4.26-4.26-1.91-4.26-4.26ZM127.87,38.86v-20.7c0-1.96,1.57-3.59,3.59-3.59,1.91,0,3.53,1.63,3.53,3.59v20.7c0,1.96-1.63,3.59-3.59,3.59s-3.53-1.63-3.53-3.59Z"></path>
+      </svg>
+    </a>
+    <nav style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 clamp(20px, 3vw, 48px); margin-left: auto">
+      <span style="display: flex; align-items: baseline; font-size: clamp(18px, 1.9vw, 30px); font-weight: 500; letter-spacing: -0.03em">
+        <a href="Trabajos.dc.html" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Trabajos</a><span>,&nbsp;</span><a href="Wapi Home.dc.html#servicios" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Servicios</a><span>,&nbsp;</span><a href="Wapi Home.dc.html#nosotros" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Nosotros</a><span>,&nbsp;</span><a href="#contacto" style="transition: color 0.2s ease" style-hover="color: {{ accent }}">Contacto</a>
+      </span>
+      <a href="#contacto" data-cursor="Escribir" style="padding: 11px 22px; border-radius: 999px; border: 1px solid currentColor; background: {{ pillBg }}; color: {{ pillColor }}; font-size: 14px; font-weight: 500; transition: background 0.25s ease, color 0.25s ease" style-hover="background: {{ pillHoverBg }}; color: {{ pillHoverColor }}">Hablemos</a>
+    </nav>
+  </header>
+
+  <section style="padding: clamp(140px, 17vh, 210px) clamp(20px, 4vw, 64px) 0">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0; animation: wapiFade 0.6s ease 0.1s forwards">Trabajos — 04 proyectos</div>
+    <h1 style="margin: clamp(24px, 4vh, 52px) 0 0; font-size: clamp(52px, 9.5vw, 190px); font-weight: 600; line-height: 0.86; letter-spacing: -0.045em">
+      <span style="display: block; overflow: hidden; padding-bottom: 0.02em"><span style="display: block; transform: translateY(112%); animation: wapiLine 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards">Trabajos</span></span>
+      <span style="display: block; overflow: hidden; padding-bottom: 0.02em"><span style="display: block; transform: translateY(112%); animation: wapiLine 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards">seleccionados</span></span>
+    </h1>
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px; margin-top: clamp(36px, 6vh, 80px); padding-bottom: clamp(20px, 3vh, 32px); border-bottom: 1px solid #0A0A0A; opacity: 0; animation: wapiFade 0.7s ease 0.4s forwards">
+      <p style="margin: 0; max-width: 44ch; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.5">Cuatro proyectos donde el trabajo se nota: identidad, producto y sitio sostenidos por la misma idea.</p>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase">2024 — 2026</span>
+    </div>
+  </section>
+
+  <section style="padding: clamp(48px, 9vh, 110px) clamp(20px, 4vw, 64px) clamp(80px, 12vh, 160px)">
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(32px, 6vw, 96px) clamp(20px, 3vw, 48px)">
+      <sc-for list="{{ works }}" as="w" hint-placeholder-count="4">
+        <a href="{{ w.href }}" data-cursor="Ver caso" onMouseEnter="{{ w.enter }}" onMouseLeave="{{ w.leave }}" style="display: {{ w.display }}; flex: 1 1 min(100%, 460px); margin-top: {{ w.offset }}; cursor: pointer; transform: translateY({{ w.lift }}); transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)">
+          <div style="position: relative; width: 100%; aspect-ratio: {{ w.ratio }}; background: #EDEDED; overflow: hidden">
+            <div style="position: absolute; inset: 0; transform: scale({{ w.zoom }}); transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)">
+              <sc-if value="{{ w.hasCover }}" hint-placeholder-val="{{ false }}">
+                <sc-if value="{{ w.coverGemmia }}" hint-placeholder-val="{{ false }}"><img src="uploads/gemmia-cover.png" alt="{{ w.name }}" style="width: 100%; height: 100%; object-fit: cover; display: block"></sc-if>
+                <sc-if value="{{ w.coverIv }}" hint-placeholder-val="{{ false }}"><div style="width: 100%; height: 100%; background: linear-gradient(165deg, #F6EFE0 0%, #E8DCC4 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5% 12%">
+                <div style="width: 100%; background: #163141; border-radius: 10px; padding: 1.6%; box-shadow: 0 18px 40px rgba(22, 49, 65, 0.22)">
+                  <div style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3px; background: #0B1E2A">
+                    <img src="uploads/iv-cover.png" alt="{{ w.name }}" style="width: 100%; height: 100%; object-fit: cover; display: block">
+                  </div>
+                </div>
+                <div style="position: relative; width: 111%; height: 3.2%; min-height: 7px; background: #163141; border-radius: 0 0 5px 5px; box-shadow: 0 10px 20px rgba(22, 49, 65, 0.18)">
+                  <span style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 14%; height: 2px; background: #2E5468; border-radius: 0 0 3px 3px"></span>
+                </div>
+              </div></sc-if>
+              </sc-if>
+              <sc-if value="{{ w.noCover }}" hint-placeholder-val="{{ true }}">
+                <image-slot id="{{ w.slotId }}" shape="rect" fit="cover" placeholder="{{ w.name }}"></image-slot>
+              </sc-if>
+            </div>
+            <span style="position: absolute; top: 16px; left: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #0A0A0A; background: #FFFFFF; padding: 6px 10px; pointer-events: none">{{ w.index }}</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-top: 20px">
+            <h2 style="display: flex; flex-wrap: nowrap; white-space: nowrap; margin: 0; font-size: clamp(26px, 2.6vw, 46px); font-weight: 600; line-height: 1.05; letter-spacing: -0.035em">
+              <sc-for list="{{ w.letters }}" as="l" hint-placeholder-count="10">
+                <span style="display: block; overflow: hidden; height: 1.05em; line-height: 1.05">
+                  <span style="display: block; transform: translateY({{ l.shift }}); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: {{ l.delay }}ms">
+                    <span style="display: block; height: 1.05em; line-height: 1.05">{{ l.ch }}</span>
+                    <span style="display: block; height: 1.05em; line-height: 1.05">{{ l.ch }}</span>
+                  </span>
+                </span>
+              </sc-for>
+            </h2>
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #0A0A0A">{{ w.year }}</span>
+          </div>
+          <p style="margin: 12px 0 0; max-width: 46ch; font-size: clamp(15px, 1.1vw, 18px); line-height: 1.5">{{ w.line }}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px">
+            <sc-for list="{{ w.tags }}" as="t" hint-placeholder-count="3">
+              <span style="padding: 7px 14px; border: 1px solid #0A0A0A; border-radius: 999px; background: {{ t.bg }}; color: {{ t.fg }}; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; transition: background 0.35s ease, color 0.35s ease; transition-delay: {{ t.delay }}ms">{{ t.label }}</span>
+            </sc-for>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer id="contacto" ref="{{ footerRef }}" style="display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; padding: clamp(90px, 15vh, 180px) clamp(20px, 4vw, 64px) 0; background: {{ accent }}; color: {{ onAccent }}; overflow: hidden">
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75">Contacto</div>
+      <h2 style="margin: clamp(20px, 3vh, 40px) 0 0; font-size: clamp(46px, 8vw, 168px); font-weight: 600; line-height: 0.88; letter-spacing: -0.045em">Hagamos algo<br>que dure.</h2>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: clamp(28px, 5vw, 80px); margin-top: clamp(48px, 8vh, 96px)">
+      <div style="flex: 1 1 min(100%, 240px)">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 14px">Escribinos</div>
+        <a href="mailto:hola@wapi.com.ar" data-cursor="Escribir" style="font-size: clamp(18px, 1.6vw, 26px); font-weight: 500; letter-spacing: -0.02em; border-bottom: 1px solid currentColor; padding-bottom: 3px">hola@wapi.com.ar</a>
+      </div>
+      <div style="flex: 1 1 min(100%, 240px)">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 14px">Dónde estamos</div>
+        <p style="margin: 0; font-size: clamp(18px, 1.6vw, 26px); font-weight: 500; line-height: 1.3; letter-spacing: -0.02em">Buenos Aires,<br>Argentina</p>
+      </div>
+      <div style="flex: 1 1 min(100%, 240px)">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 14px">Seguinos</div>
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px">
+          <a href="#contacto" style="font-size: clamp(17px, 1.4vw, 22px); font-weight: 500; letter-spacing: -0.02em" style-hover="opacity: 0.6">Instagram</a>
+          <a href="#contacto" style="font-size: clamp(17px, 1.4vw, 22px); font-weight: 500; letter-spacing: -0.02em" style-hover="opacity: 0.6">LinkedIn</a>
+          <a href="#contacto" style="font-size: clamp(17px, 1.4vw, 22px); font-weight: 500; letter-spacing: -0.02em" style-hover="opacity: 0.6">Behance</a>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; margin-top: clamp(40px, 7vh, 80px); padding-bottom: 18px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75">
+      <span>© Wapi 2026</span>
+      <a href="#contacto">Política de privacidad</a>
+    </div>
+    <div style="position: relative; height: clamp(90px, 15vw, 260px); overflow: hidden">
+      <svg viewBox="4 0 137 40" preserveAspectRatio="xMidYMin slice" style="position: absolute; left: -1%; bottom: 0; width: 102%; height: auto; fill: currentColor; opacity: 0.92" aria-hidden="true">
+        <path d="M30.81,38.92l-4.77-15.32-4.83,15.32c-.56,2.08-2.47,3.53-4.71,3.53s-4.15-1.46-4.77-3.53l-6.06-19.86c-.06-.28-.11-.67-.11-1.01,0-1.91,1.51-3.48,3.48-3.48,1.63,0,2.97,1.07,3.37,2.58l4.49,16.05,5.16-15.77c.51-1.68,2.13-2.86,3.98-2.86s3.42,1.18,3.93,2.86l5.16,15.77,4.49-16.05c.39-1.46,1.74-2.58,3.42-2.58,1.91,0,3.48,1.57,3.48,3.53,0,.28-.11.67-.17.95l-6.06,19.86c-.56,2.08-2.52,3.53-4.71,3.53s-4.21-1.46-4.77-3.53Z"></path>
+        <path d="M79,24.55v14.19c0,2.02-1.57,3.7-3.59,3.7-1.8,0-3.37-1.35-3.59-3.2-1.8,2.13-4.99,3.48-8.53,3.48-4.32,0-9.43-2.92-9.43-8.98s5.11-8.64,9.43-8.64c3.59,0,6.79,1.12,8.58,3.31v-3.76c0-2.75-2.36-4.54-5.95-4.54-2.13,0-4.04.56-6,1.8-.39.22-.9.39-1.4.39-1.46,0-2.69-1.23-2.69-2.75,0-1.01.56-1.91,1.29-2.36,3.09-2.02,6.56-2.92,10.04-2.92,6.17,0,11.84,2.47,11.84,10.27ZM71.88,35.55v-3.37c-1.18-1.57-3.42-2.36-5.72-2.36-2.81,0-5.11,1.46-5.11,4.1s2.3,3.98,5.11,3.98c2.3,0,4.54-.79,5.72-2.36Z"></path>
+        <path d="M118.05,28.48c0,9.03-5.05,14.25-12.01,14.25-3.2,0-6.12-1.35-8.36-4.15v10.6c0,1.96-1.63,3.59-3.53,3.59-2.02,0-3.59-1.63-3.59-3.59v-31.03c0-2.02,1.57-3.7,3.59-3.7s3.59,1.68,3.59,3.7v.17c2.13-2.64,5.05-4.04,8.3-4.04,6.96,0,12.01,5.16,12.01,14.19ZM110.64,28.48c0-4.66-2.75-7.85-6.84-7.85-2.3,0-4.94,1.35-6.12,3.09v9.59c1.18,1.68,3.81,3.09,6.12,3.09,4.1,0,6.84-3.2,6.84-7.91Z"></path>
+        <path d="M127.14,6.26c0-2.36,1.96-4.26,4.26-4.26s4.26,1.91,4.26,4.26-1.91,4.26-4.26,4.26-4.26-1.91-4.26-4.26ZM127.87,38.86v-20.7c0-1.96,1.57-3.59,3.59-3.59,1.91,0,3.53,1.63,3.53,3.59v20.7c0,1.96-1.63,3.59-3.59,3.59s-3.53-1.63-3.53-3.59Z"></path>
+      </svg>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#2B2BF5&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#2B2BF5&quot;,&quot;#DDF247&quot;,&quot;#0A0A0A&quot;],&quot;section&quot;:&quot;Identidad&quot;}}">
+class Component extends DCLogic {
+  state = { hover: -1, filter: 'Todos', footerIn: false, scrolled: false };
+  rootRef = React.createRef();
+  cursorRef = React.createRef();
+  footerRef = React.createRef();
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const s = window.scrollY > window.innerHeight * 0.5;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      this.move = (e) => this.moveCursor(e);
+      window.addEventListener('mousemove', this.move, { passive: true });
+    }
+    this.fiv = setInterval(() => {
+      const f = this.footerRef.current;
+      if (f && !this.fio) {
+        this.fio = new IntersectionObserver((en) => {
+          const on = en[0].isIntersecting;
+          if (on !== this.state.footerIn) this.setState({ footerIn: on });
+        }, { rootMargin: '-72px 0px -85% 0px' });
+        this.fio.observe(f);
+        clearInterval(this.fiv);
+      }
+    }, 300);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fiv);
+    window.removeEventListener('scroll', this.onScroll);
+    if (this.move) window.removeEventListener('mousemove', this.move);
+    document.documentElement.style.cursor = '';
+  }
+
+  moveCursor(e) {
+    const c = this.cursorRef.current;
+    if (!c) return;
+    if (!this.cursorOn) {
+      this.cursorOn = true;
+      document.documentElement.style.cursor = 'none';
+      c.style.opacity = '1';
+    }
+    c.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px) translate(-50%, -50%)';
+    const t = e.target && e.target.closest ? e.target.closest('[data-cursor]') : null;
+    const label = t ? t.getAttribute('data-cursor') : '';
+    if (label === this.label) return;
+    this.label = label;
+    c.textContent = label;
+    const big = !!label;
+    c.style.width = big ? '92px' : '12px';
+    c.style.height = big ? '92px' : '12px';
+    c.style.fontSize = big ? '10px' : '0px';
+  }
+
+  letters(text, hovered) {
+    return text.split('').map((ch, i) => ({
+      ch: ch === ' ' ? '\u00A0' : ch,
+      delay: i * 26,
+      shift: hovered ? '-50%' : '0%'
+    }));
+  }
+
+  renderVals() {
+    const accent = this.props.accent || '#2B2BF5';
+    const h = (accent || '').replace('#', '');
+    const n = h.length === 3 ? h.split('').map((c) => c + c).join('') : h;
+    const lum = (0.2126 * parseInt(n.slice(0, 2), 16) + 0.7152 * parseInt(n.slice(2, 4), 16) + 0.0722 * parseInt(n.slice(4, 6), 16)) / 255;
+    const onAccent = lum > 0.55 ? '#0A0A0A' : '#FFFFFF';
+
+    const raw = [
+      { name: 'Gemmia Logistics', year: '2025', line: 'Marca y sitio para mover cargas entre Latinoamérica y el mundo.', tags: ['Branding', 'Diseño web', 'UX/UI'], ratio: '16 / 9', offset: '0px', cover: 'uploads/gemmia-cover.png' },
+      { name: 'Gestión de Préstamos', year: '2026', line: 'La plataforma que reemplazó a la planilla que sostenía un negocio de créditos.', tags: ['UX/UI', 'Diseño de producto', 'SaaS'], ratio: '4 / 5', offset: 'clamp(0px, 9vw, 140px)' },
+      { name: 'Ida & Vuelta Ibiza', year: '2026', line: 'Marca y sitio para un concierge de hospedajes que arrancó de cero.', tags: ['Branding', 'UX/UI', 'Diseño web', 'Desarrollo'], ratio: '16 / 9', offset: '0px', cover: 'uploads/iv-cover.png' },
+      { name: '[Cliente 04]', year: '2024', line: 'El e-commerce que triplicó la conversión sin cambiar el catálogo.', tags: ['UX/UI', 'Desarrollo'], ratio: '4 / 3', offset: 'clamp(0px, 9vw, 140px)' }
+    ];
+
+    const active = this.state.filter;
+    const works = raw.map((w, i) => {
+      const on = this.state.hover === i;
+      return {
+        name: w.name,
+        year: w.year,
+        line: w.line,
+        ratio: w.ratio,
+        offset: w.offset,
+        index: '0' + (i + 1),
+        href: 'Trabajo Detalle.dc.html?p=' + (i + 1),
+        cover: w.cover || '',
+        hasCover: !!w.cover,
+        coverGemmia: w.cover === 'uploads/gemmia-cover.png',
+        coverIv: w.cover === 'uploads/iv-cover.png',
+      coverGemmia: w.cover === 'uploads/gemmia-cover.png',
+      coverIv: w.cover === 'uploads/iv-cover.png',
+        noCover: !w.cover,
+        slotId: 'trabajos-' + (i + 1),
+        display: active === 'Todos' || w.tags.indexOf(active) > -1 ? 'block' : 'none',
+        lift: on ? '-8px' : '0px',
+        zoom: on ? 1.04 : 1,
+        letters: this.letters(w.name, on),
+        tags: w.tags.map((t, ti) => ({
+          label: t,
+          bg: on ? '#0A0A0A' : 'transparent',
+          fg: on ? '#FFFFFF' : '#0A0A0A',
+          delay: ti * 60
+        })),
+        enter: () => this.setState({ hover: i }),
+        leave: () => this.setState({ hover: -1 })
+      };
+    });
+
+    const filters = ['Todos', 'Branding', 'Diseño web', 'UX/UI', 'Consultoría'].map((f) => ({
+      label: f,
+      bg: active === f ? '#0A0A0A' : 'transparent',
+      fg: active === f ? '#FFFFFF' : '#0A0A0A',
+      select: () => this.setState({ filter: f })
+    }));
+
+    const fi = this.state.footerIn;
+    return {
+      rootRef: this.rootRef,
+      cursorRef: this.cursorRef,
+      footerRef: this.footerRef,
+      accent,
+      onAccent,
+      works,
+      filters,
+      navColor: fi ? onAccent : '#0A0A0A',
+      navBg: fi ? 'transparent' : (this.state.scrolled ? 'rgba(255,255,255,0.92)' : 'transparent'),
+      navBorder: fi ? 'transparent' : (this.state.scrolled ? '#0A0A0A' : 'transparent'),
+      pillBg: fi ? onAccent : '#0A0A0A',
+      pillColor: fi ? accent : '#FFFFFF',
+      pillHoverBg: fi ? 'transparent' : '#FFFFFF',
+      pillHoverColor: fi ? onAccent : '#0A0A0A'
+    };
+  }
+}
+</script>
+</body>
+</html>
