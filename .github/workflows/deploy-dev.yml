@@ -42,13 +42,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
 
+      # npm ci: instala exactamente lo del lockfile (que ya trae los binarios de Linux de
+      # lightningcss, @tailwindcss/oxide y rolldown). Sin lockfile, cada build traía la última
+      # versión de cada dependencia, revisada o no (docs/Seguridad.md S3).
       - name: Install dependencies
-        # Reinstalar fresh: el lockfile generado en macOS no trae los binarios nativos
-        # opcionales (lightningcss, @tailwindcss/oxide, rolldown) para Linux.
-        run: |
-          rm -rf node_modules package-lock.json
-          npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
 
       - name: Build (sitio nuevo, noindex)
         # Las variables del proceso pisan a .env.production.
