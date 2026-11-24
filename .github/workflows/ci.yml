@@ -43,8 +43,13 @@ jobs:
       - name: Tests
         run: npm run test -- --run
 
+      # El flag apagado se fuerza acá: desde el lanzamiento .env.production lo trae en true, y
+      # este build sigue cuidando que volver a false (la vuelta atrás) publique solo la página
+      # "en desarrollo".
       - name: Build con el flag apagado (página "en desarrollo")
         run: npm run build
+        env:
+          VITE_SITIO_NUEVO: 'false'
 
       - name: Sin contenido del sitio nuevo publicado
         run: |
