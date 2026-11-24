@@ -72,12 +72,15 @@ Defensas (las mismas ideas que el formulario de Gemmia, `Gemmia_Contacto_Web`, m
   `x-wapi-origen` con un secreto que también tiene la Lambda. Además se controla el `Origin`.
 - Throttling de la ruta: ráfaga de 5, 2 por segundo. Concurrencia reservada: 3.
 - Campo trampa (`web`) y tiempo mínimo de 3 s: a un bot se le responde "ok" sin mandar nada.
-- Límite por IP (5 por hora; IPv6 por /64) y por email de destino (3 confirmaciones por día), con
-  contadores en DynamoDB (`html-wapi-contacto-<env>`, con TTL; el email se guarda como hash).
+- Límite por IP (5 por hora; IPv6 por /64), por email de destino (3 confirmaciones por día) y en
+  total (**20 envíos por día** entre todos, `LIMITE_TOTAL_DIA`), con contadores en DynamoDB
+  (`html-wapi-contacto-<env>`, con TTL; el email se guarda como hash). El día corta a las 21 h de
+  Argentina (medianoche UTC).
 - `FORM_ENABLED=false` en la configuración de la Lambda apaga el formulario sin deployar (503).
-- Alarmas solo en PROD (tópico `html-wapi-alertas-Production`, mail a `info@`): más de 15
-  envíos en una hora, y cualquier 5xx de la API. **Hay que confirmar la suscripción** desde el mail
-  que manda AWS la primera vez.
+- Alarmas solo en PROD (tópico `html-wapi-alertas-Production`, mail a `info@`, suscripción
+  confirmada): más de 15 envíos en una hora, cualquier 5xx de la API, el tope del día alcanzado, y la
+  reputación de la cuenta de SES (rebotes > 5 %, quejas > 0,1 %), que comparten todos los sistemas
+  de Wapi.
 - Los logs no guardan datos de la persona, solo el evento (`enviado`, `trampa`, `limite`…).
 
 Deploy, a mano (cambia poco y así los roles de GitHub del sitio siguen sin permisos de infra):
@@ -132,6 +135,12 @@ flag de `.env.production`, sincroniza S3, invalida CloudFront y deja un tag + re
 DEV y PROD usan la misma función `html-wapi-rutas` (viewer-request): `/x/` → `/x/index.html` y
 `/x` → 301 a `/x/` en el mismo dominio, conservando los parámetros.
 
+**Caché:** los assets con hash (JS, CSS, fuentes, videos, imágenes de `src/`) van con un año e
+`immutable`. El HTML, el sitemap y lo de `public/` van con `max-age=0, s-maxage=86400`: el navegador
+revalida siempre, pero CloudFront lo guarda un día y responde sin ir a S3. Cada deploy sube primero
+los assets nuevos y el HTML, invalida `/*` y **espera** a que termine, y recién ahí borra los assets
+viejos: si los borrara antes, una página que todavía está en la caché pediría archivos que ya no existen.
+
 ### Pasaje del dominio (DNS en HostGator)
 
 El DNS de `wapidesign.com` sigue en HostGator (cPanel → Zone Editor). El mail (Microsoft 365) y
@@ -152,6 +161,9 @@ admite CNAME/ALIAS en la raíz), así que el dominio del sitio es `www` y la ra�
 `feature/*` → `develop` (publica DEV) → `main` (publica PROD). La CI (`ci.yml`) corre en todos
 los push y PRs y buildea las dos versiones del flag.
 
+**Dependencias:** los tres workflows instalan con `npm ci` (exactamente el lockfile). Dependabot
+abre PRs a `develop` los lunes: menores y parches de npm agrupados, y las GitHub Actions.
+
 **Lanzar el sitio nuevo** = `contacto/deploy.sh prod` (una vez) y un PR que pasa `VITE_SITIO_NUEVO`
 a `true` en `.env.production`, mergeado hasta `main`. El workflow de PROD no pisa el flag: lo que se
 publica es lo que dice el código. El resumen de cada run indica qué versión salió.
@@ -168,7 +180,7 @@ _design/figma/          Extracción del Figma (fuente de verdad): por pantalla, 
 _design/ (resto)        Handoff anterior de Claude Design (histórico).
 contacto/               Backend del formulario: Lambda (src/), template SAM y deploy.sh.
 public/                 Archivos tal cual: favicon, manifest, imágenes de la página "en desarrollo"
-                        (assets/images/) y del mail de confirmación (mail/).
+                        (assets/images/), del mail de confirmación (mail/) y para compartir (og/).
 scripts/prerender.mjs   HTML por ruta (en los dos idiomas) + sitemap.xml + robots.txt.
 scripts/optimizar-imagenes.sh   Imágenes del Figma → WebP (grande y -sm) en src/assets/sitio.
 src/

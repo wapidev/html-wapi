@@ -94,6 +94,8 @@ Resources:
           TABLA: !Ref TablaLimites
           LIMITE_IP_HORA: '5'
           LIMITE_MAIL_DIA: '3'
+          # Tope de envíos por día entre todos (cada envío son dos mails). Ver docs/Seguridad.md S2.
+          LIMITE_TOTAL_DIA: '20'
       Policies:
         - Statement:
             - Effect: Allow
@@ -172,6 +174,81 @@ Resources:
       EvaluationPeriods: 1
       Threshold: 1
       ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref TopicoAlertas]
+
+  # Cuando se llega al tope del día, el formulario rechaza también a la gente real hasta las 21
+  # (medianoche UTC): que alguien se entere. La métrica sale del log {"evento":"limite","por":"total"}.
+  MetricaTopeDiario:
+    Type: AWS::Logs::MetricFilter
+    Condition: EsProduccion
+    Properties:
+      LogGroupName: !Ref ContactoLogs
+      FilterPattern: '{ $.evento = "limite" && $.por = "total" }'
+      MetricTransformations:
+        - MetricNamespace: html-wapi
+          MetricName: ContactoTopeDiario
+          MetricValue: '1'
+          DefaultValue: 0
+
+  AlarmaTopeDiario:
+    Type: AWS::CloudWatch::Alarm
+    Condition: EsProduccion
+    Properties:
+      AlarmName: !Sub 'html-wapi-${Environment}-contacto-tope-diario'
+      AlarmDescription: >-
+        El formulario de contacto de wapidesign.com llegó al tope de 20 envíos del día y está
+        rechazando mensajes (la gente ve el error con el mail de contacto) hasta las 21 h de Argentina.
+        Si es abuso, revisar los logs de html-wapi-contacto-Production; si son consultas reales, subir
+        LIMITE_TOTAL_DIA en la configuración de la Lambda.
+      Namespace: html-wapi
+      MetricName: ContactoTopeDiario
+      Statistic: Sum
+      Period: 3600
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref TopicoAlertas]
+
+  # Reputación de la cuenta de SES. Es una sola para todos los sistemas de Wapi (sitio, portal de
+  # clientes del ERP, avisos de los clientes): si Amazon la frena por rebotes o quejas, dejan de salir
+  # todos los mails. Umbrales: los que AWS marca para revisar la cuenta (5 % y 0,1 %).
+  AlarmaSesRebotes:
+    Type: AWS::CloudWatch::Alarm
+    Condition: EsProduccion
+    Properties:
+      AlarmName: !Sub 'html-wapi-${Environment}-ses-rebotes'
+      AlarmDescription: >-
+        La tasa de rebotes de la cuenta de SES pasó el 5 %. Con el 10 % Amazon pausa los envíos de
+        todos los sistemas de Wapi. Revisar en la consola de SES (Reputation metrics) qué sistema está
+        mandando a direcciones que no existen.
+      Namespace: AWS/SES
+      MetricName: Reputation.BounceRate
+      Statistic: Maximum
+      Period: 3600
+      EvaluationPeriods: 1
+      Threshold: 0.05
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref TopicoAlertas]
+
+  AlarmaSesQuejas:
+    Type: AWS::CloudWatch::Alarm
+    Condition: EsProduccion
+    Properties:
+      AlarmName: !Sub 'html-wapi-${Environment}-ses-quejas'
+      AlarmDescription: >-
+        La tasa de quejas (marcados como spam) de la cuenta de SES pasó el 0,1 %. Con el 0,5 % Amazon
+        pausa los envíos de todos los sistemas de Wapi. Revisar qué sistema mandó mails que la gente
+        marcó como spam (si es el formulario, apagarlo con FORM_ENABLED=false).
+      Namespace: AWS/SES
+      MetricName: Reputation.ComplaintRate
+      Statistic: Maximum
+      Period: 3600
+      EvaluationPeriods: 1
+      Threshold: 0.001
+      ComparisonOperator: GreaterThanThreshold
       TreatMissingData: notBreaching
       AlarmActions: [!Ref TopicoAlertas]
 

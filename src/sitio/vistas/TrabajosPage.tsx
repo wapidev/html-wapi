@@ -30,13 +30,13 @@ const PORTADA: Record<Ancho, string> = {
   angosta: 'aspect-[350/280] md:aspect-[534/430]',
 }
 
-function Tarjeta({ trabajo, ancho }: { trabajo: TrabajoListado; ancho: Ancho }) {
+function Tarjeta({ trabajo, ancho, prioridad = false }: { trabajo: TrabajoListado; ancho: Ancho; prioridad?: boolean }) {
   const t = useContenido()
   const r = useRutas()
   const caso = casoPorSlug(t, trabajo.slug)
   return (
     <Link to={r.caso(trabajo.slug)} data-cursor="Ver" className={`group block hover:text-inherit ${COLUMNA[ancho]}`} data-reveal>
-      <PortadaTrabajo slug={trabajo.slug} alt="" className={PORTADA[ancho]} />
+      <PortadaTrabajo slug={trabajo.slug} alt="" className={PORTADA[ancho]} prioridad={prioridad} />
       <div className="flex flex-wrap items-baseline justify-between gap-y-2 pt-[calc(16px+4*var(--t))] whitespace-nowrap">
         <h2 className="text-tarjeta-trabajos transition-colors duration-250 group-hover:text-accent">{caso?.nombre}</h2>
         <p className="font-mono text-label-sm uppercase">{caso?.anio}</p>
@@ -87,10 +87,10 @@ export default function TrabajosPage() {
 
       <section className="px-page-x pt-[calc(75.96px-11.16*var(--tt))] pb-[calc(101.28px-14.88*var(--tt))]">
         <div className="flex flex-col gap-[calc(56px+40*var(--t))]">
-          {FILAS.map((fila) => (
+          {FILAS.map((fila, f) => (
             <div key={fila[0].slug} className="flex flex-col gap-[calc(56px+40*var(--t))] md:flex-row md:items-start md:gap-10">
               {fila.map(({ slug, ancho }) => (
-                <Tarjeta key={slug} trabajo={porSlug[slug]} ancho={ancho} />
+                <Tarjeta key={slug} trabajo={porSlug[slug]} ancho={ancho} prioridad={f === 0} />
               ))}
               {fila.length === 1 && <div className="hidden md:block md:flex-[534_0_0%]" />}
             </div>

@@ -2,12 +2,18 @@ import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-// Cada versión del sitio carga sus propias fuentes. La página "en desarrollo" es la que
-// está publicada hoy (Inter); el sitio nuevo usa las del handoff (Onest + JetBrains Mono).
-const FUENTES_SITIO_NUEVO =
-  '<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />'
-const FUENTES_EN_DESARROLLO =
-  '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />'
+// Cada versión del sitio carga sus propias fuentes. El sitio nuevo sirve Onest y JetBrains Mono
+// desde el propio sitio (@font-face en sitio.css) y las precarga acá: Vite resuelve las rutas de
+// src/ a los archivos con hash. La página "en desarrollo" sigue con Inter de Google Fonts.
+const FUENTES_SITIO_NUEVO = [
+  '<link rel="preload" href="/src/assets/fuentes/onest.woff2" as="font" type="font/woff2" crossorigin />',
+  '<link rel="preload" href="/src/assets/fuentes/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin />',
+].join('\n    ')
+const FUENTES_EN_DESARROLLO = [
+  '<link rel="preconnect" href="https://fonts.googleapis.com" />',
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
+  '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />',
+].join('\n    ')
 
 // El loader de la Home se muestra una vez por sesión. Este script corre antes de pintar:
 // si ya se vio, marca <html> para que el CSS lo oculte sin un parpadeo.
@@ -17,8 +23,12 @@ const SCRIPT_LOADER =
 function cabeceraSegunFlag(sitioNuevo: boolean): Plugin {
   return {
     name: 'wapi-cabecera-segun-flag',
-    transformIndexHtml(html) {
-      return html.replace('<!--fuentes-->', sitioNuevo ? `${FUENTES_SITIO_NUEVO}\n    ${SCRIPT_LOADER}` : FUENTES_EN_DESARROLLO)
+    // 'pre': antes de que Vite procese el HTML, así resuelve los href de las fuentes precargadas.
+    transformIndexHtml: {
+      order: 'pre',
+      handler(html) {
+        return html.replace('<!--fuentes-->', sitioNuevo ? `${FUENTES_SITIO_NUEVO}\n    ${SCRIPT_LOADER}` : FUENTES_EN_DESARROLLO)
+      },
     },
   }
 }

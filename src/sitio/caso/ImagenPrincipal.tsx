@@ -23,7 +23,7 @@ export default function ImagenPrincipal({ slug }: { slug: string }) {
     case 'gymrat':
       return (
         <div className="aspect-video overflow-clip bg-iv-noche">
-          <Foto nombre="gymrat-panel" alt={alt} loading="eager" className="block size-full object-cover" />
+          <Foto nombre="gymrat-panel" alt={alt} loading="eager" fetchPriority="high" className="block size-full object-cover" />
         </div>
       )
     case 'credigial':
@@ -37,7 +37,7 @@ export default function ImagenPrincipal({ slug }: { slug: string }) {
     case 'zuhause':
       return (
         <div className="aspect-video overflow-clip">
-          <Foto nombre="zuhause-fachada" alt={alt} loading="eager" className="block size-full object-cover" />
+          <Foto nombre="zuhause-fachada" alt={alt} loading="eager" fetchPriority="high" className="block size-full object-cover" />
         </div>
       )
     case 'gemmia-logistics':
