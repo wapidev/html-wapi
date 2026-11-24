@@ -1,0 +1,181 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  html-wapi Contacto — recibe el formulario de wapidesign.com/contacto y manda con SES el aviso a
+  info@ y la confirmación a la persona. La API queda detrás del CloudFront del sitio (/api/*), que le
+  agrega el header x-wapi-origen; la Lambda rechaza lo que no lo trae. Deploy a mano con
+  contacto/deploy.sh (también configura CloudFront). Ver README → Formulario de contacto.
+
+Parameters:
+  Environment:
+    Type: String
+    AllowedValues: [Development, Production]
+  SecretoOrigen:
+    Type: String
+    NoEcho: true
+    MinLength: 32
+    Description: Valor del header x-wapi-origen que pone CloudFront. Lo maneja deploy.sh.
+  SitioUrl:
+    Type: String
+    Description: URL del sitio, para los links del mail (https://www.wapidesign.com).
+  Origenes:
+    Type: String
+    Description: Orígenes permitidos, separados por coma.
+  Destinatario:
+    Type: String
+    Default: info@wapidesign.com
+  PrefijoAsunto:
+    Type: String
+    Default: ''
+    Description: Se antepone al asunto de los dos mails ("[DEV] " en DEV).
+  AlertasEmail:
+    Type: String
+    Default: ''
+    Description: Mail que recibe las alarmas (solo en PROD). Vacío = las alarmas no avisan a nadie.
+
+Conditions:
+  EsProduccion: !Equals [!Ref Environment, Production]
+  ConAlertasPorMail: !Not [!Equals [!Ref AlertasEmail, '']]
+  AlertasPorMailEnProduccion: !And [!Condition EsProduccion, !Condition ConAlertasPorMail]
+
+Resources:
+  Api:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      # Igual que la ruta del formulario de Gemmia: ráfaga de 5, 2 por segundo.
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 5
+        ThrottlingRateLimit: 2
+
+  # Contadores del límite por IP y por email. Sin datos personales (el email va como hash).
+  TablaLimites:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub 'html-wapi-contacto-${Environment}'
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: vence
+        Enabled: true
+
+  ContactoLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/html-wapi-contacto-${Environment}'
+      RetentionInDays: 30
+
+  ContactoFunction:
+    Type: AWS::Serverless::Function
+    DependsOn: ContactoLogs
+    Properties:
+      FunctionName: !Sub 'html-wapi-contacto-${Environment}'
+      Description: Formulario de contacto de wapidesign.com
+      CodeUri: src/
+      Handler: handler.handler
+      Runtime: nodejs22.x
+      Architectures: [arm64]
+      MemorySize: 256
+      Timeout: 10
+      ReservedConcurrentExecutions: 3
+      Environment:
+        Variables:
+          FORM_ENABLED: 'true'
+          SECRETO_ORIGEN: !Ref SecretoOrigen
+          ORIGENES: !Ref Origenes
+          SITIO_URL: !Ref SitioUrl
+          DESTINATARIO: !Ref Destinatario
+          PREFIJO_ASUNTO: !Ref PrefijoAsunto
+          REMITENTE: Wapi <info@wapidesign.com>
+          TABLA: !Ref TablaLimites
+          LIMITE_IP_HORA: '5'
+          LIMITE_MAIL_DIA: '3'
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action: ses:SendEmail
+              Resource: !Sub 'arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/wapidesign.com'
+              Condition:
+                StringEquals:
+                  ses:FromAddress: info@wapidesign.com
+            - Effect: Allow
+              Action: dynamodb:UpdateItem
+              Resource: !GetAtt TablaLimites.Arn
+      Events:
+        Enviar:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref Api
+            Path: /api/contacto
+            Method: POST
+
+  # ---- Alarmas (solo PROD). Las mismas dos ideas que la de Gemmia: abuso y errores. ----
+
+  TopicoAlertas:
+    Type: AWS::SNS::Topic
+    Condition: EsProduccion
+    Properties:
+      TopicName: !Sub 'html-wapi-alertas-${Environment}'
+      DisplayName: Wapi sitio
+
+  SuscripcionAlertasMail:
+    Type: AWS::SNS::Subscription
+    Condition: AlertasPorMailEnProduccion
+    Properties:
+      TopicArn: !Ref TopicoAlertas
+      Protocol: email
+      Endpoint: !Ref AlertasEmail
+
+  AlarmaAbuso:
+    Type: AWS::CloudWatch::Alarm
+    Condition: EsProduccion
+    Properties:
+      AlarmName: !Sub 'html-wapi-${Environment}-contacto-abuso'
+      AlarmDescription: >-
+        El formulario de contacto de wapidesign.com recibió más de 15 envíos en una hora. Puede ser
+        alguien usándolo para mandar mails. Revisar los logs de html-wapi-contacto-Production y, si
+        hace falta, apagarlo con FORM_ENABLED=false en la configuración de la Lambda.
+      Namespace: AWS/Lambda
+      MetricName: Invocations
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref ContactoFunction
+      Statistic: Sum
+      Period: 3600
+      EvaluationPeriods: 1
+      Threshold: 15
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref TopicoAlertas]
+
+  AlarmaErrores:
+    Type: AWS::CloudWatch::Alarm
+    Condition: EsProduccion
+    Properties:
+      AlarmName: !Sub 'html-wapi-${Environment}-contacto-errores'
+      AlarmDescription: >-
+        El formulario de contacto de wapidesign.com respondió con error (5xx): los mensajes de la
+        gente pueden no estar llegando a info@. Revisar los logs de html-wapi-contacto-Production
+        (error-aviso = SES no mandó el aviso; una excepción = DynamoDB o código).
+      # 5xx de la API y no Errors de la Lambda: si SES falla, la Lambda responde 500 sin romperse.
+      Namespace: AWS/ApiGateway
+      MetricName: 5xx
+      Dimensions:
+        - Name: ApiId
+          Value: !Ref Api
+      Statistic: Sum
+      Period: 3600
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref TopicoAlertas]
+
+Outputs:
+  ApiDominio:
+    Description: Dominio de la API, para el origen de CloudFront.
+    Value: !Sub '${Api}.execute-api.${AWS::Region}.amazonaws.com'

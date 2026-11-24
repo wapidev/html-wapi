@@ -33,6 +33,11 @@ export default defineConfig(({ mode }) => {
     // El flag entra como literal en cada archivo que lo usa: así el bundler descarta la
     // rama que no va (una constante exportada desde otro módulo no la poda).
     define: { __SITIO_NUEVO__: JSON.stringify(sitioNuevo) },
-    server: { port: 3001 },
+    server: {
+      port: 3001,
+      // El formulario de contacto le pega a /api/contacto del mismo dominio. En local va al
+      // CloudFront de DEV, que tiene la API del formulario detrás (contacto/deploy.sh dev).
+      proxy: { '/api': { target: 'https://d1rinjgyxivyfh.cloudfront.net', changeOrigin: true } },
+    },
   }
 })

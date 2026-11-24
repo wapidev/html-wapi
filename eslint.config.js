@@ -9,7 +9,13 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 export default tseslint.config(
   // _design es el handoff de Claude Design (prototipos y material de referencia):
   // no se compila ni se publica.
-  { ignores: ['dist', 'dist-ssr', 'node_modules', 'scripts', '_design'] },
+  { ignores: ['dist', 'dist-ssr', 'node_modules', 'scripts', '_design', 'contacto/.aws-sam'] },
+  // Lambda del formulario de contacto (Node, sin compilar).
+  {
+    files: ['contacto/**/*.mjs'],
+    extends: [js.configs.recommended],
+    languageOptions: { ecmaVersion: 2022, globals: globals.node },
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

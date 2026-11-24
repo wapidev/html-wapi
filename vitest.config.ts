@@ -7,7 +7,7 @@ export default defineConfig({
     // jsdom para los tests que montan componentes (el acordeón de preguntas).
     environment: 'jsdom',
     globals: true,
-    include: ['src/**/*.test.{ts,tsx}'],
+    include: ['src/**/*.test.{ts,tsx}', 'contacto/src/**/*.test.mjs'],
     setupFiles: ['src/test/setup.ts'],
   },
 })
