@@ -42,6 +42,9 @@ nuevo. Está en `.env.production` (prod) y `.env.development` (dev arranca en `t
   Links internos siempre con `rutas(idioma)` / `useRutas()`, nunca escritos a mano.
 - Rutas nuevas: en `src/i18n/rutas.ts` (con su traducción), en `SitioNuevo.tsx` para los dos idiomas
   y en `rutasSitioNuevo` (`src/sitio/seo.ts`) con su meta. Siempre con barra final.
+- SEO (`src/sitio/seo.ts`): título de hasta 60 caracteres, descripción de hasta 155 e imagen para
+  compartir en JPG/PNG de 1200 × 630 en `public/og/` (no WebP: LinkedIn no la muestra). Lo controla
+  `seo.test.ts`. Los casos llevan `meta` propio en el JSON.
 
 ## Prerender + hidratación
 

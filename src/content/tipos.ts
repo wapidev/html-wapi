@@ -37,6 +37,8 @@ export interface Caso {
   indice: string
   nombre: string
   anio: string
+  /** Título y descripción para buscadores (hasta 60 y 155 caracteres). */
+  meta: { titulo: string; descripcion: string }
   bajada: string
   tags: string[]
   /** Texto alternativo de la imagen principal (o descripción de la demo animada). */

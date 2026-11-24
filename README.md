@@ -171,7 +171,7 @@ _design/figma/          Extracción del Figma (fuente de verdad): por pantalla, 
 _design/ (resto)        Handoff anterior de Claude Design (histórico).
 contacto/               Backend del formulario: Lambda (src/), template SAM y deploy.sh.
 public/                 Archivos tal cual: favicon, manifest, imágenes de la página "en desarrollo"
-                        (assets/images/) y del mail de confirmación (mail/).
+                        (assets/images/), del mail de confirmación (mail/) y para compartir (og/).
 scripts/prerender.mjs   HTML por ruta (en los dos idiomas) + sitemap.xml + robots.txt.
 scripts/optimizar-imagenes.sh   Imágenes del Figma → WebP (grande y -sm) en src/assets/sitio.
 src/

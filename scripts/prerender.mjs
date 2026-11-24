@@ -45,9 +45,10 @@ for (const ruta of rutas) {
 
 // Con el flag apagado, fuera de dist/assets todo lo que no use el HTML publicado
 // (el JS del sitio nuevo y cualquier asset que haya arrastrado), y las imágenes del mail del
-// formulario (public/mail), que son del sitio nuevo.
+// formulario (public/mail) y para compartir (public/og), que son del sitio nuevo.
 if (!SITIO_NUEVO) {
   await rm(path.join(DIST, 'mail'), { recursive: true, force: true })
+  await rm(path.join(DIST, 'og'), { recursive: true, force: true })
   const publicado = (
     await Promise.all(rutas.map((r) => readFile(path.join(DIST, r.archivo), 'utf8')))
   ).join('\n')
