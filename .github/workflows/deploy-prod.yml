@@ -93,8 +93,11 @@ jobs:
         env:
           BUCKET: ${{ vars.S3_BUCKET_PROD }}
         run: |
+          # Orden: primero los assets nuevos (sin borrar los viejos), después el HTML que los usa,
+          # y recién al final se borra lo que sobra. Borrando antes, quien tenía abierta una página
+          # vieja pedía un JS que ya no existía y la navegación se rompía.
           # JS y CSS de Vite llevan hash en el nombre: cache larga.
-          aws s3 sync dist/assets "s3://$BUCKET/assets" --delete \
+          aws s3 sync dist/assets "s3://$BUCKET/assets" \
             --exclude "images/*" \
             --cache-control "public, max-age=31536000, immutable"
           # El resto (HTML de cada ruta, imágenes públicas, robots, sitemap) se revalida siempre.
@@ -102,6 +105,10 @@ jobs:
             --exclude "assets/*" --include "assets/images/*" \
             --exclude ".project-owner" \
             --cache-control "public, max-age=0, must-revalidate"
+          # Limpieza: los assets con hash que ya no usa ningún HTML.
+          aws s3 sync dist/assets "s3://$BUCKET/assets" --delete \
+            --exclude "images/*" \
+            --cache-control "public, max-age=31536000, immutable"
 
       - name: Invalidar CloudFront
         env:
