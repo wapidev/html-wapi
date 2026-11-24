@@ -37,7 +37,7 @@
   "home": {
     "meta": {
       "titulo": "Wapi — Design and technology studio in Buenos Aires",
-      "descripcion": "We're a design and technology studio in Buenos Aires. We help growing businesses automate processes, add AI agents and get systems and websites that are easy to use."
+      "descripcion": "Design and technology studio in Buenos Aires. We automate processes, add AI agents and build systems and websites that are easy to use."
     },
     "hero": {
       "eyebrow": "Design and technology studio · Buenos Aires",
@@ -150,7 +150,7 @@
   },
   "trabajos": {
     "meta": {
-      "titulo": "Work — Wapi",
+      "titulo": "Work: brands, websites and custom systems — Wapi",
       "descripcion": "Five projects where the work shows: identity, product and website held together by the same idea."
     },
     "eyebrow": "Work · 05 projects",
@@ -187,7 +187,7 @@
   },
   "nosotros": {
     "meta": {
-      "titulo": "About — Wapi",
+      "titulo": "About: design and technology studio — Wapi",
       "descripcion": "A design and technology studio. Since 2017 we've worked with entrepreneurs, small businesses and large companies on their brands and digital products."
     },
     "titulo": "We're Wapi.",
@@ -218,7 +218,7 @@
   },
   "contacto": {
     "meta": {
-      "titulo": "Contact — Wapi",
+      "titulo": "Contact: tell us about your project — Wapi",
       "descripcion": "Tell us what you want to do, when you need it and anything that helps us understand the project. You'll hear back from us."
     },
     "titulo": "Let's talk.",
@@ -267,6 +267,10 @@
     {
       "slug": "gemmia-logistics",
       "indice": "01",
+      "meta": {
+        "titulo": "Gemmia Logistics: bilingual brand and website — Wapi",
+        "descripcion": "Bilingual brand and website for Gemmia Logistics, which moves cargo between Latin America and the world: a faceted gem that is also a package in transit."
+      },
       "nombre": "Gemmia Logistics",
       "anio": "2025",
       "bajada": "We created the brand and website for a company that moves cargo between Latin America and the world: a faceted gem that is also a package in transit.",
@@ -324,6 +328,10 @@
     {
       "slug": "credigial",
       "indice": "02",
+      "meta": {
+        "titulo": "Credigial: a platform for a lender — Wapi",
+        "descripcion": "The platform a lender used to leave spreadsheets behind and bring order to clients, loans, collections and cash: four modules, one system."
+      },
       "nombre": "Credigial",
       "anio": "2026",
       "bajada": "Four modules, one system: the platform a lender used to leave spreadsheets behind and bring order to clients, loans, collections and cash.",
@@ -381,6 +389,10 @@
     {
       "slug": "ida-y-vuelta-ibiza",
       "indice": "03",
+      "meta": {
+        "titulo": "Ida & Vuelta Ibiza: brand and booking website — Wapi",
+        "descripcion": "Brand and website with WhatsApp bookings for Ida & Vuelta Ibiza, a family holiday rental concierge that started from scratch on the island."
+      },
       "nombre": "Ida & Vuelta Ibiza",
       "anio": "2026",
       "bajada": "A family that has hosted guests in Ibiza for more than ten years started its own business. We designed and built the brand and website it launched on the island with.",
@@ -438,6 +450,10 @@
     {
       "slug": "zuhause",
       "indice": "04",
+      "meta": {
+        "titulo": "Zuhause: the brand of a gym in Lanús — Wapi",
+        "descripcion": "The brand of Zuhause, a gym in Lanús that now also signs clothes, objects and videos: wordmark, symbol, storefront, apparel and website."
+      },
       "nombre": "Zuhause",
       "anio": "2020",
       "bajada": "It started as the brand of a gym in Lanús and now it also signs the clothes, objects and videos of its community.",
@@ -508,6 +524,10 @@
     {
       "slug": "gymrat",
       "indice": "05",
+      "meta": {
+        "titulo": "Gymrat: membership fees over WhatsApp — Wapi",
+        "descripcion": "A dashboard on the computer and the phone so a gym collects fees without chasing anyone: WhatsApp reminders go out on their own."
+      },
       "nombre": "Gymrat",
       "anio": "2026",
       "bajada": "A dashboard, on the computer and on the phone, so a gym can collect membership fees without chasing anyone: WhatsApp reminders go out on their own from the 1st to the 10th of every month.",

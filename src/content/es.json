@@ -37,7 +37,7 @@
   "home": {
     "meta": {
       "titulo": "Wapi — Estudio de diseño y tecnología en Buenos Aires",
-      "descripcion": "Somos un estudio de diseño y tecnología en Buenos Aires. Ayudamos a negocios que quieren crecer a automatizar procesos, sumar agentes de IA y tener sistemas y sitios fáciles de usar."
+      "descripcion": "Estudio de diseño y tecnología en Buenos Aires. Automatizamos procesos, sumamos agentes de IA y hacemos sistemas y sitios fáciles de usar."
     },
     "hero": {
       "eyebrow": "Estudio de diseño y tecnología · Buenos Aires",
@@ -150,7 +150,7 @@
   },
   "trabajos": {
     "meta": {
-      "titulo": "Trabajos — Wapi",
+      "titulo": "Trabajos: marcas, sitios y sistemas a medida — Wapi",
       "descripcion": "Cinco proyectos donde el trabajo se nota: identidad, producto y sitio sostenidos por la misma idea."
     },
     "eyebrow": "Trabajos · 05 proyectos",
@@ -187,7 +187,7 @@
   },
   "nosotros": {
     "meta": {
-      "titulo": "Nosotros — Wapi",
+      "titulo": "Nosotros: estudio de diseño y tecnología — Wapi",
       "descripcion": "Un estudio de diseño y tecnología. Desde 2017 acompañamos a emprendedores, pymes y grandes empresas con sus marcas y sus productos digitales."
     },
     "titulo": "Somos Wapi.",
@@ -218,7 +218,7 @@
   },
   "contacto": {
     "meta": {
-      "titulo": "Contacto — Wapi",
+      "titulo": "Contacto: contanos tu proyecto — Wapi",
       "descripcion": "Contanos qué querés hacer, para cuándo y cualquier cosa que nos ayude a entender el proyecto. Te respondemos nosotros."
     },
     "titulo": "Hablemos.",
@@ -267,6 +267,10 @@
     {
       "slug": "gemmia-logistics",
       "indice": "01",
+      "meta": {
+        "titulo": "Gemmia Logistics: marca y sitio bilingüe — Wapi",
+        "descripcion": "Marca y sitio bilingüe para Gemmia Logistics, que mueve cargas entre Latinoamérica y el mundo: una gema facetada que también es un paquete en tránsito."
+      },
       "nombre": "Gemmia Logistics",
       "anio": "2025",
       "bajada": "Creamos la marca y el sitio de una empresa que mueve cargas entre Latinoamérica y el mundo: una gema facetada que también es un paquete en tránsito.",
@@ -324,6 +328,10 @@
     {
       "slug": "credigial",
       "indice": "02",
+      "meta": {
+        "titulo": "Credigial: plataforma para una financiera — Wapi",
+        "descripcion": "La plataforma con la que una financiera dejó las planillas y ordenó clientes, créditos, cobranzas y caja: cuatro módulos, un sistema."
+      },
       "nombre": "Credigial",
       "anio": "2026",
       "bajada": "Cuatro módulos, un sistema: la plataforma con la que una financiera dejó atrás las planillas y ordenó clientes, créditos, cobranzas y caja.",
@@ -381,6 +389,10 @@
     {
       "slug": "ida-y-vuelta-ibiza",
       "indice": "03",
+      "meta": {
+        "titulo": "Ida & Vuelta Ibiza: marca y sitio de reservas — Wapi",
+        "descripcion": "Marca y sitio con reservas por WhatsApp para Ida & Vuelta Ibiza, un concierge de hospedajes familiar que arrancó de cero en la isla."
+      },
       "nombre": "Ida & Vuelta Ibiza",
       "anio": "2026",
       "bajada": "Una familia que hospeda en Ibiza desde hace más de diez años abrió su propio emprendimiento. Diseñamos y desarrollamos la marca y el sitio con los que salió a la isla.",
@@ -438,6 +450,10 @@
     {
       "slug": "zuhause",
       "indice": "04",
+      "meta": {
+        "titulo": "Zuhause: la marca de un gimnasio en Lanús — Wapi",
+        "descripcion": "La marca de Zuhause, un gimnasio de Lanús que hoy también firma ropa, objetos y videos: logotipo, isotipo, fachada, indumentaria y sitio."
+      },
       "nombre": "Zuhause",
       "anio": "2020",
       "bajada": "Nació como la marca de un gimnasio en Lanús y hoy también firma la ropa, los objetos y los videos de su comunidad.",
@@ -508,6 +524,10 @@
     {
       "slug": "gymrat",
       "indice": "05",
+      "meta": {
+        "titulo": "Gymrat: cobro de cuotas por WhatsApp — Wapi",
+        "descripcion": "Un panel en la compu y en el celular para que un gimnasio cobre las cuotas sin perseguir a nadie: los recordatorios por WhatsApp salen solos."
+      },
       "nombre": "Gymrat",
       "anio": "2026",
       "bajada": "Un panel, en la compu y en el celular, para que un gimnasio cobre las cuotas sin perseguir a nadie: los recordatorios por WhatsApp salen solos del 1 al 10 de cada mes.",
