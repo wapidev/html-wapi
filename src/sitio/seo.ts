@@ -1,6 +1,7 @@
 import type { Meta, RutaPrerender } from '../seo/tipos'
 import { casoPorSlug, contenido, SLUGS_CASOS } from '../content'
 import { IDIOMAS, idiomaDeRuta, rutaEquivalente, rutas, type Idioma } from '../i18n/rutas'
+import poster from '../assets/media/reel-poster.jpg'
 
 // Imagen para compartir: JPG o PNG de 1200 × 630 en public/og/ (LinkedIn y algunas apps no muestran
 // WebP). La tarjeta de marca (azul de acento, una por idioma) para las páginas generales y una por
@@ -91,7 +92,13 @@ export function metaSitioNuevo(pathname: string, siteUrl: string): Meta {
   })
   const inicio: [string, string] = [c.sitio.nombre, r.inicio]
 
-  if (pathname === r.inicio) return pagina(c.home.meta.titulo, c.home.meta.descripcion, tarjeta(idioma, siteUrl))
+  if (pathname === r.inicio) {
+    // El póster del reel es lo más grande de arriba (el LCP): se pide primero.
+    return {
+      ...pagina(c.home.meta.titulo, c.home.meta.descripcion, tarjeta(idioma, siteUrl)),
+      extraHtml: [`<link rel="preload" as="image" href="${poster}" fetchpriority="high" />`],
+    }
+  }
   if (pathname === r.trabajos) {
     return pagina(c.trabajos.meta.titulo, c.trabajos.meta.descripcion, tarjeta(idioma, siteUrl), [
       migas(siteUrl, [inicio, [c.nav.trabajos, r.trabajos]]),

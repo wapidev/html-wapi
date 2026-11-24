@@ -242,6 +242,25 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/*
+ * Fuentes servidas desde el sitio (antes, Google Fonts): una variable por familia, con los
+ * caracteres de castellano e inglés. Son las de la identidad de Wapi (WG009 → Identidad/fuentes).
+ * Se precargan desde index.html (vite.config.ts). Las flechas ← → no están en ninguna de las dos
+ * (tampoco en las de Google): salen de la fuente del sistema, como antes.
+ */
+@font-face {
+  font-family: "Onest";
+  src: url("../assets/fuentes/onest.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../assets/fuentes/jetbrains-mono.woff2") format("woff2");
+  font-weight: 400 800;
+  font-display: swap;
+}
+
 @layer base {
   /* Preflight pone line-height 1.5 en <html>; el diseño usa `normal` en todo lo que no declara
      interlineado (eyebrows, nav, tags, píldoras). */

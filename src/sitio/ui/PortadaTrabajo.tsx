@@ -16,12 +16,29 @@ const PORTADAS: Record<string, { fondo: string; imagen: string; caja: string; aj
 }
 
 /** Imagen de una tarjeta de trabajo. La caja (tamaño y proporción) la pone quien la usa. */
-export default function PortadaTrabajo({ slug, alt, className = '' }: { slug: string; alt: string; className?: string }) {
+export default function PortadaTrabajo({
+  slug,
+  alt,
+  className = '',
+  prioridad = false,
+}: {
+  slug: string
+  alt: string
+  className?: string
+  /** Para las imágenes de arriba de todo: sin carga diferida y con prioridad alta. */
+  prioridad?: boolean
+}) {
   const p = PORTADAS[slug]
   return (
     <div className={`relative overflow-clip ${p.fondo} ${className}`}>
       <div className={`absolute ${p.caja}`}>
-        <Foto nombre={p.imagen} alt={alt} className={`block size-full ${p.ajuste}`} />
+        <Foto
+          nombre={p.imagen}
+          alt={alt}
+          className={`block size-full ${p.ajuste}`}
+          loading={prioridad ? 'eager' : 'lazy'}
+          fetchPriority={prioridad ? 'high' : undefined}
+        />
       </div>
     </div>
   )

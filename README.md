@@ -135,6 +135,12 @@ flag de `.env.production`, sincroniza S3, invalida CloudFront y deja un tag + re
 DEV y PROD usan la misma función `html-wapi-rutas` (viewer-request): `/x/` → `/x/index.html` y
 `/x` → 301 a `/x/` en el mismo dominio, conservando los parámetros.
 
+**Caché:** los assets con hash (JS, CSS, fuentes, videos, imágenes de `src/`) van con un año e
+`immutable`. El HTML, el sitemap y lo de `public/` van con `max-age=0, s-maxage=86400`: el navegador
+revalida siempre, pero CloudFront lo guarda un día y responde sin ir a S3. Cada deploy sube primero
+los assets nuevos y el HTML, invalida `/*` y **espera** a que termine, y recién ahí borra los assets
+viejos: si los borrara antes, una página que todavía está en la caché pediría archivos que ya no existen.
+
 ### Pasaje del dominio (DNS en HostGator)
 
 El DNS de `wapidesign.com` sigue en HostGator (cPanel → Zone Editor). El mail (Microsoft 365) y

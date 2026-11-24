@@ -2,11 +2,16 @@ import { useEffect, useRef } from 'react'
 import { useContenido } from '../../i18n/useIdioma'
 import webm from '../../assets/media/reel-wapi.webm'
 import mp4 from '../../assets/media/reel-wapi.mp4'
+import webmChico from '../../assets/media/reel-wapi-720.webm'
+import mp4Chico from '../../assets/media/reel-wapi-720.mp4'
 import poster from '../../assets/media/reel-poster.jpg'
 
 /**
  * Reel de la Home (2003:60): video en loop a todo el ancho del contenedor, 16:9, sin controles
  * (handoff de videos, 01-reel-home). Con "reducir movimiento" queda pausado en el poster.
+ *
+ * Hasta 767 px va la versión de 720p (~1 MB en vez de 3,2): en el celular se ve a 350 px de ancho.
+ * El navegador elige la primera <source> cuyo `media` coincide.
  */
 export default function Reel() {
   const { reel } = useContenido().home
@@ -45,6 +50,8 @@ export default function Reel() {
           poster={poster}
           aria-label={reel.descripcion}
         >
+          <source src={webmChico} type="video/webm" media="(max-width: 767px)" />
+          <source src={mp4Chico} type="video/mp4" media="(max-width: 767px)" />
           <source src={webm} type="video/webm" />
           <source src={mp4} type="video/mp4" />
         </video>
