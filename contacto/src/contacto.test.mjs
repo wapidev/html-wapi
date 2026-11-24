@@ -75,7 +75,7 @@ describe('dentroDelLimite', () => {
     }
     return { filas, actualizar }
   }
-  const base = { tabla: 't', limiteIpHora: 2, limiteMailDia: 3, ahora: new Date('2026-11-24T15:30:00Z') }
+  const base = { tabla: 't', limiteIpHora: 2, limiteMailDia: 3, limiteTotalDia: 20, ahora: new Date('2026-11-24T15:30:00Z') }
 
   it('corta por IP al pasar el máximo de la hora', async () => {
     const { actualizar } = tablaFalsa()
@@ -93,6 +93,25 @@ describe('dentroDelLimite', () => {
     expect(await dentroDelLimite({ ...base, actualizar, ip: '4.4.4.4', email: 'v@x.com' })).toBe('email')
     expect([...filas.keys()].some((k) => k.includes('v@x.com'))).toBe(false)
     expect(filas.has(`mail#${hash('v@x.com')}#20261124`)).toBe(true)
+  })
+
+  it('corta en el total del día aunque cambien la IP y el email', async () => {
+    const { filas, actualizar } = tablaFalsa()
+    const p = { ...base, actualizar, limiteTotalDia: 3 }
+    for (let i = 0; i < 3; i++) {
+      expect(await dentroDelLimite({ ...p, ip: `10.0.0.${i}`, email: `persona${i}@x.com` })).toBe('ok')
+    }
+    expect(await dentroDelLimite({ ...p, ip: '10.0.0.99', email: 'otra@x.com' })).toBe('total')
+    expect(filas.get('total#20261124')).toBe(3)
+  })
+
+  it('un pedido frenado por IP no gasta el cupo del día', async () => {
+    const { filas, actualizar } = tablaFalsa()
+    const p = { ...base, actualizar, ip: '1.1.1.1' }
+    await dentroDelLimite({ ...p, email: 'a@x.com' })
+    await dentroDelLimite({ ...p, email: 'b@x.com' })
+    expect(await dentroDelLimite({ ...p, email: 'c@x.com' })).toBe('ip')
+    expect(filas.get('total#20261124')).toBe(2)
   })
 
   it('arma las ventanas en UTC', () => {
