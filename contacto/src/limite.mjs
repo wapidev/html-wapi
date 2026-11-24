@@ -3,6 +3,9 @@
 //
 //   - por IP:    limiteIpHora envíos por hora
 //   - por email: limiteMailDia confirmaciones por día a la misma dirección
+//   - en total:  limiteTotalDia envíos por día entre todos. Es el que acota el daño si alguien rota
+//                IPs y direcciones: cada envío son dos mails desde la cuenta de SES que comparten
+//                todos los sistemas de Wapi.
 //
 // Un contador por ventana en DynamoDB (clave = qué + ventana), con ADD atómico y TTL. El email se
 // guarda como hash: la tabla no tiene datos personales. El UpdateItem se inyecta (tests).
@@ -41,13 +44,16 @@ async function sumar(actualizar, tabla, clave, maximo, venceEnSegundos) {
 }
 
 /**
+ * Los contadores se suman en orden (IP, email, total) y cada uno solo si pasaron los anteriores: un
+ * pedido frenado por IP no gasta el cupo del día.
  * @param {{ actualizar: (input: object) => Promise<unknown>, tabla: string, ip: string, email: string,
- *           limiteIpHora: number, limiteMailDia: number, ahora?: Date }} p
- * @returns {Promise<'ok' | 'ip' | 'email'>}
+ *           limiteIpHora: number, limiteMailDia: number, limiteTotalDia: number, ahora?: Date }} p
+ * @returns {Promise<'ok' | 'ip' | 'email' | 'total'>}
  */
-export async function dentroDelLimite({ actualizar, tabla, ip, email, limiteIpHora, limiteMailDia, ahora }) {
+export async function dentroDelLimite({ actualizar, tabla, ip, email, limiteIpHora, limiteMailDia, limiteTotalDia, ahora }) {
   const v = ventanas(ahora)
   if (!(await sumar(actualizar, tabla, `ip#${ip}#${v.hora}`, limiteIpHora, 2 * 3600))) return 'ip'
   if (!(await sumar(actualizar, tabla, `mail#${hash(email)}#${v.dia}`, limiteMailDia, 2 * 86400))) return 'email'
+  if (!(await sumar(actualizar, tabla, `total#${v.dia}`, limiteTotalDia, 2 * 86400))) return 'total'
   return 'ok'
 }

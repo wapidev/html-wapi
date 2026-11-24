@@ -6,7 +6,7 @@
 //
 //   - x-wapi-origen: secreto que solo pone CloudFront. Sin él, 403: nadie llama a la API directo
 //     y la IP de cloudfront-viewer-address es confiable.
-//   - Campo trampa y tiempo mínimo (validar.mjs) y límite por IP y por email (limite.mjs).
+//   - Campo trampa y tiempo mínimo (validar.mjs) y límite por IP, por email y total por día (limite.mjs).
 //   - FORM_ENABLED=false apaga el formulario sin deployar (503).
 //
 // Los logs no llevan datos de la persona: solo qué pasó.
@@ -92,6 +92,7 @@ export async function handler(event) {
     email: datos.email,
     limiteIpHora: Number(env('LIMITE_IP_HORA', '5')),
     limiteMailDia: Number(env('LIMITE_MAIL_DIA', '3')),
+    limiteTotalDia: Number(env('LIMITE_TOTAL_DIA', '20')),
   })
   if (limite !== 'ok') {
     log('limite', { por: limite })
