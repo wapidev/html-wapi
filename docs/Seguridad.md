@@ -42,6 +42,11 @@ Lo más importante a mejorar:
 | S9 | DEV sin headers y accesible por la URL de S3 | A02 | Baja | Chico |
 | S10 | Dependencias de desarrollo con vulnerabilidades | A03 | Baja | Chico |
 
+**Estado al 26/11/2026.** Resueltos en PROD: S2 (#6), S3 y S10 (#9), Dependabot de S6 (#9, #18).
+S5 y S9: `scripts/headers-seguridad.sh` arma la CSP y los headers de DEV y PROD; queda correrlo.
+Pendientes de configuración (HostGator, Microsoft 365, GitHub): S1, S4 y la protección de `main` y
+las alertas de S6. Opcionales sin hacer: S7 y S8.
+
 ---
 
 ## Hallazgos
