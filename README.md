@@ -129,10 +129,11 @@ flag de `.env.production`, sincroniza S3, invalida CloudFront y deja un tag + re
 - CloudFront `E2ALVPX6ERQXOD` (`d3fgiyj08foi3a.cloudfront.net`): función `html-wapi-rutas`,
   403/404 del origen → `/404.html` con status 404. `/api/*` se agrega con `contacto/deploy.sh prod`.
 - Headers de seguridad (DEV y PROD): `scripts/headers-seguridad.sh <dev|prod> <reportar|activar|estado|quitar>`
-  crea la política `html-wapi-<amb>-seguridad` (CSP, HSTS de un año sin subdominios, `DENY`, nosniff,
-  referrer, permissions) y la asocia a la distribución. `quitar` vuelve a la anterior (PROD: la
-  administrada *SecurityHeaders*). La CI y los deploys corren `scripts/verificar-csp.mjs`: el build
-  tiene que entrar en esa CSP.
+  crea o actualiza la política `html-wapi-seguridad` (CSP, HSTS de un año sin subdominios, `DENY`,
+  nosniff, referrer, permissions) y la asocia a la distribución. Es **una sola para DEV y PROD**: la
+  cuenta tiene un tope de 20 políticas propias, compartido por todos los proyectos. `quitar` vuelve a
+  la anterior (PROD: la administrada *SecurityHeaders*). La CI y los deploys corren
+  `scripts/verificar-csp.mjs`: el build tiene que entrar en esa CSP.
 - Rol OIDC `html-wapi-frontend-github-deploy-prod`: solo lo asume `wapidev/html-wapi` desde `main`.
 - Variables del repo: `AWS_ROLE_TO_ASSUME_PROD`, `S3_BUCKET_PROD`, `CLOUDFRONT_DISTRIBUTION_ID_PROD`.
 

@@ -5,7 +5,7 @@
 //
 // - Cada <script> inline del HTML tiene que tener su hash en script-src. Si se cambia el script
 //   del loader (vite.config.ts) o se suma otro, el navegador lo bloquearía: hay que agregar el
-//   hash nuevo al script de headers y volver a correrlo en DEV y PROD.
+//   hash nuevo al script de headers y volver a correr `activar`.
 // - Lo que carga el HTML (scripts, estilos, fuentes precargadas, imágenes, video) tiene que ser
 //   del propio sitio: la CSP solo permite 'self'. Una URL absoluta, aunque sea de wapidesign.com,
 //   en DEV es otro dominio.
@@ -124,7 +124,7 @@ function main() {
     console.error([...new Set(errores)].map((e) => `❌ ${e}`).join('\n'))
     console.error(
       '\nLa CSP está en scripts/headers-seguridad.sh. Si el cambio es a propósito, sumalo ahí y volvé a correr\n' +
-        '`scripts/headers-seguridad.sh dev activar` y `… prod activar` antes de publicar.',
+        '`scripts/headers-seguridad.sh prod activar` antes de publicar (la política es una sola para DEV y PROD).',
     )
     process.exit(1)
   }

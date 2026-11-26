@@ -65,8 +65,13 @@ nuevo. Está en `.env.production` (prod) y `.env.development` (dev arranca en `t
   porque Vite mete como `data:` las imágenes de menos de 4 KB.
 - `scripts/verificar-csp.mjs` (CI y deploys, después del build) falla si un script inline no tiene su
   hash o si el HTML/CSS carga algo de otro dominio. Si cambia el loader o se suma algo de afuera: se
-  actualiza la CSP del script y se corre `scripts/headers-seguridad.sh dev activar` y `prod activar`
-  **antes** de publicar (la CI no toca AWS; lo publicado sigue con la política anterior).
+  actualiza la CSP del script y se corre `scripts/headers-seguridad.sh prod activar` **antes** de
+  publicar (la CI no toca AWS; lo publicado sigue con la política anterior).
+- La política (`html-wapi-seguridad`) es una sola para DEV y PROD: la cuenta de AWS tiene un tope de
+  20 políticas de headers, compartido por todos los proyectos, y en noviembre de 2026 estaba lleno.
+  Cambiarla cambia los dos ambientes, así que una CSP nueva se prueba antes en local.
+- El script corta ante cualquier error de AWS sin tocar la distribución. La primera versión no lo
+  hacía: con el tope lleno siguió de largo y le sacó a PROD la política que tenía.
 - Para probar una CSP sin tocar AWS: servir `dist/` con el header y recorrerlo con Chrome headless
   escuchando `securitypolicyviolation`, con un control positivo (`new Image().src='https://example.com/x.png'`
   tiene que aparecer bloqueado). El panel del navegador oculto no sirve (no dibuja).
