@@ -18,6 +18,7 @@ const SECCIONES = {
   trabajos: { es: 'trabajos', en: 'work' },
   nosotros: { es: 'nosotros', en: 'about' },
   contacto: { es: 'contacto', en: 'contact' },
+  privacidad: { es: 'privacidad', en: 'privacy' },
 } as const
 
 type Seccion = keyof typeof SECCIONES
@@ -34,6 +35,7 @@ export interface Rutas {
   trabajos: string
   nosotros: string
   contacto: string
+  privacidad: string
   /** Ancla de servicios en la Home ("/#servicios"). */
   servicios: string
   anclaServicios: string
@@ -48,6 +50,7 @@ export function rutas(idioma: Idioma): Rutas {
     trabajos: seccion('trabajos'),
     nosotros: seccion('nosotros'),
     contacto: seccion('contacto'),
+    privacidad: seccion('privacidad'),
     servicios: `${p}/#${ANCLA_SERVICIOS[idioma]}`,
     anclaServicios: ANCLA_SERVICIOS[idioma],
     caso: (slug) => `${seccion('trabajos')}${slug}/`,

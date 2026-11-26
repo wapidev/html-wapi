@@ -11,8 +11,7 @@
       { "label": "Behance", "href": null }
     ],
     "copyright": "© Wapi 2026",
-    "privacidad": "Política de privacidad",
-    "privacidadHref": null
+    "privacidad": "Política de privacidad"
   },
   "nav": {
     "trabajos": "Trabajos",
@@ -231,6 +230,7 @@
         "placeholder": "Qué querés hacer, para cuándo y cualquier cosa que nos ayude a entender el proyecto."
       }
     },
+    "avisoPrivacidad": ["Usamos estos datos solo para responderte. Más detalles en la ", "política de privacidad", "."],
     "enviar": "Enviar mensaje",
     "enviando": "Enviando…",
     "errores": {
@@ -583,6 +583,72 @@
       ]
     }
   ],
+  "privacidad": {
+    "meta": {
+      "titulo": "Política de privacidad — Wapi",
+      "descripcion": "Qué datos junta el sitio de Wapi, para qué los usamos, dónde quedan y cómo pedir que los corrijamos o los borremos."
+    },
+    "eyebrow": "Legal",
+    "titulo": [
+      "Política de",
+      "privacidad"
+    ],
+    "intro": "Qué datos junta este sitio, para qué los usamos y qué podés pedirnos sobre ellos.",
+    "actualizado": "Actualizada el 25 de noviembre de 2026",
+    "secciones": [
+      {
+        "titulo": "Quién es responsable",
+        "parrafos": [
+          "Wapi, estudio de diseño y tecnología de Buenos Aires, Argentina. Para cualquier consulta sobre tus datos escribinos a info@wapidesign.com."
+        ]
+      },
+      {
+        "titulo": "Qué datos juntamos",
+        "parrafos": [
+          "Solo los que nos mandás con el formulario de contacto: tu nombre, tu email, el nombre de tu empresa si lo completás y tu mensaje. Para recorrer el sitio no hace falta darnos ningún dato."
+        ]
+      },
+      {
+        "titulo": "Para qué los usamos",
+        "parrafos": [
+          "Para responder tu consulta y, si avanzamos, para hablar del proyecto. No los usamos para mandarte publicidad y no se los damos a nadie."
+        ]
+      },
+      {
+        "titulo": "Dónde quedan y por cuánto tiempo",
+        "parrafos": [
+          "Tu mensaje nos llega por mail a info@wapidesign.com y queda en esa casilla. No lo guardamos en ninguna base de datos. A vos te mandamos una confirmación al email que dejaste.",
+          "Para frenar envíos automáticos contamos cuántos mensajes llegan desde una misma conexión y desde un mismo email, sin guardar ninguno de los dos de forma legible. Esa cuenta se borra sola en uno o dos días. Los registros técnicos del formulario no incluyen tus datos y se borran a los 30 días."
+        ]
+      },
+      {
+        "titulo": "Quién más interviene",
+        "parrafos": [
+          "El sitio y el envío de los mails funcionan sobre Amazon Web Services, y nuestro correo, sobre Microsoft 365. Los dos pueden procesar los datos fuera de Argentina, con sus propias medidas de seguridad."
+        ]
+      },
+      {
+        "titulo": "Cookies",
+        "parrafos": [
+          "El sitio no usa cookies ni herramientas de medición o de publicidad. Solo guarda en tu navegador el idioma que elegiste y si ya viste la animación de entrada. Podés borrarlo desde la configuración del navegador."
+        ]
+      },
+      {
+        "titulo": "Tus derechos",
+        "parrafos": [
+          "Podés pedirnos ver, corregir o borrar tus datos escribiendo a info@wapidesign.com.",
+          "El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley N° 25.326.",
+          "La Agencia de Acceso a la Información Pública, en su carácter de Órgano de Control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales."
+        ]
+      },
+      {
+        "titulo": "Cambios",
+        "parrafos": [
+          "Si cambiamos algo de esto, lo actualizamos en esta página con la fecha."
+        ]
+      }
+    ]
+  },
   "noEncontrada": {
     "meta": "Página no encontrada — Wapi",
     "eyebrow": "Error 404",

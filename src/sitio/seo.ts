@@ -106,6 +106,7 @@ export function metaSitioNuevo(pathname: string, siteUrl: string): Meta {
   }
   if (pathname === r.nosotros) return pagina(c.nosotros.meta.titulo, c.nosotros.meta.descripcion, tarjeta(idioma, siteUrl))
   if (pathname === r.contacto) return pagina(c.contacto.meta.titulo, c.contacto.meta.descripcion, tarjeta(idioma, siteUrl))
+  if (pathname === r.privacidad) return pagina(c.privacidad.meta.titulo, c.privacidad.meta.descripcion, tarjeta(idioma, siteUrl))
 
   const slug = pathname.startsWith(r.trabajos) ? pathname.slice(r.trabajos.length).replace(/\/$/, '') : ''
   const caso = casoPorSlug(c, slug)
@@ -143,7 +144,7 @@ function archivoDe(url: string): string {
 export const rutasSitioNuevo: RutaPrerender[] = [
   ...IDIOMAS.flatMap((idioma) => {
     const r = rutas(idioma)
-    return [r.inicio, r.trabajos, ...SLUGS_CASOS.map((slug) => r.caso(slug)), r.nosotros, r.contacto].map((url) => ({
+    return [r.inicio, r.trabajos, ...SLUGS_CASOS.map((slug) => r.caso(slug)), r.nosotros, r.contacto, r.privacidad].map((url) => ({
       url,
       archivo: archivoDe(url),
       indexable: true,

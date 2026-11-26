@@ -67,8 +67,8 @@ jobs:
       - name: Rutas prerenderizadas (castellano e inglés)
         run: |
           CASOS="gemmia-logistics credigial ida-y-vuelta-ibiza zuhause gymrat"
-          RUTAS="index.html 404.html sitemap.xml robots.txt trabajos/index.html nosotros/index.html contacto/index.html
-                 en/index.html en/work/index.html en/about/index.html en/contact/index.html"
+          RUTAS="index.html 404.html sitemap.xml robots.txt trabajos/index.html nosotros/index.html contacto/index.html privacidad/index.html
+                 en/index.html en/work/index.html en/about/index.html en/contact/index.html en/privacy/index.html"
           for c in $CASOS; do RUTAS="$RUTAS trabajos/$c/index.html en/work/$c/index.html"; done
           for f in $RUTAS; do
             test -f "dist/$f" || { echo "❌ falta dist/$f"; exit 1; }
@@ -77,5 +77,5 @@ jobs:
           grep -q '<html lang="en">' dist/en/index.html || { echo "❌ /en/ no va con lang=en"; exit 1; }
           grep -q "automation" dist/en/index.html || { echo "❌ la Home en inglés no viene prerenderizada"; exit 1; }
           grep -q 'hreflang="en"' dist/trabajos/gymrat/index.html || { echo "❌ faltan los hreflang"; exit 1; }
-          test "$(grep -c '<loc>' dist/sitemap.xml)" = "18" || { echo "❌ el sitemap no tiene las 18 páginas"; exit 1; }
+          test "$(grep -c '<loc>' dist/sitemap.xml)" = "20" || { echo "❌ el sitemap no tiene las 20 páginas"; exit 1; }
           echo "✅ sitio nuevo completo en los dos idiomas"

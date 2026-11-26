@@ -1,4 +1,5 @@
-import { useContenido } from '../../i18n/useIdioma'
+import { Link } from 'react-router-dom'
+import { useContenido, useRutas } from '../../i18n/useIdioma'
 import { WordmarkFooter } from '../ui/iconos'
 
 /**
@@ -14,6 +15,7 @@ import { WordmarkFooter } from '../ui/iconos'
  */
 export default function Footer({ conTitulo = true, cortina = false }: { conTitulo?: boolean; cortina?: boolean }) {
   const t = useContenido()
+  const r = useRutas()
   const etiqueta = 'font-mono text-label-sm uppercase opacity-70'
 
   return (
@@ -81,13 +83,9 @@ export default function Footer({ conTitulo = true, cortina = false }: { conTitul
           className={`flex justify-between pb-[18px] font-mono text-label-sm uppercase opacity-75 ${conTitulo ? 'pt-[calc(59.08px-8.68*var(--tt))]' : 'pt-10'}`}
         >
           <p>{t.sitio.copyright}</p>
-          {t.sitio.privacidadHref ? (
-            <a href={t.sitio.privacidadHref} className="hover:text-inherit hover:opacity-60">
-              {t.sitio.privacidad}
-            </a>
-          ) : (
-            <p>{t.sitio.privacidad}</p>
-          )}
+          <Link to={r.privacidad} className="hover:text-inherit hover:opacity-60">
+            {t.sitio.privacidad}
+          </Link>
         </div>
         {/* Caja 1337.6 × 192 con el SVG de 1364.38 × 398.344 en left −13.38, top −206.34. */}
         <div className="relative aspect-[1337.6/192] w-full overflow-clip" aria-hidden="true">

@@ -11,8 +11,7 @@
       { "label": "Behance", "href": null }
     ],
     "copyright": "© Wapi 2026",
-    "privacidad": "Privacy policy",
-    "privacidadHref": null
+    "privacidad": "Privacy policy"
   },
   "nav": {
     "trabajos": "Work",
@@ -231,6 +230,7 @@
         "placeholder": "What you want to do, when you need it and anything that helps us understand the project."
       }
     },
+    "avisoPrivacidad": ["We only use this data to reply to you. More details in our ", "privacy policy", "."],
     "enviar": "Send message",
     "enviando": "Sending…",
     "errores": {
@@ -583,6 +583,72 @@
       ]
     }
   ],
+  "privacidad": {
+    "meta": {
+      "titulo": "Privacy policy — Wapi",
+      "descripcion": "What data the Wapi website collects, what we use it for, where it is kept and how to ask us to correct or delete it."
+    },
+    "eyebrow": "Legal",
+    "titulo": [
+      "Privacy",
+      "policy"
+    ],
+    "intro": "What data this website collects, what we use it for and what you can ask us about it.",
+    "actualizado": "Updated on November 25, 2026",
+    "secciones": [
+      {
+        "titulo": "Who is responsible",
+        "parrafos": [
+          "Wapi, a design and technology studio in Buenos Aires, Argentina. For any question about your data, write to info@wapidesign.com."
+        ]
+      },
+      {
+        "titulo": "What data we collect",
+        "parrafos": [
+          "Only what you send us through the contact form: your name, your email, your company name if you add it and your message. You don't need to give us any data to browse the site."
+        ]
+      },
+      {
+        "titulo": "What we use it for",
+        "parrafos": [
+          "To answer your inquiry and, if we move forward, to talk about the project. We don't use it to send you advertising and we don't share it with anyone."
+        ]
+      },
+      {
+        "titulo": "Where it is kept and for how long",
+        "parrafos": [
+          "Your message reaches us by email at info@wapidesign.com and stays in that inbox. We don't store it in any database. We send you a confirmation to the email you gave us.",
+          "To stop automated submissions we count how many messages come from the same connection and the same email, without storing either in readable form. That count deletes itself within one or two days. The form's technical logs don't include your data and are deleted after 30 days."
+        ]
+      },
+      {
+        "titulo": "Who else is involved",
+        "parrafos": [
+          "The website and the emails run on Amazon Web Services, and our mailbox on Microsoft 365. Both may process data outside Argentina, under their own security measures."
+        ]
+      },
+      {
+        "titulo": "Cookies",
+        "parrafos": [
+          "The website doesn't use cookies or any analytics or advertising tools. It only stores in your browser the language you chose and whether you've already seen the intro animation. You can clear it from your browser settings."
+        ]
+      },
+      {
+        "titulo": "Your rights",
+        "parrafos": [
+          "You can ask us to see, correct or delete your data by writing to info@wapidesign.com.",
+          "Under Argentine Law No. 25,326 on Personal Data Protection, you may access your personal data free of charge at intervals of no less than six months, unless a legitimate interest is shown (section 14, subsection 3).",
+          "The Agencia de Acceso a la Información Pública, as the enforcement authority of Law No. 25,326, handles complaints from anyone whose rights have been affected by a breach of personal data protection rules."
+        ]
+      },
+      {
+        "titulo": "Changes",
+        "parrafos": [
+          "If we change any of this, we'll update this page with the date."
+        ]
+      }
+    ]
+  },
   "noEncontrada": {
     "meta": "Page not found — Wapi",
     "eyebrow": "Error 404",
