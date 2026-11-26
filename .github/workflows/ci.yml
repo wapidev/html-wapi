@@ -79,3 +79,9 @@ jobs:
           grep -q 'hreflang="en"' dist/trabajos/gymrat/index.html || { echo "❌ faltan los hreflang"; exit 1; }
           test "$(grep -c '<loc>' dist/sitemap.xml)" = "18" || { echo "❌ el sitemap no tiene las 18 páginas"; exit 1; }
           echo "✅ sitio nuevo completo en los dos idiomas"
+
+      # La CSP de CloudFront (scripts/headers-seguridad.sh) solo deja correr los scripts inline
+      # que tienen su hash y no deja cargar nada de otro dominio: si el build no entra, falla acá
+      # y no en el navegador de quien visita el sitio.
+      - name: El build entra en la CSP
+        run: node scripts/verificar-csp.mjs

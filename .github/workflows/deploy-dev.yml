@@ -58,6 +58,10 @@ jobs:
           VITE_SITE_URL: ${{ vars.SITE_URL_DEV }}
         run: npm run build
 
+      # Lo que el build carga tiene que entrar en la CSP que manda CloudFront (scripts/headers-seguridad.sh).
+      - name: El build entra en la CSP
+        run: node scripts/verificar-csp.mjs
+
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v6
         with:
