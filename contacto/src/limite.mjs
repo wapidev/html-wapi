@@ -7,8 +7,8 @@
 //                IPs y direcciones: cada envío son dos mails desde la cuenta de SES que comparten
 //                todos los sistemas de Wapi.
 //
-// Un contador por ventana en DynamoDB (clave = qué + ventana), con ADD atómico y TTL. El email se
-// guarda como hash: la tabla no tiene datos personales. El UpdateItem se inyecta (tests).
+// Un contador por ventana en DynamoDB (clave = qué + ventana), con ADD atómico y TTL. La IP y el
+// email se guardan como hash: la tabla no tiene datos personales (lo dice la política de privacidad). El UpdateItem se inyecta (tests).
 
 import { createHash } from 'node:crypto'
 
@@ -52,7 +52,7 @@ async function sumar(actualizar, tabla, clave, maximo, venceEnSegundos) {
  */
 export async function dentroDelLimite({ actualizar, tabla, ip, email, limiteIpHora, limiteMailDia, limiteTotalDia, ahora }) {
   const v = ventanas(ahora)
-  if (!(await sumar(actualizar, tabla, `ip#${ip}#${v.hora}`, limiteIpHora, 2 * 3600))) return 'ip'
+  if (!(await sumar(actualizar, tabla, `ip#${hash(ip)}#${v.hora}`, limiteIpHora, 2 * 3600))) return 'ip'
   if (!(await sumar(actualizar, tabla, `mail#${hash(email)}#${v.dia}`, limiteMailDia, 2 * 86400))) return 'email'
   if (!(await sumar(actualizar, tabla, `total#${v.dia}`, limiteTotalDia, 2 * 86400))) return 'total'
   return 'ok'
