@@ -16,7 +16,8 @@ const FUENTES_EN_DESARROLLO = [
 ].join('\n    ')
 
 // El loader de la Home se muestra una vez por sesión. Este script corre antes de pintar:
-// si ya se vio, marca <html> para que el CSS lo oculte sin un parpadeo.
+// si ya se vio, marca <html> para que el CSS lo oculte sin un parpadeo. La CSP lo deja correr por su
+// hash (scripts/headers-seguridad.sh): si se cambia, la CI avisa y hay que actualizar la CSP.
 const SCRIPT_LOADER =
   "<script>try{if(sessionStorage.getItem('wapi:loader'))document.documentElement.classList.add('sin-loader')}catch(e){}</script>"
 

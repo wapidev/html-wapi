@@ -57,6 +57,25 @@ nuevo. Está en `.env.production` (prod) y `.env.development` (dev arranca en `t
   lo nuevo queda sin tocar (pasó con `useReveal`: la galería del caso no aparecía hasta refrescar).
   Lo cubre `src/sitio/reveal.test.tsx`.
 
+## Headers de seguridad (CSP)
+
+- La CSP vive en `scripts/headers-seguridad.sh` (línea `CSP="…"`): CloudFront la manda en DEV y PROD.
+  Todo es `'self'`. Excepciones: el script inline del loader (`SCRIPT_LOADER` en vite.config.ts) va por
+  su hash; `style-src 'unsafe-inline'` por los atributos `style` del HTML prerenderizado; `img-src data:`
+  porque Vite mete como `data:` las imágenes de menos de 4 KB.
+- `scripts/verificar-csp.mjs` (CI y deploys, después del build) falla si un script inline no tiene su
+  hash o si el HTML/CSS carga algo de otro dominio. Si cambia el loader o se suma algo de afuera: se
+  actualiza la CSP del script y se corre `scripts/headers-seguridad.sh prod activar` **antes** de
+  publicar (la CI no toca AWS; lo publicado sigue con la política anterior).
+- La política (`html-wapi-seguridad`) es una sola para DEV y PROD: la cuenta de AWS tiene un tope de
+  20 políticas de headers, compartido por todos los proyectos, y en noviembre de 2026 estaba lleno.
+  Cambiarla cambia los dos ambientes, así que una CSP nueva se prueba antes en local.
+- El script corta ante cualquier error de AWS sin tocar la distribución. La primera versión no lo
+  hacía: con el tope lleno siguió de largo y le sacó a PROD la política que tenía.
+- Para probar una CSP sin tocar AWS: servir `dist/` con el header y recorrerlo con Chrome headless
+  escuchando `securitypolicyviolation`, con un control positivo (`new Image().src='https://example.com/x.png'`
+  tiene que aparecer bloqueado). El panel del navegador oculto no sirve (no dibuja).
+
 ## Formulario de contacto (`contacto/`)
 
 - Lambda Node en `.mjs` sin compilar; lo puro (validar, límite, mails, IP) tiene tests en
