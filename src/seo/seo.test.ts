@@ -10,16 +10,24 @@ const SITE = 'https://wapidesign.com'
 describe('SEO y rutas prerenderizadas', () => {
   it('el sitio nuevo prerenderiza cada página en castellano y en inglés, y la 404', () => {
     const porIdioma = (idioma: string) => rutasSitioNuevo.filter((r) => r.idioma === idioma && r.indexable).map((r) => r.archivo)
-    const paginas = (base: string, trabajos: string, nosotros: string, contacto: string) => [
+    const paginas = (base: string, trabajos: string, nosotros: string, contacto: string, privacidad: string) => [
       `${base}index.html`,
       `${base}${trabajos}/index.html`,
       ...['gemmia-logistics', 'credigial', 'ida-y-vuelta-ibiza', 'zuhause', 'gymrat'].map((s) => `${base}${trabajos}/${s}/index.html`),
       `${base}${nosotros}/index.html`,
       `${base}${contacto}/index.html`,
+      `${base}${privacidad}/index.html`,
     ]
-    expect(porIdioma('es')).toEqual(paginas('', 'trabajos', 'nosotros', 'contacto'))
-    expect(porIdioma('en')).toEqual(paginas('en/', 'work', 'about', 'contact'))
+    expect(porIdioma('es')).toEqual(paginas('', 'trabajos', 'nosotros', 'contacto', 'privacidad'))
+    expect(porIdioma('en')).toEqual(paginas('en/', 'work', 'about', 'contact', 'privacy'))
     expect(rutasSitioNuevo.filter((r) => !r.indexable)).toEqual([{ url: '/404/', archivo: '404.html', indexable: false, idioma: 'es' }])
+  })
+
+  it('la política de privacidad tiene su página en los dos idiomas', () => {
+    expect(metaSitioNuevo('/privacidad/', SITE).title).toBe('Política de privacidad — Wapi')
+    const en = metaSitioNuevo('/en/privacy/', SITE)
+    expect(en.title).toBe('Privacy policy — Wapi')
+    expect(en.alternates).toContainEqual({ hreflang: 'es', href: `${SITE}/privacidad/` })
   })
 
   it('cada ficha tiene su título, descripción, canonical e idioma', () => {

@@ -9,6 +9,7 @@ import TrabajosPage from './vistas/TrabajosPage'
 import CasoPage from './vistas/CasoPage'
 import NosotrosPage from './vistas/NosotrosPage'
 import ContactoPage from './vistas/ContactoPage'
+import PrivacidadPage from './vistas/PrivacidadPage'
 import NotFoundPage from './vistas/NotFoundPage'
 import { CLAVE_IDIOMA, rutas } from '../i18n/rutas'
 
@@ -52,11 +53,13 @@ export default function SitioNuevo() {
         <Route path={`${es.trabajos}:slug`} element={<CasoPage />} />
         <Route path={es.nosotros} element={<NosotrosPage />} />
         <Route path={es.contacto} element={<ContactoPage />} />
+        <Route path={es.privacidad} element={<PrivacidadPage />} />
         <Route path={en.inicio} element={<HomePage />} />
         <Route path={en.trabajos} element={<TrabajosPage />} />
         <Route path={`${en.trabajos}:slug`} element={<CasoPage />} />
         <Route path={en.nosotros} element={<NosotrosPage />} />
         <Route path={en.contacto} element={<ContactoPage />} />
+        <Route path={en.privacidad} element={<PrivacidadPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

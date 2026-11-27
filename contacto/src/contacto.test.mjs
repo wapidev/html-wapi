@@ -77,12 +77,15 @@ describe('dentroDelLimite', () => {
   }
   const base = { tabla: 't', limiteIpHora: 2, limiteMailDia: 3, limiteTotalDia: 20, ahora: new Date('2026-11-24T15:30:00Z') }
 
-  it('corta por IP al pasar el máximo de la hora', async () => {
-    const { actualizar } = tablaFalsa()
+  it('corta por IP al pasar el máximo de la hora, y guarda la IP como hash', async () => {
+    const { filas, actualizar } = tablaFalsa()
     const p = { ...base, actualizar, ip: '1.1.1.1' }
     expect(await dentroDelLimite({ ...p, email: 'a@x.com' })).toBe('ok')
     expect(await dentroDelLimite({ ...p, email: 'b@x.com' })).toBe('ok')
     expect(await dentroDelLimite({ ...p, email: 'c@x.com' })).toBe('ip')
+    // La política de privacidad dice que la IP no queda guardada de forma legible.
+    expect([...filas.keys()].some((k) => k.includes('1.1.1.1'))).toBe(false)
+    expect(filas.has(`ip#${hash('1.1.1.1')}#2026112415`)).toBe(true)
   })
 
   it('corta por email aunque cambie la IP, y guarda el email como hash', async () => {
