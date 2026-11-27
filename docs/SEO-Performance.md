@@ -44,20 +44,29 @@ Lo más importante a mejorar:
 CLS entre 0 y 0,01 y TBT de 0 ms en todas. Google considera "bueno" un LCP de hasta 2,5 s: en
 celular, la Home, Zuhause y Contacto quedan arriba.
 
-| # | Hallazgo | Tema | Impacto | Esfuerzo |
-|---|---|---|---|---|
-| G1 | Search Console, Bing y Google Business Profile | Posicionamiento | **Alto** | Chico |
-| G2 | Títulos de las páginas internas sin palabras clave | SEO | **Medio** | Chico |
-| G3 | Descripciones que Google corta | SEO | Medio | Chico |
-| G4 | Sin imagen para compartir en Trabajos, Nosotros y Contacto | SEO / redes | Medio | Chico |
-| G5 | Datos estructurados mínimos y sin redes | SEO | Bajo | Chico |
-| P1 | Las fuentes de Google bloquean el primer dibujo | Performance | **Medio** | Chico |
-| P2 | El HTML no se guarda en la caché de CloudFront | Performance | Medio | Chico |
-| P3 | El reel pesa 3,2 MB también en el celular | Performance | Medio | Mediano |
-| P4 | Las animaciones de entrada demoran el LCP | Performance | Bajo | Decisión de diseño |
-| P5 | La primera imagen de Trabajos carga diferida | Performance | Bajo | Chico |
-| A1 | Contraste bajo en tres textos del diseño | Accesibilidad | Bajo | Decisión de diseño |
-| A2 | Texto de 10–11 px | Accesibilidad | Bajo | Decisión de diseño |
+| # | Hallazgo | Tema | Impacto | Esfuerzo | Estado al 26/11 |
+|---|---|---|---|---|---|
+| G1 | Search Console, Bing y Google Business Profile | Posicionamiento | **Alto** | Chico | Pendiente (alta en Google, Bing y Business Profile) |
+| G2 | Títulos de las páginas internas sin palabras clave | SEO | **Medio** | Chico | ✅ Resuelto (#7) |
+| G3 | Descripciones que Google corta | SEO | Medio | Chico | ✅ Resuelto (#7) |
+| G4 | Sin imagen para compartir en Trabajos, Nosotros y Contacto | SEO / redes | Medio | Chico | ✅ Resuelto (#7) |
+| G5 | Datos estructurados mínimos y sin redes | SEO | Bajo | Chico | ✅ Resuelto (#7), salvo `sameAs`: faltan las URLs de las redes |
+| P1 | Las fuentes de Google bloquean el primer dibujo | Performance | **Medio** | Chico | ✅ Resuelto (#8) |
+| P2 | El HTML no se guarda en la caché de CloudFront | Performance | Medio | Chico | ✅ Resuelto (#8) |
+| P3 | El reel pesa 3,2 MB también en el celular | Performance | Medio | Mediano | ✅ Resuelto (#8) |
+| P4 | Las animaciones de entrada demoran el LCP | Performance | Bajo | Decisión de diseño | Sin decidir |
+| P5 | La primera imagen de Trabajos carga diferida | Performance | Bajo | Chico | ✅ Resuelto (#8) |
+| A1 | Contraste bajo en tres textos del diseño | Accesibilidad | Bajo | Decisión de diseño | Sin decidir |
+| A2 | Texto de 10–11 px | Accesibilidad | Bajo | Decisión de diseño | Sin decidir |
+
+**Estado al 26/11/2026** (revisado contra el HTML publicado; Lighthouse no se volvió a correr):
+- **Resueltos:** G2, G3, G4 y G5 con #7 (títulos y descripciones nuevos, imagen para compartir en
+  cada página, `ProfessionalService`, `WebSite` y `BreadcrumbList`); P1, P2, P3 y P5 con #8 (fuentes
+  propias, HTML en la caché de CloudFront con `s-maxage`, reel de 720p en el celular y las dos
+  primeras portadas de Trabajos sin carga diferida).
+- **Pendientes:** G1 (no hay verificación de Search Console ni en el DNS ni en el sitio) y el
+  `sameAs` de G5, que espera las URLs de Instagram, LinkedIn y Behance.
+- **Decisiones de diseño:** P4, A1 y A2.
 
 ---
 

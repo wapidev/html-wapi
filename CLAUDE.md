@@ -99,5 +99,6 @@ npm run typecheck && npm run lint && npm run test -- --run
 
 `feature/*` → `develop` → `main`. Push a `develop` = deploy a DEV (S3 + CloudFront, siempre el sitio
 nuevo con noindex). Push a `main` = deploy a producción (www.wapidesign.com, `deploy-prod.yml`).
-No pushear a `main` sin que el usuario lo pida. Infra y DNS: README → Ambientes.
+`main` está protegida: solo entra por PR (`develop` → `main`) con la CI en verde, también para el
+dueño. No pasar nada a `main` sin que el usuario lo pida. Infra y DNS: README → Ambientes.
 Commits en español con prefijos `feat:`, `fix:`, `chore:`, `refactor:`.
