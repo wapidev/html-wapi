@@ -166,6 +166,10 @@ admite CNAME/ALIAS en la raíz), así que el dominio del sitio es `www` y la ra�
 `feature/*` → `develop` (publica DEV) → `main` (publica PROD). La CI (`ci.yml`) corre en todos
 los push y PRs y buildea las dos versiones del flag.
 
+**`main` está protegida** (desde el 26/11/2026): solo entra por PR, con el check "Tipos, lint, tests
+y build" en verde. No pide aprobaciones (hay una sola persona), no acepta force push ni borrado, y la
+regla vale también para el dueño del repo. `develop` no está protegida.
+
 **Dependencias:** los tres workflows instalan con `npm ci` (exactamente el lockfile). Dependabot
 abre PRs a `develop` los lunes: menores y parches de npm agrupados, y las GitHub Actions.
 
@@ -173,7 +177,8 @@ abre PRs a `develop` los lunes: menores y parches de npm agrupados, y las GitHub
 a `true` en `.env.production`, mergeado hasta `main`. El workflow de PROD no pisa el flag: lo que se
 publica es lo que dice el código. El resumen de cada run indica qué versión salió.
 
-**Volver atrás:** `git revert` del commit en `main` y push (el deploy vuelve a correr). Cada deploy
+**Volver atrás:** `git revert` del merge en `develop` y PR `develop` → `main` (la CI tarda menos de
+un minuto; el deploy vuelve a correr). Un push directo a `main` no entra. Cada deploy
 deja un tag `vAAAA.MM.DD-N` para ubicar qué estaba publicado. Re-correr el workflow sobre un tag no
 sirve: el rol de PROD solo acepta la rama `main`.
 

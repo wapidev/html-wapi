@@ -29,23 +29,28 @@ Lo más importante a mejorar:
    de cada paquete, revisada o no.
 4. **El dominio es fácil de suplantar por mail** (DMARC en `p=none`, sin DKIM de Microsoft 365).
 
-| # | Hallazgo | OWASP | Gravedad | Esfuerzo |
-|---|---|---|---|---|
-| S1 | El dominio vence en 34 días | Resiliencia | **Alta** | Chico |
-| S2 | Sin tope diario de envíos del formulario | A06 | **Media** | Chico |
-| S3 | Build sin lockfile en CI, DEV y PROD | A03 · A08 | **Media** | Chico |
-| S4 | Mail del dominio suplantable (DMARC, DKIM, MAIL FROM) | A02 | **Media** | Chico |
-| S5 | Sin Content-Security-Policy ni Permissions-Policy | A02 | Baja | Mediano |
-| S6 | `main` sin protección y Dependabot apagado | A08 · A03 | Baja | Chico |
-| S7 | Sin logs de acceso de CloudFront | A09 | Baja | Chico |
-| S8 | Bucket de PROD sin versionado | Resiliencia | Baja | Chico |
-| S9 | DEV sin headers y accesible por la URL de S3 | A02 | Baja | Chico |
-| S10 | Dependencias de desarrollo con vulnerabilidades | A03 | Baja | Chico |
+| # | Hallazgo | OWASP | Gravedad | Esfuerzo | Estado al 26/11 |
+|---|---|---|---|---|---|
+| S1 | El dominio vence en 34 días | Resiliencia | **Alta** | Chico | Pendiente (HostGator) |
+| S2 | Sin tope diario de envíos del formulario | A06 | **Media** | Chico | ✅ Resuelto (#6) |
+| S3 | Build sin lockfile en CI, DEV y PROD | A03 · A08 | **Media** | Chico | ✅ Resuelto (#9) |
+| S4 | Mail del dominio suplantable (DMARC, DKIM, MAIL FROM) | A02 | **Media** | Chico | Pendiente (HostGator, Microsoft 365, SES) |
+| S5 | Sin Content-Security-Policy ni Permissions-Policy | A02 | Baja | Mediano | ✅ Resuelto (#21) |
+| S6 | `main` sin protección y Dependabot apagado | A08 · A03 | Baja | Chico | ✅ Resuelto (#9, #18 y configuración de GitHub) |
+| S7 | Sin logs de acceso de CloudFront | A09 | Baja | Chico | Opcional, sin hacer |
+| S8 | Bucket de PROD sin versionado | Resiliencia | Baja | Chico | Opcional, sin hacer |
+| S9 | DEV sin headers y accesible por la URL de S3 | A02 | Baja | Chico | ✅ Headers resueltos (#21); la URL de S3 queda por diseño |
+| S10 | Dependencias de desarrollo con vulnerabilidades | A03 | Baja | Chico | ✅ Resuelto (#9; `npm audit`: 0) |
 
-**Estado al 26/11/2026.** Resueltos en PROD: S2 (#6), S3 y S10 (#9), Dependabot de S6 (#9, #18).
-S5 y S9: `scripts/headers-seguridad.sh` arma la CSP y los headers de DEV y PROD; queda correrlo.
-Pendientes de configuración (HostGator, Microsoft 365, GitHub): S1, S4 y la protección de `main` y
-las alertas de S6. Opcionales sin hacer: S7 y S8.
+**Estado al 26/11/2026** (revisado contra PROD, GitHub, el DNS y AWS):
+- **Resueltos:** S2 (#6), S3 y S10 (#9), S5 y S9 (#21: CSP y headers en CloudFront, en DEV y PROD,
+  con `scripts/headers-seguridad.sh`) y S6 (Dependabot con #9 y #18; `main` protegida y alertas de
+  vulnerabilidades activas desde el 26/11). También el punto 6 del checklist: las alarmas de quejas
+  y rebotes de SES están creadas.
+- **Pendientes de configuración:** S1 (renovar el dominio antes del 28/12) y S4 (DKIM de Microsoft
+  365, MAIL FROM de SES y DMARC por etapas), en HostGator, Microsoft 365 y SES.
+- **Opcionales sin hacer:** S7 y S8. Si se activa S7, actualizar antes la política de privacidad:
+  los logs de CloudFront guardan la IP de cada visita.
 
 ---
 
@@ -138,6 +143,11 @@ del loader) que necesita su hash; el HTML prerenderizado y la demo de Credigial 
 `style`, así que `style-src` lleva `'unsafe-inline'`; `connect-src 'self'` alcanza para el
 formulario. Si se autoalojan las fuentes (ver el informe de SEO), sale Google Fonts de la CSP.
 
+**Resuelto (26/11/2026, #21):** `scripts/headers-seguridad.sh` arma una política de CloudFront con
+la CSP, HSTS, `X-Frame-Options: DENY`, `nosniff`, `Referrer-Policy` y `Permissions-Policy`, y
+`scripts/verificar-csp.mjs` frena en la CI y en los deploys un build que la CSP bloquearía. Ver
+CLAUDE.md → Headers de seguridad.
+
 ### S6 · `main` sin protección y Dependabot apagado — Baja
 
 **Dónde:** `gh api repos/wapidev/html-wapi/branches/main` → `protected: false` (también `develop`).
@@ -150,6 +160,11 @@ producción sin pasar por la CI.
 **Arreglo:** proteger `main` (PR obligatorio y la CI en verde), activar las alertas y Dependabot
 para npm y GitHub Actions, semanal.
 
+**Resuelto (26/11/2026):** Dependabot semanal para npm y GitHub Actions (#9, #18). `main` protegida:
+solo entra por PR, con el check "Tipos, lint, tests y build" en verde, sin aprobaciones (hay una sola
+persona), sin force push ni borrado, y la regla vale también para el dueño. Alertas de
+vulnerabilidades activas.
+
 ### S7 · Sin logs de acceso de CloudFront — Baja
 
 **Dónde:** `Logging.Enabled: false` en las dos distribuciones. Los logs de la Lambda no guardan la IP
@@ -159,7 +174,9 @@ para npm y GitHub Actions, semanal.
 para bloquearlos.
 
 **Arreglo:** logs estándar de CloudFront de PROD a un bucket con vencimiento a 30 días (cuestan
-centavos por mes).
+centavos por mes). Esos logs guardan la IP de cada visita: antes de activarlos hay que actualizar
+la política de privacidad (`/privacidad/`), que hoy dice que los registros técnicos no tienen datos
+de la persona.
 
 ### S8 · Bucket de PROD sin versionado — Baja
 
@@ -179,6 +196,9 @@ https). Tiene `noindex` y el mismo contenido que el sitio público.
 
 **Arreglo:** asociar a DEV la misma política de headers que a PROD (la CSP de S5 se prueba ahí
 primero). El acceso por S3 queda así por diseño: no expone nada que no esté publicado.
+
+**Resuelto (26/11/2026, #21):** DEV y PROD comparten la política `html-wapi-seguridad` (la cuenta
+tiene un tope de 20 políticas de headers y estaba lleno).
 
 ### S10 · Dependencias de desarrollo con vulnerabilidades — Baja
 
@@ -237,7 +257,7 @@ Lo marcado se leyó con el perfil `wapi` o la CLI de GitHub.
 3. ☑ Bucket de PROD con *Block Public Access* y leído solo por CloudFront (OAC).
 4. ☑ Retención de logs de `html-wapi-contacto-*`: 30 días.
 5. ☑ Alarmas del formulario con la suscripción por mail confirmada.
-6. ☐ Alarmas de reputación de SES a nivel cuenta (ver S2).
+6. ☑ Alarmas de reputación de SES a nivel cuenta (ver S2): quejas y rebotes, en OK.
 
 **Dominio y mail**
 7. ☐ Renovación automática del dominio activa en HostGator (S1).
@@ -245,8 +265,8 @@ Lo marcado se leyó con el perfil `wapi` o la CLI de GitHub.
 9. ☐ DKIM de Microsoft 365 y DMARC (S4).
 
 **GitHub**
-10. ☐ 2FA obligatorio en la organización `wapidev`.
-11. ☐ Protección de `main` y Dependabot (S6).
+10. ☑ 2FA en `wapidev` (es una cuenta de usuario, no una organización): activo.
+11. ☑ Protección de `main` y Dependabot (S6).
 
 ---
 
