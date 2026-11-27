@@ -238,14 +238,22 @@ título coinciden al píxel salvo lo de la lista de abajo.
 - **Todo el inglés** (salvo el header): traducción propia, a revisar.
 - **Respuestas 2 a 6 de las preguntas frecuentes:** el Figma solo trae la primera. Son un borrador.
 - **Formulario:** mensajes de campo obligatorio y de email inválido, y "Enviando…" (el Figma no
-  dibuja esos estados). El error de envío es el de la nota de handoff.
+  dibuja esos estados). El error de envío es el de la nota de handoff. El aviso de privacidad debajo
+  del botón tampoco está en el diseño.
+- **Política de privacidad** (`/privacidad/`, `/en/privacy/`, texto en `{es,en}.json → privacidad`):
+  dice lo que el sitio hace de verdad (formulario a info@ sin base de datos, IP y email como hash
+  en el límite, logs sin datos por 30 días, sin cookies). Si cambia algo de eso, cambia el texto y
+  la fecha. **Deuda:** la Ley 25.326 pide la identidad y el domicilio del responsable; hoy dice
+  "Wapi, Buenos Aires" sin los nombres de las dos personas (Wapi no es sociedad todavía). Sumarlos,
+  o la razón social cuando exista.
 - Textos alternativos de las imágenes, títulos y descripciones para buscadores, la 404.
 - **Mail en inglés** y el aviso interno a info@ (la nota lo sugiere, sin diseño).
 
 ## Pendiente (del cliente o a definir)
 
 - Revisar el inglés y las respuestas 2 a 6 de las preguntas frecuentes.
-- URLs de Instagram, LinkedIn y Behance, y la página de política de privacidad (también en el mail: "@wapidesign").
+- URLs de Instagram, LinkedIn y Behance (también en el mail: "@wapidesign").
+- Nombres de los responsables en la política de privacidad (ver "Textos que no vienen del diseño").
 - Diseño de los estados del formulario (error por campo, foco, enviando).
 - Los nombres de la cinta de clientes (Almaverde, Norte Studio…) son los del Figma: confirmar si son reales.
 - Pasaje del dominio (ver arriba) y `contacto/deploy.sh prod` antes de lanzar.

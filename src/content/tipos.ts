@@ -83,8 +83,8 @@ export interface Contenido {
     ubicacion: string[]
     redes: Red[]
     copyright: string
+    /** Texto del link del pie a la política de privacidad. */
     privacidad: string
-    privacidadHref: string | null
   }
   nav: {
     trabajos: string
@@ -139,6 +139,8 @@ export interface Contenido {
     meta: { titulo: string; descripcion: string }
     titulo: string
     campos: { nombre: CampoForm; email: CampoForm; empresa: CampoForm; mensaje: CampoForm }
+    /** Debajo del botón: [antes, texto del link, después]. */
+    avisoPrivacidad: [string, string, string]
     enviar: string
     enviando: string
     errores: { requerido: string; email: string; envio: string }
@@ -163,5 +165,14 @@ export interface Contenido {
     enDesarrollo: string
   }
   casos: Caso[]
+  /** Política de privacidad (/privacidad/, /en/privacy/). No está en el diseño. */
+  privacidad: {
+    meta: { titulo: string; descripcion: string }
+    eyebrow: string
+    titulo: string[]
+    intro: string
+    actualizado: string
+    secciones: { titulo: string; parrafos: string[] }[]
+  }
   noEncontrada: { meta: string; eyebrow: string; titulo: string[]; volver: string }
 }

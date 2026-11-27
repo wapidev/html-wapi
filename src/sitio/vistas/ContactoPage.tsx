@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { useContenido, useIdioma, useRutas } from '../../i18n/useIdioma'
 import Footer from '../layout/Footer'
 import Boton from '../ui/Boton'
@@ -223,6 +224,13 @@ export default function ContactoPage() {
                   {c.errores.envio}
                 </p>
               )}
+              <p className="text-epigrafe text-[#3A3A3A]">
+                {c.avisoPrivacidad[0]}
+                <Link to={r.privacidad} className="underline">
+                  {c.avisoPrivacidad[1]}
+                </Link>
+                {c.avisoPrivacidad[2]}
+              </p>
             </div>
           </form>
         )}
