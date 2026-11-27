@@ -594,7 +594,7 @@
       "policy"
     ],
     "intro": "What data this website collects, what we use it for and what you can ask us about it.",
-    "actualizado": "Updated on November 25, 2026",
+    "actualizado": "Updated on November 26, 2026",
     "secciones": [
       {
         "titulo": "Who is responsible",
@@ -618,7 +618,7 @@
         "titulo": "Where it is kept and for how long",
         "parrafos": [
           "Your message reaches us by email at info@wapidesign.com and stays in that inbox. We don't store it in any database. We send you a confirmation to the email you gave us.",
-          "To stop automated submissions we count how many messages come from the same connection and the same email, without storing either in readable form. That count deletes itself within one or two days. The form's technical logs don't include your data and are deleted after 30 days."
+          "To stop automated submissions we count how many messages come from the same connection and the same email, without storing either in readable form. That count deletes itself within a few days. The form's technical logs don't include your data and are deleted after 30 days."
         ]
       },
       {

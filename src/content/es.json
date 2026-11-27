@@ -594,7 +594,7 @@
       "privacidad"
     ],
     "intro": "Qué datos junta este sitio, para qué los usamos y qué podés pedirnos sobre ellos.",
-    "actualizado": "Actualizada el 25 de noviembre de 2026",
+    "actualizado": "Actualizada el 26 de noviembre de 2026",
     "secciones": [
       {
         "titulo": "Quién es responsable",
@@ -618,7 +618,7 @@
         "titulo": "Dónde quedan y por cuánto tiempo",
         "parrafos": [
           "Tu mensaje nos llega por mail a info@wapidesign.com y queda en esa casilla. No lo guardamos en ninguna base de datos. A vos te mandamos una confirmación al email que dejaste.",
-          "Para frenar envíos automáticos contamos cuántos mensajes llegan desde una misma conexión y desde un mismo email, sin guardar ninguno de los dos de forma legible. Esa cuenta se borra sola en uno o dos días. Los registros técnicos del formulario no incluyen tus datos y se borran a los 30 días."
+          "Para frenar envíos automáticos contamos cuántos mensajes llegan desde una misma conexión y desde un mismo email, sin guardar ninguno de los dos de forma legible. Esa cuenta se borra sola en pocos días. Los registros técnicos del formulario no incluyen tus datos y se borran a los 30 días."
         ]
       },
       {
